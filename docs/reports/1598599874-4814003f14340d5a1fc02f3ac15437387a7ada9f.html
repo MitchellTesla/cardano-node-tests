@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>Test Report</title>
+    <link href="assets/style.css" rel="stylesheet" type="text/css"/></head>
+  <body onLoad="init()">
+    <script>/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this file,
+ * You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+
+function toArray(iter) {
+    if (iter === null) {
+        return null;
+    }
+    return Array.prototype.slice.call(iter);
+}
+
+function find(selector, elem) {
+    if (!elem) {
+        elem = document;
+    }
+    return elem.querySelector(selector);
+}
+
+function find_all(selector, elem) {
+    if (!elem) {
+        elem = document;
+    }
+    return toArray(elem.querySelectorAll(selector));
+}
+
+function sort_column(elem) {
+    toggle_sort_states(elem);
+    var colIndex = toArray(elem.parentNode.childNodes).indexOf(elem);
+    var key;
+    if (elem.classList.contains('numeric')) {
+        key = key_num;
+    } else if (elem.classList.contains('result')) {
+        key = key_result;
+    } else {
+        key = key_alpha;
+    }
+    sort_table(elem, key(colIndex));
+}
+
+function show_all_extras() {
+    find_all('.col-result').forEach(show_extras);
+}
+
+function hide_all_extras() {
+    find_all('.col-result').forEach(hide_extras);
+}
+
+function show_extras(colresult_elem) {
+    var extras = colresult_elem.parentNode.nextElementSibling;
+    var expandcollapse = colresult_elem.firstElementChild;
+    extras.classList.remove("collapsed");
+    expandcollapse.classList.remove("expander");
+    expandcollapse.classList.add("collapser");
+}
+
+function hide_extras(colresult_elem) {
+    var extras = colresult_elem.parentNode.nextElementSibling;
+    var expandcollapse = colresult_elem.firstElementChild;
+    extras.classList.add("collapsed");
+    expandcollapse.classList.remove("collapser");
+    expandcollapse.classList.add("expander");
+}
+
+function show_filters() {
+    var filter_items = document.getElementsByClassName('filter');
+    for (var i = 0; i < filter_items.length; i++)
+        filter_items[i].hidden = false;
+}
+
+function add_collapse() {
+    // Add links for show/hide all
+    var resulttable = find('table#results-table');
+    var showhideall = document.createElement("p");
+    showhideall.innerHTML = '<a href="javascript:show_all_extras()">Show all details</a> / ' +
+                            '<a href="javascript:hide_all_extras()">Hide all details</a>';
+    resulttable.parentElement.insertBefore(showhideall, resulttable);
+
+    // Add show/hide link to each result
+    find_all('.col-result').forEach(function(elem) {
+        var collapsed = get_query_parameter('collapsed') || 'Passed';
+        var extras = elem.parentNode.nextElementSibling;
+        var expandcollapse = document.createElement("span");
+        if (extras.classList.contains("collapsed")) {
+            expandcollapse.classList.add("expander")
+        } else if (collapsed.includes(elem.innerHTML)) {
+            extras.classList.add("collapsed");
+            expandcollapse.classList.add("expander");
+        } else {
+            expandcollapse.classList.add("collapser");
+        }
+        elem.appendChild(expandcollapse);
+
+        elem.addEventListener("click", function(event) {
+            if (event.currentTarget.parentNode.nextElementSibling.classList.contains("collapsed")) {
+                show_extras(event.currentTarget);
+            } else {
+                hide_extras(event.currentTarget);
+            }
+        });
+    })
+}
+
+function get_query_parameter(name) {
+    var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+}
+
+function init () {
+    reset_sort_headers();
+
+    add_collapse();
+
+    show_filters();
+
+    sort_column(find('.initial-sort'));
+
+    find_all('.sortable').forEach(function(elem) {
+        elem.addEventListener("click",
+                              function(event) {
+                                  sort_column(elem);
+                              }, false)
+    });
+
+};
+
+function sort_table(clicked, key_func) {
+    var rows = find_all('.results-table-row');
+    var reversed = !clicked.classList.contains('asc');
+    var sorted_rows = sort(rows, key_func, reversed);
+    /* Whole table is removed here because browsers acts much slower
+     * when appending existing elements.
+     */
+    var thead = document.getElementById("results-table-head");
+    document.getElementById('results-table').remove();
+    var parent = document.createElement("table");
+    parent.id = "results-table";
+    parent.appendChild(thead);
+    sorted_rows.forEach(function(elem) {
+        parent.appendChild(elem);
+    });
+    document.getElementsByTagName("BODY")[0].appendChild(parent);
+}
+
+function sort(items, key_func, reversed) {
+    var sort_array = items.map(function(item, i) {
+        return [key_func(item), i];
+    });
+
+    sort_array.sort(function(a, b) {
+        var key_a = a[0];
+        var key_b = b[0];
+
+        if (key_a == key_b) return 0;
+
+        if (reversed) {
+            return (key_a < key_b ? 1 : -1);
+        } else {
+            return (key_a > key_b ? 1 : -1);
+        }
+    });
+
+    return sort_array.map(function(item) {
+        var index = item[1];
+        return items[index];
+    });
+}
+
+function key_alpha(col_index) {
+    return function(elem) {
+        return elem.childNodes[1].childNodes[col_index].firstChild.data.toLowerCase();
+    };
+}
+
+function key_num(col_index) {
+    return function(elem) {
+        return parseFloat(elem.childNodes[1].childNodes[col_index].firstChild.data);
+    };
+}
+
+function key_result(col_index) {
+    return function(elem) {
+        var strings = ['Error', 'Failed', 'Rerun', 'XFailed', 'XPassed',
+                       'Skipped', 'Passed'];
+        return strings.indexOf(elem.childNodes[1].childNodes[col_index].firstChild.data);
+    };
+}
+
+function reset_sort_headers() {
+    find_all('.sort-icon').forEach(function(elem) {
+        elem.parentNode.removeChild(elem);
+    });
+    find_all('.sortable').forEach(function(elem) {
+        var icon = document.createElement("div");
+        icon.className = "sort-icon";
+        icon.textContent = "vvv";
+        elem.insertBefore(icon, elem.firstChild);
+        elem.classList.remove("desc", "active");
+        elem.classList.add("asc", "inactive");
+    });
+}
+
+function toggle_sort_states(elem) {
+    //if active, toggle between asc and desc
+    if (elem.classList.contains('active')) {
+        elem.classList.toggle('asc');
+        elem.classList.toggle('desc');
+    }
+
+    //if inactive, reset all other functions and add ascending active
+    if (elem.classList.contains('inactive')) {
+        reset_sort_headers();
+        elem.classList.remove('inactive');
+        elem.classList.add('active');
+    }
+}
+
+function is_all_rows_hidden(value) {
+  return value.hidden == false;
+}
+
+function filter_table(elem) {
+    var outcome_att = "data-test-result";
+    var outcome = elem.getAttribute(outcome_att);
+    class_outcome = outcome + " results-table-row";
+    var outcome_rows = document.getElementsByClassName(class_outcome);
+
+    for(var i = 0; i < outcome_rows.length; i++){
+        outcome_rows[i].hidden = !elem.checked;
+    }
+
+    var rows = find_all('.results-table-row').filter(is_all_rows_hidden);
+    var all_rows_hidden = rows.length == 0 ? true : false;
+    var not_found_message = document.getElementById("not-found-message");
+    not_found_message.hidden = !all_rows_hidden;
+}
+</script>
+    <h1>cardano-node 1.19.0 (git rev 4814003f14340d5a1fc02f3ac15437387a7ada9f)</h1>
+    <p>Report generated on 28-Aug-2020 at 00:00:33 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a> v2.1.1</p>
+    <h2>Environment</h2>
+    <table id="environment">
+      <tr>
+        <td>Packages</td>
+        <td>{"pluggy": "0.13.1", "py": "1.9.0", "pytest": "6.0.0"}</td></tr>
+      <tr>
+        <td>Platform</td>
+        <td>Linux-5.7.16-200.fc32.x86_64-x86_64-with-glibc2.2.5</td></tr>
+      <tr>
+        <td>Plugins</td>
+        <td>{"clarity": "0.3.0a0", "forked": "1.3.0", "html": "2.1.1", "hypothesis": "5.23.9", "metadata": "1.10.0", "ordering": "0.6", "xdist": "2.0.0"}</td></tr>
+      <tr>
+        <td>Python</td>
+        <td>3.8.5</td></tr>
+      <tr>
+        <td>cardano-node</td>
+        <td>1.19.0</td></tr>
+      <tr>
+        <td>cardano-node rev</td>
+        <td>4814003f14340d5a1fc02f3ac15437387a7ada9f</td></tr>
+      <tr>
+        <td>ghc</td>
+        <td>ghc-8.6</td></tr></table>
+    <h2>Summary</h2>
+    <p>101 tests ran in 4328.03 seconds. </p>
+    <p class="filter" hidden="true">(Un)check the boxes to filter the results.</p><input checked="true" class="filter" data-test-result="passed" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="passed">101 passed</span>, <input checked="true" class="filter" data-test-result="skipped" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="skipped">0 skipped</span>, <input checked="true" class="filter" data-test-result="failed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="failed">0 failed</span>, <input checked="true" class="filter" data-test-result="error" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="error">0 errors</span>, <input checked="true" class="filter" data-test-result="xfailed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="xfailed">0 expected failures</span>, <input checked="true" class="filter" data-test-result="xpassed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="xpassed">0 unexpected passes</span>
+    <h2>Results</h2>
+    <table id="results-table">
+      <thead id="results-table-head">
+        <tr>
+          <th class="sortable result initial-sort" col="result">Result</th>
+          <th class="sortable" col="name">Test</th>
+          <th class="sortable numeric" col="duration">Duration</th>
+          <th>Links</th></tr>
+        <tr hidden="true" id="not-found-message">
+          <th colspan="4">No results found. Try to check the filters</th></tr></thead>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_update_proposal.py::test_update_proposal</td>
+          <td class="col-duration">389.65</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     cardano_node_tests.tests.conftest:conftest.py:123 Changed CWD to &#x27;/home/martink/toolbox_tmp/pytest-of-martink/pytest-69/popen-gw2&#x27;.
+INFO     filelock:filelock.py:274 Lock 139916242946896 acquired on /home/martink/toolbox_tmp/pytest-of-martink/pytest-69/.fresh_pytest_cluster.lock
+INFO     cardano_node_tests.utils.helpers:helpers.py:471 Stopping cluster.
+INFO     cardano_node_tests.utils.helpers:helpers.py:461 Starting cluster.
+INFO     cardano_node_tests.utils.helpers:helpers.py:464 Cluster started.
+INFO     filelock:filelock.py:274 Lock 139916242947808 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1vzrrflp2qhpa07xu4ypjrkhpngsh92el79r9zfnqwg06zkc0xcng4.lock
+INFO     filelock:filelock.py:318 Lock 139916242947808 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1vzrrflp2qhpa07xu4ypjrkhpngsh92el79r9zfnqwg06zkc0xcng4.lock<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     cardano_node_tests.utils.helpers:helpers.py:550 Waiting for new epoch to submit proposal.
+INFO     cardano_node_tests.utils.helpers:helpers.py:555 Update Proposal submitted (cli_arg=--decentralization-parameter, param_value=0.5). Sleeping until next epoch.<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_pools.py::TestPoolCost::test_stake_pool_cost[9999999]</td>
+          <td class="col-duration">400.34</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     cardano_node_tests.tests.conftest:conftest.py:123 Changed CWD to &#x27;/home/martink/toolbox_tmp/pytest-of-martink/pytest-69/popen-gw0&#x27;.
+INFO     filelock:filelock.py:274 Lock 140488945961952 acquired on /home/martink/toolbox_tmp/pytest-of-martink/pytest-69/.fresh_pytest_cluster.lock
+INFO     cardano_node_tests.utils.helpers:helpers.py:471 Stopping cluster.
+INFO     cardano_node_tests.utils.helpers:helpers.py:461 Starting cluster.
+INFO     cardano_node_tests.utils.helpers:helpers.py:464 Cluster started.
+INFO     filelock:filelock.py:274 Lock 140488945962960 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1vzrrflp2qhpa07xu4ypjrkhpngsh92el79r9zfnqwg06zkc0xcng4.lock
+INFO     filelock:filelock.py:318 Lock 140488945962960 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1vzrrflp2qhpa07xu4ypjrkhpngsh92el79r9zfnqwg06zkc0xcng4.lock
+INFO     cardano_node_tests.utils.helpers:helpers.py:550 Waiting for new epoch to submit proposal.
+INFO     cardano_node_tests.utils.helpers:helpers.py:555 Update Proposal submitted (cli_arg=--min-pool-cost, param_value=5000). Sleeping until next epoch.<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140488946127488 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qqcasdpfvxerz24jkzkw77sa7egzvwsjuh7ncc26aqlpc0tqhn667ymt3euajern0ckrg0aa9cv9z6qwjr7lhp6k2nvqjh744u.lock
+INFO     filelock:filelock.py:318 Lock 140488946127488 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qqcasdpfvxerz24jkzkw77sa7egzvwsjuh7ncc26aqlpc0tqhn667ymt3euajern0ckrg0aa9cv9z6qwjr7lhp6k2nvqjh744u.lock
+INFO     cardano_node_tests.tests.test_pools:test_pools.py:47 Waiting up to 3 epochs for stake pool to be registered.<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_pools.py::TestPoolCost::test_stake_pool_low_cost</td>
+          <td class="col-duration">22.29</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     cardano_node_tests.tests.conftest:conftest.py:123 Changed CWD to &#x27;/home/martink/toolbox_tmp/pytest-of-martink/pytest-69/popen-gw1&#x27;.
+INFO     filelock:filelock.py:274 Lock 140080274835536 acquired on /home/martink/toolbox_tmp/pytest-of-martink/pytest-69/.fresh_pytest_cluster.lock
+INFO     cardano_node_tests.utils.helpers:helpers.py:471 Stopping cluster.
+INFO     cardano_node_tests.utils.helpers:helpers.py:461 Starting cluster.
+INFO     cardano_node_tests.utils.helpers:helpers.py:464 Cluster started.
+INFO     filelock:filelock.py:274 Lock 140080274985264 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1vzrrflp2qhpa07xu4ypjrkhpngsh92el79r9zfnqwg06zkc0xcng4.lock
+INFO     filelock:filelock.py:318 Lock 140080274985264 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1vzrrflp2qhpa07xu4ypjrkhpngsh92el79r9zfnqwg06zkc0xcng4.lock
+INFO     cardano_node_tests.utils.helpers:helpers.py:550 Waiting for new epoch to submit proposal.
+INFO     cardano_node_tests.utils.helpers:helpers.py:555 Update Proposal submitted (cli_arg=--min-pool-cost, param_value=5000). Sleeping until next epoch.
+INFO     filelock:filelock.py:274 Lock 140080274833952 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qryh35080m2czq8e6s6dpwmu2vvsrury6ctwuwexver5uwawjl73ektjuzke8pgknvcjg3634tzkhu3z6za8egmn309qkl83l4.lock
+INFO     filelock:filelock.py:318 Lock 140080274833952 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qryh35080m2czq8e6s6dpwmu2vvsrury6ctwuwexver5uwawjl73ektjuzke8pgknvcjg3634tzkhu3z6za8egmn309qkl83l4.lock<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_pools.py::TestPoolCost::test_stake_pool_cost[5000]</td>
+          <td class="col-duration">401.23</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     cardano_node_tests.tests.conftest:conftest.py:123 Changed CWD to &#x27;/home/martink/toolbox_tmp/pytest-of-martink/pytest-69/popen-gw3&#x27;.
+INFO     filelock:filelock.py:274 Lock 139747810692640 acquired on /home/martink/toolbox_tmp/pytest-of-martink/pytest-69/.fresh_pytest_cluster.lock
+INFO     cardano_node_tests.utils.helpers:helpers.py:471 Stopping cluster.
+INFO     cardano_node_tests.utils.helpers:helpers.py:461 Starting cluster.
+INFO     cardano_node_tests.utils.helpers:helpers.py:464 Cluster started.
+INFO     filelock:filelock.py:274 Lock 139747810383472 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1vzrrflp2qhpa07xu4ypjrkhpngsh92el79r9zfnqwg06zkc0xcng4.lock
+INFO     filelock:filelock.py:318 Lock 139747810383472 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1vzrrflp2qhpa07xu4ypjrkhpngsh92el79r9zfnqwg06zkc0xcng4.lock
+INFO     cardano_node_tests.utils.helpers:helpers.py:550 Waiting for new epoch to submit proposal.
+INFO     cardano_node_tests.utils.helpers:helpers.py:555 Update Proposal submitted (cli_arg=--min-pool-cost, param_value=5000). Sleeping until next epoch.<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 139747810383904 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qqnsyhvcx4tajl8mm2f72vlky47jnszu5ck0s429akkv3dem5gz2arvlw9lgx2e8f8ycyc7yg4q5th4xtan4ytla2csqq003f7.lock
+INFO     filelock:filelock.py:318 Lock 139747810383904 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qqnsyhvcx4tajl8mm2f72vlky47jnszu5ck0s429akkv3dem5gz2arvlw9lgx2e8f8ycyc7yg4q5th4xtan4ytla2csqq003f7.lock
+INFO     cardano_node_tests.tests.test_pools:test_pools.py:47 Waiting up to 3 epochs for stake pool to be registered.<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_pools.py::TestStakePool::test_stake_pool_metadata[1]</td>
+          <td class="col-duration">391.09</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     cardano_node_tests.tests.conftest:conftest.py:123 Changed CWD to &#x27;/home/martink/toolbox_tmp/pytest-of-martink/pytest-69/popen-gw5&#x27;.
+INFO     filelock:filelock.py:274 Lock 140014426884848 acquired on /home/martink/toolbox_tmp/pytest-of-martink/pytest-69/.session_pytest_cluster.lock
+INFO     filelock:filelock.py:318 Lock 140014426884848 released on /home/martink/toolbox_tmp/pytest-of-martink/pytest-69/.session_pytest_cluster.lock<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140014427066576 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     filelock:filelock.py:318 Lock 140014427066576 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     cardano_node_tests.tests.test_pools:test_pools.py:47 Waiting up to 3 epochs for stake pool to be registered.<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_pools.py::TestStakePool::test_create_stake_pool[3]</td>
+          <td class="col-duration">391.31</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     cardano_node_tests.tests.conftest:conftest.py:123 Changed CWD to &#x27;/home/martink/toolbox_tmp/pytest-of-martink/pytest-69/popen-gw7&#x27;.
+INFO     filelock:filelock.py:274 Lock 139881419262704 acquired on /home/martink/toolbox_tmp/pytest-of-martink/pytest-69/.session_pytest_cluster.lock
+INFO     filelock:filelock.py:318 Lock 139881419262704 released on /home/martink/toolbox_tmp/pytest-of-martink/pytest-69/.session_pytest_cluster.lock<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 139881419263472 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     filelock:filelock.py:318 Lock 139881419263472 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     cardano_node_tests.tests.test_pools:test_pools.py:47 Waiting up to 3 epochs for stake pool to be registered.<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_pools.py::TestStakePool::test_create_stake_pool[1]</td>
+          <td class="col-duration">391.52</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     cardano_node_tests.tests.conftest:conftest.py:123 Changed CWD to &#x27;/home/martink/toolbox_tmp/pytest-of-martink/pytest-69/popen-gw6&#x27;.
+INFO     filelock:filelock.py:274 Lock 140000386857712 acquired on /home/martink/toolbox_tmp/pytest-of-martink/pytest-69/.session_pytest_cluster.lock
+INFO     filelock:filelock.py:318 Lock 140000386857712 released on /home/martink/toolbox_tmp/pytest-of-martink/pytest-69/.session_pytest_cluster.lock<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140000386858480 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     filelock:filelock.py:318 Lock 140000386858480 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     cardano_node_tests.tests.test_pools:test_pools.py:47 Waiting up to 3 epochs for stake pool to be registered.<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_pools.py::TestStakePool::test_stake_pool_metadata[3]</td>
+          <td class="col-duration">396.49</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     cardano_node_tests.tests.conftest:conftest.py:123 Changed CWD to &#x27;/home/martink/toolbox_tmp/pytest-of-martink/pytest-69/popen-gw4&#x27;.
+INFO     filelock:filelock.py:274 Lock 140719647587056 acquired on /home/martink/toolbox_tmp/pytest-of-martink/pytest-69/.session_pytest_cluster.lock
+INFO     cardano_node_tests.utils.helpers:helpers.py:471 Stopping cluster.
+INFO     cardano_node_tests.utils.helpers:helpers.py:461 Starting cluster.
+INFO     cardano_node_tests.utils.helpers:helpers.py:464 Cluster started.
+INFO     filelock:filelock.py:274 Lock 140719647587872 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1vzrrflp2qhpa07xu4ypjrkhpngsh92el79r9zfnqwg06zkc0xcng4.lock
+INFO     filelock:filelock.py:318 Lock 140719647587872 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1vzrrflp2qhpa07xu4ypjrkhpngsh92el79r9zfnqwg06zkc0xcng4.lock
+INFO     filelock:filelock.py:318 Lock 140719647587056 released on /home/martink/toolbox_tmp/pytest-of-martink/pytest-69/.session_pytest_cluster.lock<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140719647758608 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     filelock:filelock.py:318 Lock 140719647758608 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     cardano_node_tests.tests.test_pools:test_pools.py:47 Waiting up to 3 epochs for stake pool to be registered.<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_pools.py::TestStakePool::test_update_stake_pool_metadata[1]</td>
+          <td class="col-duration">588.08</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 139916243115024 acquired on /home/martink/toolbox_tmp/pytest-of-martink/pytest-69/.session_pytest_cluster.lock
+INFO     filelock:filelock.py:318 Lock 139916243115024 released on /home/martink/toolbox_tmp/pytest-of-martink/pytest-69/.session_pytest_cluster.lock<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 139916243115888 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     filelock:filelock.py:318 Lock 139916243115888 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     cardano_node_tests.tests.test_pools:test_pools.py:47 Waiting up to 3 epochs for stake pool to be registered.<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_staking.py::TestDelegateAddr::test_delegate_using_pool_id</td>
+          <td class="col-duration">181.15</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log call-------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 139881417373296 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     filelock:filelock.py:318 Lock 139881417373296 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     cardano_node_tests.utils.helpers:helpers.py:305 Waiting 1 epoch(s) to get stake distribution.<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_pools.py::TestStakePool::test_reregister_stake_pool</td>
+          <td class="col-duration">594.58</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140488946129600 acquired on /home/martink/toolbox_tmp/pytest-of-martink/pytest-69/.session_pytest_cluster.lock
+INFO     filelock:filelock.py:318 Lock 140488946129600 released on /home/martink/toolbox_tmp/pytest-of-martink/pytest-69/.session_pytest_cluster.lock<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140488945746944 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     filelock:filelock.py:318 Lock 140488945746944 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     cardano_node_tests.tests.test_pools:test_pools.py:47 Waiting up to 3 epochs for stake pool to be registered.
+INFO     cardano_node_tests.tests.test_pools:test_pools.py:479 Waiting up to 3 epochs for stake pool to be deregistered.
+INFO     cardano_node_tests.tests.test_pools:test_pools.py:517 Waiting up to 5 epochs for stake pool to be re-registered.<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_pools.py::TestStakePool::test_deregister_stake_pool[1]</td>
+          <td class="col-duration">595.88</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140080271071456 acquired on /home/martink/toolbox_tmp/pytest-of-martink/pytest-69/.session_pytest_cluster.lock
+INFO     filelock:filelock.py:318 Lock 140080271071456 released on /home/martink/toolbox_tmp/pytest-of-martink/pytest-69/.session_pytest_cluster.lock<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140080270670000 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     filelock:filelock.py:318 Lock 140080270670000 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     cardano_node_tests.tests.test_pools:test_pools.py:47 Waiting up to 3 epochs for stake pool to be registered.
+INFO     cardano_node_tests.tests.test_pools:test_pools.py:393 Waiting up to 3 epochs for stake pool to be deregistered.<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_pools.py::TestStakePool::test_deregister_stake_pool[3]</td>
+          <td class="col-duration">595.82</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 139747810385824 acquired on /home/martink/toolbox_tmp/pytest-of-martink/pytest-69/.session_pytest_cluster.lock
+INFO     filelock:filelock.py:318 Lock 139747810385824 released on /home/martink/toolbox_tmp/pytest-of-martink/pytest-69/.session_pytest_cluster.lock<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 139747815792016 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     filelock:filelock.py:318 Lock 139747815792016 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     cardano_node_tests.tests.test_pools:test_pools.py:47 Waiting up to 3 epochs for stake pool to be registered.
+INFO     cardano_node_tests.tests.test_pools:test_pools.py:393 Waiting up to 3 epochs for stake pool to be deregistered.<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestFee::test_smaller_fee[1.5]</td>
+          <td class="col-duration">0.19</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 139881417499312 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     filelock:filelock.py:318 Lock 139881417499312 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestFee::test_expected_or_higher_fee[1000000]</td>
+          <td class="col-duration">4.80</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_staking.py::TestDelegateAddr::test_delegate_using_vkey</td>
+          <td class="col-duration">12.41</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log call-------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140080271037776 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     filelock:filelock.py:318 Lock 140080271037776 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestExpectedFees::test_pool_registration_fees[addr_fee0]</td>
+          <td class="col-duration">0.21</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 139881419208736 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     filelock:filelock.py:318 Lock 139881419208736 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestExpectedFees::test_pool_registration_fees[addr_fee1]</td>
+          <td class="col-duration">0.35</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestExpectedFees::test_addr_registration_fees[addr_fee3]</td>
+          <td class="col-duration">0.34</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestExpectedFees::test_addr_deregistration_fees[addr_fee0]</td>
+          <td class="col-duration">0.13</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestExpectedFees::test_addr_deregistration_fees[addr_fee1]</td>
+          <td class="col-duration">0.17</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestExpectedFees::test_addr_deregistration_fees[addr_fee2]</td>
+          <td class="col-duration">0.22</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestExpectedFees::test_addr_deregistration_fees[addr_fee3]</td>
+          <td class="col-duration">0.33</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestExpectedFees::test_transaction_to_1_addr_from_1_addr_fees[amount_expected0]</td>
+          <td class="col-duration">0.11</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestExpectedFees::test_transaction_to_1_addr_from_1_addr_fees[amount_expected1]</td>
+          <td class="col-duration">0.11</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestExpectedFees::test_transaction_to_1_addr_from_1_addr_fees[amount_expected2]</td>
+          <td class="col-duration">0.13</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestExpectedFees::test_transaction_to_1_addr_from_1_addr_fees[amount_expected3]</td>
+          <td class="col-duration">0.11</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestExpectedFees::test_transaction_to_10_addrs_from_1_addr_fees[amount_expected0]</td>
+          <td class="col-duration">0.10</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestExpectedFees::test_transaction_to_10_addrs_from_1_addr_fees[amount_expected1]</td>
+          <td class="col-duration">0.10</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestExpectedFees::test_transaction_to_10_addrs_from_1_addr_fees[amount_expected2]</td>
+          <td class="col-duration">0.12</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestExpectedFees::test_transaction_to_10_addrs_from_1_addr_fees[amount_expected3]</td>
+          <td class="col-duration">0.13</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestExpectedFees::test_transaction_to_1_addr_from_10_addrs_fees[amount_expected0]</td>
+          <td class="col-duration">0.30</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestExpectedFees::test_transaction_to_1_addr_from_10_addrs_fees[amount_expected1]</td>
+          <td class="col-duration">0.30</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestExpectedFees::test_transaction_to_1_addr_from_10_addrs_fees[amount_expected2]</td>
+          <td class="col-duration">0.31</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestExpectedFees::test_transaction_to_1_addr_from_10_addrs_fees[amount_expected3]</td>
+          <td class="col-duration">0.29</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestExpectedFees::test_transaction_to_10_addrs_from_10_addrs_fees[amount_expected0]</td>
+          <td class="col-duration">0.30</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestExpectedFees::test_transaction_to_10_addrs_from_10_addrs_fees[amount_expected1]</td>
+          <td class="col-duration">0.32</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestExpectedFees::test_transaction_to_10_addrs_from_10_addrs_fees[amount_expected2]</td>
+          <td class="col-duration">0.30</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestFee::test_smaller_fee[2]</td>
+          <td class="col-duration">0.19</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140080270820832 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     filelock:filelock.py:318 Lock 140080270820832 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestExpectedFees::test_transaction_to_10_addrs_from_10_addrs_fees[amount_expected3]</td>
+          <td class="col-duration">0.28</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestExpectedFees::test_transaction_to_100_addrs_from_100_addrs_fees[amount_expected0]</td>
+          <td class="col-duration">2.21</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestExpectedFees::test_transaction_to_100_addrs_from_100_addrs_fees[amount_expected1]</td>
+          <td class="col-duration">2.17</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestExpectedFees::test_transaction_to_100_addrs_from_100_addrs_fees[amount_expected2]</td>
+          <td class="col-duration">2.05</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestExpectedFees::test_transaction_to_100_addrs_from_100_addrs_fees[amount_expected3]</td>
+          <td class="col-duration">2.00</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestBasic::test_transfer_funds[1]</td>
+          <td class="col-duration">4.98</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 139881417535936 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     filelock:filelock.py:318 Lock 139881417535936 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestExpectedFees::test_addr_registration_fees[addr_fee0]</td>
+          <td class="col-duration">0.14</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140080274834768 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     filelock:filelock.py:318 Lock 140080274834768 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestExpectedFees::test_addr_registration_fees[addr_fee1]</td>
+          <td class="col-duration">0.17</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestExpectedFees::test_addr_registration_fees[addr_fee2]</td>
+          <td class="col-duration">0.23</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestBasic::test_transfer_funds[10]</td>
+          <td class="col-duration">5.00</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestBasic::test_transfer_funds[200]</td>
+          <td class="col-duration">2.30</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestBasic::test_transfer_funds[100000]</td>
+          <td class="col-duration">5.06</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestBasic::test_get_txid</td>
+          <td class="col-duration">3.43</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestBasic::test_transfer_funds[2000]</td>
+          <td class="col-duration">3.47</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140080271070928 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     filelock:filelock.py:318 Lock 140080271070928 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestBasic::test_transfer_all_funds</td>
+          <td class="col-duration">1.88</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestMultiInOut::test_transaction_to_10_addrs_from_1_addr[1]</td>
+          <td class="col-duration">6.15</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140080270819728 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     filelock:filelock.py:318 Lock 140080270819728 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestMultiInOut::test_transaction_to_10_addrs_from_1_addr[11000]</td>
+          <td class="col-duration">9.13</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestMultiInOut::test_transaction_to_1_addr_from_10_addrs[1]</td>
+          <td class="col-duration">9.96</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestMultiInOut::test_transaction_to_1_addr_from_10_addrs[100]</td>
+          <td class="col-duration">9.99</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestMultiInOut::test_10_transactions</td>
+          <td class="col-duration">43.92</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 139881417591440 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     filelock:filelock.py:318 Lock 139881417591440 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestMultiInOut::test_transaction_to_1_addr_from_10_addrs[11000]</td>
+          <td class="col-duration">7.42</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestMultiInOut::test_transaction_to_10_addrs_from_1_addr[100]</td>
+          <td class="col-duration">8.06</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestMultiInOut::test_transaction_to_1_addr_from_10_addrs[100000]</td>
+          <td class="col-duration">10.07</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestMultiInOut::test_transaction_to_10_addrs_from_10_addrs[1]</td>
+          <td class="col-duration">6.28</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestMultiInOut::test_transaction_to_10_addrs_from_10_addrs[100]</td>
+          <td class="col-duration">10.03</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestMultiInOut::test_transaction_to_10_addrs_from_10_addrs[11000]</td>
+          <td class="col-duration">9.59</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestMultiInOut::test_transaction_to_100_addrs_from_50_addrs[100]</td>
+          <td class="col-duration">15.09</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestMultiInOut::test_transaction_to_100_addrs_from_50_addrs[1]</td>
+          <td class="col-duration">15.12</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestNotBalanced::test_negative_change</td>
+          <td class="col-duration">0.14</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 139881417625952 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     filelock:filelock.py:318 Lock 139881417625952 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestMultiInOut::test_transaction_to_100_addrs_from_50_addrs[1000]</td>
+          <td class="col-duration">15.17</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestNegative::test_past_ttl</td>
+          <td class="col-duration">0.17</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 139881417628832 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     filelock:filelock.py:318 Lock 139881417628832 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestNegative::test_duplicated_tx</td>
+          <td class="col-duration">4.93</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestNegative::test_send_funds_to_reward_address</td>
+          <td class="col-duration">0.06</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestNegative::test_send_funds_to_invalid_length_address</td>
+          <td class="col-duration">8.71</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestNotBalanced::test_wrong_balance</td>
+          <td class="col-duration">10.05</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140080270079120 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     filelock:filelock.py:318 Lock 140080270079120 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestNegative::test_send_funds_to_invalid_chars_address</td>
+          <td class="col-duration">8.13</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestNegative::test_send_funds_from_non_existent_address</td>
+          <td class="col-duration">5.40</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestNegative::test_send_funds_to_non_existent_address</td>
+          <td class="col-duration">6.95</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140080269540272 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     filelock:filelock.py:318 Lock 140080269540272 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestNegative::test_send_funds_from_invalid_chars_address</td>
+          <td class="col-duration">5.61</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestNegative::test_send_funds_from_invalid_length_address</td>
+          <td class="col-duration">6.81</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestMetadata::test_tx_wrong_json_metadata_format</td>
+          <td class="col-duration">0.06</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 139881411490288 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     filelock:filelock.py:318 Lock 139881411490288 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestMetadata::test_tx_too_long_metadata_json</td>
+          <td class="col-duration">0.06</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestMetadata::test_tx_invalid_json_metadata</td>
+          <td class="col-duration">0.07</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140080269647632 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     filelock:filelock.py:318 Lock 140080269647632 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestMetadata::test_tx_metadata_json</td>
+          <td class="col-duration">0.20</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_pools.py::TestStakePool::test_update_stake_pool_parameters[1]</td>
+          <td class="col-duration">585.48</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log call-------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140719647758512 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     filelock:filelock.py:318 Lock 140719647758512 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     cardano_node_tests.tests.test_pools:test_pools.py:47 Waiting up to 3 epochs for stake pool to be registered.<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_pools.py::TestStakePool::test_update_stake_pool_parameters[2]</td>
+          <td class="col-duration">588.19</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log call-------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140000384965024 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     filelock:filelock.py:318 Lock 140000384965024 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     cardano_node_tests.tests.test_pools:test_pools.py:47 Waiting up to 3 epochs for stake pool to be registered.<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_pools.py::TestStakePool::test_update_stake_pool_metadata[2]</td>
+          <td class="col-duration">593.61</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log call-------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140014427070272 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     filelock:filelock.py:318 Lock 140014427070272 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     cardano_node_tests.tests.test_pools:test_pools.py:47 Waiting up to 3 epochs for stake pool to be registered.<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestFee::test_smaller_fee[0]</td>
+          <td class="col-duration">0.10</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140719645872192 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     filelock:filelock.py:318 Lock 140719645872192 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestFee::test_smaller_fee[1.1]</td>
+          <td class="col-duration">0.22</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140000385118320 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     filelock:filelock.py:318 Lock 140000385118320 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestFee::test_negative_fee</td>
+          <td class="col-duration">7.39</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140014427070320 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     filelock:filelock.py:318 Lock 140014427070320 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_staking.py::TestDelegateAddr::test_deregister</td>
+          <td class="col-duration">780.05</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log call-------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 139747815790672 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     filelock:filelock.py:318 Lock 139747815790672 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestExpectedFees::test_pool_deregistration_fees[addr_fee1]</td>
+          <td class="col-duration">0.20</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 139747810384192 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     filelock:filelock.py:318 Lock 139747810384192 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestExpectedFees::test_pool_deregistration_fees[addr_fee2]</td>
+          <td class="col-duration">0.20</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestExpectedFees::test_pool_deregistration_fees[addr_fee3]</td>
+          <td class="col-duration">0.20</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_staking.py::TestRewards::test_reward_amount</td>
+          <td class="col-duration">1022.51</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log call-------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140488945747952 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     filelock:filelock.py:318 Lock 140488945747952 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     cardano_node_tests.tests.test_staking:test_staking.py:281 Checking rewards for 5 epochs.<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestExpectedFees::test_pool_registration_fees[addr_fee2]</td>
+          <td class="col-duration">0.44</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140488942553312 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     filelock:filelock.py:318 Lock 140488942553312 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestExpectedFees::test_pool_registration_fees[addr_fee3]</td>
+          <td class="col-duration">0.70</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestExpectedFees::test_pool_deregistration_fees[addr_fee0]</td>
+          <td class="col-duration">0.21</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_staking.py::TestRewards::test_no_reward_high_pledge</td>
+          <td class="col-duration">1197.44</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log call-------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 139916241252416 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     filelock:filelock.py:318 Lock 139916241252416 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestFee::test_expected_or_higher_fee[0]</td>
+          <td class="col-duration">4.36</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 139916241255488 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock
+INFO     filelock:filelock.py:318 Lock 139916241255488 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzmmf2ah9k9esl4d696v29ux72w05e269j42twavemcvvm2y3luwpun5mhstpq6ksx8djwxl0jyjjzs53n206mtx3r0sey8r7v.lock<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestFee::test_expected_or_higher_fee[1000]</td>
+          <td class="col-duration">3.18</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transaction_fees.py::TestFee::test_expected_or_higher_fee[100000]</td>
+          <td class="col-duration">5.01</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody></table></body></html>

@@ -1,0 +1,269 @@
+{
+  "uid" : "6c4ddbe3b98ce65e",
+  "name" : "test_transaction_to_10_addrs_from_10_addrs[1]",
+  "fullName" : "cardano_node_tests.tests.test_transactions.TestMultiInOut#test_transaction_to_10_addrs_from_10_addrs",
+  "historyId" : "44d2cf43e6f6277799337fa772d96bb3",
+  "time" : {
+    "start" : 1600990876191,
+    "stop" : 1600990886497,
+    "duration" : 10306
+  },
+  "description" : "Tests 1 tx from 10 payment addresses to 10 payment addresses.",
+  "descriptionHtml" : "<p>Tests 1 tx from 10 payment addresses to 10 payment addresses.</p>\n",
+  "status" : "failed",
+  "statusMessage" : "Failed: Errors found in cluster log files:\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-106-cbvhqkur/popen-gw6/cluster_artifacts_eozabiby/bft1.stdout.1: \u001B[31m[toolbox:cardano.node.LocalErrorPolicy:Error:40]\u001B[0m [2020-09-24 17:32:44.98 UTC] [String \"ErrorPolicyUnhandledApplicationException (MuxError MuxBearerClosed \\\"<socket: 28> closed when reading data, waiting on next header True\\\")\",String \"ErrorPolicyTrace\",String \"LocalAddress {getFilePath = \\\"\\\"}\"]",
+  "statusTrace" : "self = <allure_commons._allure.fixture object at 0x7eff5fdd5d90>, args = (), kwargs = {}\n\n    def __call__(self, *args, **kwargs):\n        self.parameters = func_parameters(self._fixture_function, *args, **kwargs)\n    \n        with self:\n>           return self._fixture_function(*args, **kwargs)\n\n/home/martink/.local/python_venvs/cardano_node/lib64/python3.8/site-packages/allure_commons/_allure.py:185: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/conftest.py:98: in cluster_cleanup\n    _run_cluster_cleanup(\n/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/conftest.py:66: in _run_cluster_cleanup\n    devops_cluster.process_artifacts(pytest_tmp_dir=pytest_tmp_dir, request=request)\n/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/utils/devops_cluster.py:227: in process_artifacts\n    report_artifacts_errors(errors)\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n\nerrors = [(PosixPath('/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-106-cbvhqkur/popen-gw6/cluster_artifacts_...ing data, waiting on next header True\\\\\")\",String \"ErrorPolicyTrace\",String \"LocalAddress {getFilePath = \\\\\"\\\\\"}\"]\\n')]\n\n    def report_artifacts_errors(errors: List[Tuple[Path, str]]) -> None:\n        \"\"\"Report errors found in artifacts.\"\"\"\n        err = [f\"{e[0]}: {e[1]}\" for e in errors]\n        err_joined = \"\\n\".join(err)\n>       pytest.fail(f\"Errors found in cluster log files:\\n{err_joined}\")\nE       Failed: Errors found in cluster log files:\nE       /home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-106-cbvhqkur/popen-gw6/cluster_artifacts_eozabiby/bft1.stdout.1: \u001B[31m[toolbox:cardano.node.LocalErrorPolicy:Error:40]\u001B[0m [2020-09-24 17:32:44.98 UTC] [String \"ErrorPolicyUnhandledApplicationException (MuxError MuxBearerClosed \\\"<socket: 28> closed when reading data, waiting on next header True\\\")\",String \"ErrorPolicyTrace\",String \"LocalAddress {getFilePath = \\\"\\\"}\"]\n\n/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/utils/devops_cluster.py:212: Failed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ {
+    "name" : "session_autouse",
+    "time" : {
+      "start" : 1600990715833,
+      "stop" : 1600990715833,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "cluster_manager",
+    "time" : {
+      "start" : 1600990876187,
+      "stop" : 1600990876187,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "worker_id",
+    "time" : {
+      "start" : 1600990715832,
+      "stop" : 1600990715832,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "tmp_path_factory",
+    "time" : {
+      "start" : 1600990715831,
+      "stop" : 1600990715831,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "change_dir",
+    "time" : {
+      "start" : 1600990715832,
+      "stop" : 1600990715832,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "cluster_cleanup",
+    "time" : {
+      "start" : 1600990715833,
+      "stop" : 1600990715833,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "payment_addrs",
+    "time" : {
+      "start" : 1600990876189,
+      "stop" : 1600990876189,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "temp_dir",
+    "time" : {
+      "start" : 1600990715833,
+      "stop" : 1600990715834,
+      "duration" : 1
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "cluster",
+    "time" : {
+      "start" : 1600990876188,
+      "stop" : 1600990876189,
+      "duration" : 1
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  } ],
+  "testStage" : {
+    "description" : "Tests 1 tx from 10 payment addresses to 10 payment addresses.",
+    "status" : "failed",
+    "statusMessage" : "Failed: Errors found in cluster log files:\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-106-cbvhqkur/popen-gw6/cluster_artifacts_eozabiby/bft1.stdout.1: \u001B[31m[toolbox:cardano.node.LocalErrorPolicy:Error:40]\u001B[0m [2020-09-24 17:32:44.98 UTC] [String \"ErrorPolicyUnhandledApplicationException (MuxError MuxBearerClosed \\\"<socket: 28> closed when reading data, waiting on next header True\\\")\",String \"ErrorPolicyTrace\",String \"LocalAddress {getFilePath = \\\"\\\"}\"]",
+    "statusTrace" : "self = <allure_commons._allure.fixture object at 0x7eff5fdd5d90>, args = (), kwargs = {}\n\n    def __call__(self, *args, **kwargs):\n        self.parameters = func_parameters(self._fixture_function, *args, **kwargs)\n    \n        with self:\n>           return self._fixture_function(*args, **kwargs)\n\n/home/martink/.local/python_venvs/cardano_node/lib64/python3.8/site-packages/allure_commons/_allure.py:185: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/conftest.py:98: in cluster_cleanup\n    _run_cluster_cleanup(\n/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/conftest.py:66: in _run_cluster_cleanup\n    devops_cluster.process_artifacts(pytest_tmp_dir=pytest_tmp_dir, request=request)\n/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/utils/devops_cluster.py:227: in process_artifacts\n    report_artifacts_errors(errors)\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n\nerrors = [(PosixPath('/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-106-cbvhqkur/popen-gw6/cluster_artifacts_...ing data, waiting on next header True\\\\\")\",String \"ErrorPolicyTrace\",String \"LocalAddress {getFilePath = \\\\\"\\\\\"}\"]\\n')]\n\n    def report_artifacts_errors(errors: List[Tuple[Path, str]]) -> None:\n        \"\"\"Report errors found in artifacts.\"\"\"\n        err = [f\"{e[0]}: {e[1]}\" for e in errors]\n        err_joined = \"\\n\".join(err)\n>       pytest.fail(f\"Errors found in cluster log files:\\n{err_joined}\")\nE       Failed: Errors found in cluster log files:\nE       /home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-106-cbvhqkur/popen-gw6/cluster_artifacts_eozabiby/bft1.stdout.1: \u001B[31m[toolbox:cardano.node.LocalErrorPolicy:Error:40]\u001B[0m [2020-09-24 17:32:44.98 UTC] [String \"ErrorPolicyUnhandledApplicationException (MuxError MuxBearerClosed \\\"<socket: 28> closed when reading data, waiting on next header True\\\")\",String \"ErrorPolicyTrace\",String \"LocalAddress {getFilePath = \\\"\\\"}\"]\n\n/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/utils/devops_cluster.py:212: Failed",
+    "steps" : [ ],
+    "attachments" : [ {
+      "uid" : "8fd4f214a8e51fbf",
+      "name" : "log",
+      "source" : "8fd4f214a8e51fbf.txt",
+      "type" : "text/plain",
+      "size" : 436
+    } ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 1,
+    "shouldDisplayMessage" : true,
+    "hasContent" : true
+  },
+  "afterStages" : [ {
+    "name" : "cluster_manager::0",
+    "time" : {
+      "start" : 1600990886500,
+      "stop" : 1600990886501,
+      "duration" : 1
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "cluster_cleanup::0",
+    "time" : {
+      "start" : 1600990886502,
+      "stop" : 1600990932761,
+      "duration" : 46259
+    },
+    "status" : "failed",
+    "statusMessage" : "Failed: Errors found in cluster log files:\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-106-cbvhqkur/popen-gw6/cluster_artifacts_eozabiby/bft1.stdout.1: \u001B[31m[toolbox:cardano.node.LocalErrorPolicy:Error:40]\u001B[0m [2020-09-24 17:32:44.98 UTC] [String \"ErrorPolicyUnhandledApplicationException (MuxError MuxBearerClosed \\\"<socket: 28> closed when reading data, waiting on next header True\\\")\",String \"ErrorPolicyTrace\",String \"LocalAddress {getFilePath = \\\"\\\"}\"]\n\n",
+    "statusTrace" : "  File \"/home/martink/.local/python_venvs/cardano_node/lib64/python3.8/site-packages/allure_commons/_allure.py\", line 185, in __call__\n    return self._fixture_function(*args, **kwargs)\n  File \"/home/martink/.local/python_venvs/cardano_node/lib64/python3.8/site-packages/_pytest/fixtures.py\", line 932, in _teardown_yield_fixture\n    next(it)\n  File \"/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/conftest.py\", line 98, in cluster_cleanup\n    _run_cluster_cleanup(\n  File \"/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/conftest.py\", line 66, in _run_cluster_cleanup\n    devops_cluster.process_artifacts(pytest_tmp_dir=pytest_tmp_dir, request=request)\n  File \"/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/utils/devops_cluster.py\", line 227, in process_artifacts\n    report_artifacts_errors(errors)\n  File \"/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/utils/devops_cluster.py\", line 212, in report_artifacts_errors\n    pytest.fail(f\"Errors found in cluster log files:\\n{err_joined}\")\n  File \"/home/martink/.local/python_venvs/cardano_node/lib64/python3.8/site-packages/_pytest/outcomes.py\", line 156, in fail\n    raise Failed(msg=msg, pytrace=pytrace)\n",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : true,
+    "hasContent" : true
+  }, {
+    "name" : "temp_dir::0",
+    "time" : {
+      "start" : 1600990886501,
+      "stop" : 1600990886501,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  } ],
+  "labels" : [ {
+    "name" : "tag",
+    "value" : "@pytest.mark.usefixtures('temp_dir')"
+  }, {
+    "name" : "parentSuite",
+    "value" : "cardano_node_tests.tests"
+  }, {
+    "name" : "suite",
+    "value" : "test_transactions"
+  }, {
+    "name" : "subSuite",
+    "value" : "TestMultiInOut"
+  }, {
+    "name" : "host",
+    "value" : "toolbox"
+  }, {
+    "name" : "thread",
+    "value" : "1991897-MainThread"
+  }, {
+    "name" : "framework",
+    "value" : "pytest"
+  }, {
+    "name" : "language",
+    "value" : "cpython3"
+  }, {
+    "name" : "package",
+    "value" : "cardano_node_tests.tests.test_transactions"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ {
+    "name" : "amount",
+    "value" : "1"
+  } ],
+  "links" : [ {
+    "name" : "https://github.com/input-output-hk/cardano-node-tests/blob/633701feeeea2a888c4b4015c4d5802544ac820b/cardano_node_tests/tests/test_transactions.py#L359",
+    "url" : "https://github.com/input-output-hk/cardano-node-tests/blob/633701feeeea2a888c4b4015c4d5802544ac820b/cardano_node_tests/tests/test_transactions.py#L359",
+    "type" : "link"
+  } ],
+  "hidden" : true,
+  "retry" : true,
+  "extra" : {
+    "categories" : [ ],
+    "tags" : [ "@pytest.mark.usefixtures('temp_dir')" ]
+  },
+  "source" : "6c4ddbe3b98ce65e.json",
+  "parameterValues" : [ "1" ]
+}

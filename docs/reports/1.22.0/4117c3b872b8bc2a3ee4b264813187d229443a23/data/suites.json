@@ -1,0 +1,2094 @@
+{
+  "uid" : "98d3104e051c652961429bf95fa0b5d6",
+  "name" : "suites",
+  "children" : [ {
+    "name" : "cardano_node_tests.tests",
+    "children" : [ {
+      "name" : "test_multisig",
+      "children" : [ {
+        "name" : "TestBasic",
+        "children" : [ {
+          "name" : "test_multisig_all",
+          "uid" : "50601090159d3eed",
+          "parentUid" : "3d39f9796c52ab6fb0ef9ef89dcedcc3",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070544163,
+            "stop" : 1604070554130,
+            "duration" : 9967
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_multisig_atleast",
+          "uid" : "22fae00d5f0d2ef5",
+          "parentUid" : "3d39f9796c52ab6fb0ef9ef89dcedcc3",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070642204,
+            "stop" : 1604070672121,
+            "duration" : 29917
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_multisig_any",
+          "uid" : "34fc35120bf0ac02",
+          "parentUid" : "3d39f9796c52ab6fb0ef9ef89dcedcc3",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070647102,
+            "stop" : 1604070702237,
+            "duration" : 55135
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_script_addr_length",
+          "uid" : "bdd283c9530ea222",
+          "parentUid" : "3d39f9796c52ab6fb0ef9ef89dcedcc3",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070652224,
+            "stop" : 1604070652515,
+            "duration" : 291
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_normal_tx_to_script_addr",
+          "uid" : "3fcdb9601cf33a2a",
+          "parentUid" : "3d39f9796c52ab6fb0ef9ef89dcedcc3",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070662029,
+            "stop" : 1604070667239,
+            "duration" : 5210
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        } ],
+        "uid" : "3d39f9796c52ab6fb0ef9ef89dcedcc3"
+      }, {
+        "name" : "TestNegative",
+        "children" : [ {
+          "name" : "test_normal_tx_from_script_addr",
+          "uid" : "b11e6268bd5d4d14",
+          "parentUid" : "8179cacdbb679ed27cfd24e41566bcf9",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070667154,
+            "stop" : 1604070672369,
+            "duration" : 5215
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_multisig_atleast_low_num_of_skeys",
+          "uid" : "939cc2b1f75f62c5",
+          "parentUid" : "8179cacdbb679ed27cfd24e41566bcf9",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604086723035,
+            "stop" : 1604086729299,
+            "duration" : 6264
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_multisig_any_unlisted_skey",
+          "uid" : "4b56b13779ea4f1",
+          "parentUid" : "8179cacdbb679ed27cfd24e41566bcf9",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604087937198,
+            "stop" : 1604087942225,
+            "duration" : 5027
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_multisig_all_missing_skey",
+          "uid" : "c3c4ab8e7d2d03a2",
+          "parentUid" : "8179cacdbb679ed27cfd24e41566bcf9",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604088636066,
+            "stop" : 1604088641430,
+            "duration" : 5364
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        } ],
+        "uid" : "8179cacdbb679ed27cfd24e41566bcf9"
+      } ],
+      "uid" : "24cc996c8ed50874b99aa89547b9452b"
+    }, {
+      "name" : "test_pools",
+      "children" : [ {
+        "name" : "TestPoolCost",
+        "children" : [ {
+          "name" : "test_stake_pool_cost[500]",
+          "uid" : "8624ab709cb8b066",
+          "parentUid" : "6fe7b64c044f57901fc2a5e65b0db72c",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070575199,
+            "stop" : 1604070595299,
+            "duration" : 20100
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "500" ]
+        }, {
+          "name" : "test_stake_pool_cost[9999999]",
+          "uid" : "a2c815fd591e05f",
+          "parentUid" : "6fe7b64c044f57901fc2a5e65b0db72c",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070580072,
+            "stop" : 1604070600164,
+            "duration" : 20092
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "9999999" ]
+        }, {
+          "name" : "test_stake_pool_low_cost",
+          "uid" : "4ac3e88a0e2e2cac",
+          "parentUid" : "6fe7b64c044f57901fc2a5e65b0db72c",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070585157,
+            "stop" : 1604070597504,
+            "duration" : 12347
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        } ],
+        "uid" : "6fe7b64c044f57901fc2a5e65b0db72c"
+      }, {
+        "name" : "TestStakePool",
+        "children" : [ {
+          "name" : "test_stake_pool_metadata",
+          "uid" : "eedb259ad94999ff",
+          "parentUid" : "673310c4c5e0d10bb3e23337a06b2a87",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070632253,
+            "stop" : 1604070642387,
+            "duration" : 10134
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_update_stake_pool_metadata[1]",
+          "uid" : "94f4754efcbd4fa4",
+          "parentUid" : "673310c4c5e0d10bb3e23337a06b2a87",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070642392,
+            "stop" : 1604070823195,
+            "duration" : 180803
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "1" ]
+        }, {
+          "name" : "test_create_stake_pool[3]",
+          "uid" : "deafaa7b1dad3dcb",
+          "parentUid" : "673310c4c5e0d10bb3e23337a06b2a87",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070667245,
+            "stop" : 1604070677108,
+            "duration" : 9863
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "3" ]
+        }, {
+          "name" : "test_create_stake_pool[1]",
+          "uid" : "651a9ff030ae7654",
+          "parentUid" : "673310c4c5e0d10bb3e23337a06b2a87",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070672125,
+            "stop" : 1604070682311,
+            "duration" : 10186
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "1" ]
+        }, {
+          "name" : "test_cancel_stake_pool_deregistration",
+          "uid" : "60badb8d88d7c65",
+          "parentUid" : "673310c4c5e0d10bb3e23337a06b2a87",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070672375,
+            "stop" : 1604071429081,
+            "duration" : 756706
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_update_stake_pool_parameters[2]",
+          "uid" : "201f534dfb779984",
+          "parentUid" : "673310c4c5e0d10bb3e23337a06b2a87",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070677112,
+            "stop" : 1604070823337,
+            "duration" : 146225
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "2" ]
+        }, {
+          "name" : "test_update_stake_pool_parameters[1]",
+          "uid" : "f5ad6c99af82e536",
+          "parentUid" : "673310c4c5e0d10bb3e23337a06b2a87",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070682314,
+            "stop" : 1604070823238,
+            "duration" : 140924
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "1" ]
+        }, {
+          "name" : "test_stake_pool_metadata_not_avail",
+          "uid" : "72a4800d2523dce5",
+          "parentUid" : "673310c4c5e0d10bb3e23337a06b2a87",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070702243,
+            "stop" : 1604070717257,
+            "duration" : 15014
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_update_stake_pool_metadata[2]",
+          "uid" : "315ff6cb54226944",
+          "parentUid" : "673310c4c5e0d10bb3e23337a06b2a87",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070717262,
+            "stop" : 1604070823368,
+            "duration" : 106106
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "2" ]
+        }, {
+          "name" : "test_reregister_stake_pool",
+          "uid" : "5200ab7d286ee8eb",
+          "parentUid" : "673310c4c5e0d10bb3e23337a06b2a87",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604086729304,
+            "stop" : 1604086918370,
+            "duration" : 189066
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_deregister_stake_pool[3]",
+          "uid" : "32879e76379858f4",
+          "parentUid" : "673310c4c5e0d10bb3e23337a06b2a87",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604087942230,
+            "stop" : 1604088122521,
+            "duration" : 180291
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "3" ]
+        }, {
+          "name" : "test_deregister_stake_pool[1]",
+          "uid" : "4585b41a15d04df2",
+          "parentUid" : "673310c4c5e0d10bb3e23337a06b2a87",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604088641435,
+            "stop" : 1604088821692,
+            "duration" : 180257
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "1" ]
+        }, {
+          "name" : "test_sign_in_multiple_stages",
+          "uid" : "47c9f1e9b5df8cbd",
+          "parentUid" : "673310c4c5e0d10bb3e23337a06b2a87",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604088821697,
+            "stop" : 1604089022272,
+            "duration" : 200575
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        } ],
+        "uid" : "673310c4c5e0d10bb3e23337a06b2a87"
+      }, {
+        "name" : "TestNegative",
+        "children" : [ {
+          "name" : "test_pool_registration_missing_cold_skey",
+          "uid" : "7415277ad475202e",
+          "parentUid" : "0879fe783e75522424cec4e2a8360af6",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070827124,
+            "stop" : 1604070827322,
+            "duration" : 198
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_stake_pool_metadata_no_homepage",
+          "uid" : "3f8bf55e76667098",
+          "parentUid" : "0879fe783e75522424cec4e2a8360af6",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070827327,
+            "stop" : 1604070827341,
+            "duration" : 14
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_stake_pool_metadata_long_name",
+          "uid" : "5d8044e1b5a1621b",
+          "parentUid" : "0879fe783e75522424cec4e2a8360af6",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070827345,
+            "stop" : 1604070831786,
+            "duration" : 4441
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_stake_pool_metadata_long_description",
+          "uid" : "a0d9d4ad7dd5cb59",
+          "parentUid" : "0879fe783e75522424cec4e2a8360af6",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070831790,
+            "stop" : 1604070855562,
+            "duration" : 23772
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_pool_registration_conflicting_certs",
+          "uid" : "8cee636c979c82a7",
+          "parentUid" : "0879fe783e75522424cec4e2a8360af6",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070832208,
+            "stop" : 1604070832419,
+            "duration" : 211
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_pool_registration_missing_payment_skey",
+          "uid" : "5e3bbd6104c8b325",
+          "parentUid" : "0879fe783e75522424cec4e2a8360af6",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070837081,
+            "stop" : 1604070837265,
+            "duration" : 184
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_pool_deregistration_not_registered",
+          "uid" : "298e842b1b99ba8",
+          "parentUid" : "0879fe783e75522424cec4e2a8360af6",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070852199,
+            "stop" : 1604070852396,
+            "duration" : 197
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_stake_pool_metadata_long_ticker",
+          "uid" : "f32f4bade2c7391e",
+          "parentUid" : "0879fe783e75522424cec4e2a8360af6",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070855565,
+            "stop" : 1604070857393,
+            "duration" : 1828
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_stake_pool_metadata_long_homepage",
+          "uid" : "b6fbc78c316d63a5",
+          "parentUid" : "0879fe783e75522424cec4e2a8360af6",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070857397,
+            "stop" : 1604070900087,
+            "duration" : 42690
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_stake_pool_long_metadata_url",
+          "uid" : "c7b034b0813d24e9",
+          "parentUid" : "0879fe783e75522424cec4e2a8360af6",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070900091,
+            "stop" : 1604070900151,
+            "duration" : 60
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_pool_registration_cert_wrong_stake",
+          "uid" : "fdba416db0795822",
+          "parentUid" : "0879fe783e75522424cec4e2a8360af6",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604071432146,
+            "stop" : 1604071432188,
+            "duration" : 42
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_pool_registration_cert_wrong_cold",
+          "uid" : "f8e3c59403455232",
+          "parentUid" : "0879fe783e75522424cec4e2a8360af6",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604086923159,
+            "stop" : 1604086923201,
+            "duration" : 42
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_stake_pool_metadata_no_ticker",
+          "uid" : "8aa777314dbfb5b7",
+          "parentUid" : "0879fe783e75522424cec4e2a8360af6",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604086923206,
+            "stop" : 1604086923220,
+            "duration" : 14
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_pool_registration_cert_wrong_vrf",
+          "uid" : "8ce3663048a1ccee",
+          "parentUid" : "0879fe783e75522424cec4e2a8360af6",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604088127094,
+            "stop" : 1604088127135,
+            "duration" : 41
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_stake_pool_metadata_no_description",
+          "uid" : "2a199f34685b62d7",
+          "parentUid" : "0879fe783e75522424cec4e2a8360af6",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604088127140,
+            "stop" : 1604088127154,
+            "duration" : 14
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_stake_pool_metadata_no_name",
+          "uid" : "2870d635837e44b2",
+          "parentUid" : "0879fe783e75522424cec4e2a8360af6",
+          "status" : "failed",
+          "time" : {
+            "start" : 1604089022277,
+            "stop" : 1604089022291,
+            "duration" : 14
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        } ],
+        "uid" : "0879fe783e75522424cec4e2a8360af6"
+      } ],
+      "uid" : "69925ce2c143bbc8b6176215c12df54d"
+    }, {
+      "name" : "test_staking",
+      "children" : [ {
+        "name" : "TestDelegateAddr",
+        "children" : [ {
+          "name" : "test_delegate_using_pool_id",
+          "uid" : "494258b6f8582e5b",
+          "parentUid" : "1bfd7b93194f425de01d4a8649fc7a2a",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070832424,
+            "stop" : 1604071223251,
+            "duration" : 390827
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_delegate_using_vkey",
+          "uid" : "c246f8795ab9bc86",
+          "parentUid" : "1bfd7b93194f425de01d4a8649fc7a2a",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604071223257,
+            "stop" : 1604071229556,
+            "duration" : 6299
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_deregister",
+          "uid" : "3ee43a984ab5fb3a",
+          "parentUid" : "1bfd7b93194f425de01d4a8649fc7a2a",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604071229561,
+            "stop" : 1604072037132,
+            "duration" : 807571
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_addr_registration_deregistration",
+          "uid" : "954334d29c1acf95",
+          "parentUid" : "1bfd7b93194f425de01d4a8649fc7a2a",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604073873157,
+            "stop" : 1604073878093,
+            "duration" : 4936
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_addr_delegation_deregistration",
+          "uid" : "7e6293765b55d43a",
+          "parentUid" : "1bfd7b93194f425de01d4a8649fc7a2a",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604073878210,
+            "stop" : 1604074459238,
+            "duration" : 581028
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        } ],
+        "uid" : "1bfd7b93194f425de01d4a8649fc7a2a"
+      }, {
+        "name" : "TestNegative",
+        "children" : [ {
+          "name" : "test_deregister_not_registered_addr",
+          "uid" : "8db8e8d70d345655",
+          "parentUid" : "4d9144659f739d59bdc56700d71d3e45",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070847184,
+            "stop" : 1604070847352,
+            "duration" : 168
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_registration_cert_with_wrong_key",
+          "uid" : "46ae492c241ccacf",
+          "parentUid" : "4d9144659f739d59bdc56700d71d3e45",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070862216,
+            "stop" : 1604070862230,
+            "duration" : 14
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_delegation_cert_with_wrong_key",
+          "uid" : "a6457c18881370a0",
+          "parentUid" : "4d9144659f739d59bdc56700d71d3e45",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070862236,
+            "stop" : 1604070862251,
+            "duration" : 15
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_register_addr_with_wrong_key",
+          "uid" : "637870254e6f43fa",
+          "parentUid" : "4d9144659f739d59bdc56700d71d3e45",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070862367,
+            "stop" : 1604070862536,
+            "duration" : 169
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_delegate_addr_with_wrong_key",
+          "uid" : "ef3c6bf0ecad958b",
+          "parentUid" : "4d9144659f739d59bdc56700d71d3e45",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070862651,
+            "stop" : 1604070867282,
+            "duration" : 4631
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_delegate_unregistered_addr",
+          "uid" : "92ede1b082d78e69",
+          "parentUid" : "4d9144659f739d59bdc56700d71d3e45",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070867399,
+            "stop" : 1604070867566,
+            "duration" : 167
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        } ],
+        "uid" : "4d9144659f739d59bdc56700d71d3e45"
+      }, {
+        "name" : "TestRewards",
+        "children" : [ {
+          "name" : "test_reward_amount",
+          "uid" : "bef2743086ca7f2",
+          "parentUid" : "1a5dfd6ebb32f33a2fa763ae53721915",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070847358,
+            "stop" : 1604073257186,
+            "duration" : 2409828
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_no_reward_deregistered_stake_addr",
+          "uid" : "57eb06dac22ab8f",
+          "parentUid" : "1a5dfd6ebb32f33a2fa763ae53721915",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070867571,
+            "stop" : 1604073851788,
+            "duration" : 2984217
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_no_reward_deregistered_reward_addr",
+          "uid" : "46eaacb787c0c5fe",
+          "parentUid" : "1a5dfd6ebb32f33a2fa763ae53721915",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604073868319,
+            "stop" : 1604076888348,
+            "duration" : 3020029
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_deregister_reward_addr_retire_pool",
+          "uid" : "654abbde57bcc958",
+          "parentUid" : "1a5dfd6ebb32f33a2fa763ae53721915",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604076904171,
+            "stop" : 1604079924257,
+            "duration" : 3020086
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_no_reward_unmet_pledge1",
+          "uid" : "2f4f770e60e7a2ff",
+          "parentUid" : "1a5dfd6ebb32f33a2fa763ae53721915",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604079926675,
+            "stop" : 1604083124063,
+            "duration" : 3197388
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_no_reward_unmet_pledge2",
+          "uid" : "57aa8c2983372200",
+          "parentUid" : "1a5dfd6ebb32f33a2fa763ae53721915",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604083124066,
+            "stop" : 1604086324322,
+            "duration" : 3200256
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_decreasing_reward_transfered_funds",
+          "uid" : "df695e213e7cd86b",
+          "parentUid" : "1a5dfd6ebb32f33a2fa763ae53721915",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604091014285,
+            "stop" : 1604092714336,
+            "duration" : 1700051
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        } ],
+        "uid" : "1a5dfd6ebb32f33a2fa763ae53721915"
+      } ],
+      "uid" : "1067a9fd705d79bec42fc03cf19dc71e"
+    }, {
+      "name" : "test_transaction_fees",
+      "children" : [ {
+        "name" : "TestFee",
+        "children" : [ {
+          "name" : "test_smaller_fee[0]",
+          "uid" : "423f7b3ddf2e0ae3",
+          "parentUid" : "dca9f0fcb2f7739c156b6fcdd90826ad",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070904504,
+            "stop" : 1604070904583,
+            "duration" : 79
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "0" ]
+        }, {
+          "name" : "test_smaller_fee[1.1]",
+          "uid" : "cad494cee28d62bc",
+          "parentUid" : "dca9f0fcb2f7739c156b6fcdd90826ad",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070904588,
+            "stop" : 1604070904741,
+            "duration" : 153
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "1.1" ]
+        }, {
+          "name" : "test_smaller_fee[1.5]",
+          "uid" : "702a51c867374186",
+          "parentUid" : "dca9f0fcb2f7739c156b6fcdd90826ad",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070904746,
+            "stop" : 1604070904899,
+            "duration" : 153
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "1.5" ]
+        }, {
+          "name" : "test_smaller_fee[2]",
+          "uid" : "47069401e9f68d69",
+          "parentUid" : "dca9f0fcb2f7739c156b6fcdd90826ad",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070904904,
+            "stop" : 1604070905058,
+            "duration" : 154
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "2" ]
+        }, {
+          "name" : "test_expected_or_higher_fee[0]",
+          "uid" : "ce845ba518247a77",
+          "parentUid" : "dca9f0fcb2f7739c156b6fcdd90826ad",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070905064,
+            "stop" : 1604070909610,
+            "duration" : 4546
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "0" ]
+        }, {
+          "name" : "test_expected_or_higher_fee[1000]",
+          "uid" : "3185d36f927dbb8f",
+          "parentUid" : "dca9f0fcb2f7739c156b6fcdd90826ad",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070909615,
+            "stop" : 1604070914591,
+            "duration" : 4976
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "1000" ]
+        }, {
+          "name" : "test_expected_or_higher_fee[100000]",
+          "uid" : "32f5c0aa758cfb7a",
+          "parentUid" : "dca9f0fcb2f7739c156b6fcdd90826ad",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070914596,
+            "stop" : 1604070919574,
+            "duration" : 4978
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "100000" ]
+        }, {
+          "name" : "test_expected_or_higher_fee[1000000]",
+          "uid" : "338f7d3720763c47",
+          "parentUid" : "dca9f0fcb2f7739c156b6fcdd90826ad",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070919579,
+            "stop" : 1604070924557,
+            "duration" : 4978
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "1000000" ]
+        }, {
+          "name" : "test_negative_fee",
+          "uid" : "70888e9046a2eaac",
+          "parentUid" : "dca9f0fcb2f7739c156b6fcdd90826ad",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604079929203,
+            "stop" : 1604079933476,
+            "duration" : 4273
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        } ],
+        "uid" : "dca9f0fcb2f7739c156b6fcdd90826ad"
+      }, {
+        "name" : "TestExpectedFees",
+        "children" : [ {
+          "name" : "test_pool_registration_fees[addr_fee0]",
+          "uid" : "96643dcbf8c894",
+          "parentUid" : "cbfab39cf0c2e18ee7f9c082e2ad678e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070939579,
+            "stop" : 1604070939746,
+            "duration" : 167
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "(1, 197929)" ]
+        }, {
+          "name" : "test_pool_registration_fees[addr_fee1]",
+          "uid" : "f5c7ce1dfb3513e0",
+          "parentUid" : "cbfab39cf0c2e18ee7f9c082e2ad678e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070939752,
+            "stop" : 1604070939979,
+            "duration" : 227
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "(3, 234185)" ]
+        }, {
+          "name" : "test_pool_registration_fees[addr_fee2]",
+          "uid" : "8d4e034848114d23",
+          "parentUid" : "cbfab39cf0c2e18ee7f9c082e2ad678e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070939984,
+            "stop" : 1604070940275,
+            "duration" : 291
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "(5, 270441)" ]
+        }, {
+          "name" : "test_pool_registration_fees[addr_fee3]",
+          "uid" : "b94cba2bbb6bec66",
+          "parentUid" : "cbfab39cf0c2e18ee7f9c082e2ad678e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070940280,
+            "stop" : 1604070940721,
+            "duration" : 441
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "(10, 361081)" ]
+        }, {
+          "name" : "test_pool_deregistration_fees[addr_fee0]",
+          "uid" : "7b4a0115531b60f4",
+          "parentUid" : "cbfab39cf0c2e18ee7f9c082e2ad678e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070940727,
+            "stop" : 1604070940861,
+            "duration" : 134
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "(1, 185345)" ]
+        }, {
+          "name" : "test_pool_deregistration_fees[addr_fee1]",
+          "uid" : "3ea05ae287c7de1e",
+          "parentUid" : "cbfab39cf0c2e18ee7f9c082e2ad678e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070940867,
+            "stop" : 1604070941003,
+            "duration" : 136
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "(3, 210337)" ]
+        }, {
+          "name" : "test_pool_deregistration_fees[addr_fee2]",
+          "uid" : "ac89fb2840471db6",
+          "parentUid" : "cbfab39cf0c2e18ee7f9c082e2ad678e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070941009,
+            "stop" : 1604070941145,
+            "duration" : 136
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "(5, 235329)" ]
+        }, {
+          "name" : "test_pool_deregistration_fees[addr_fee3]",
+          "uid" : "e9207814beab80b6",
+          "parentUid" : "cbfab39cf0c2e18ee7f9c082e2ad678e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070941150,
+            "stop" : 1604070941288,
+            "duration" : 138
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "(10, 297809)" ]
+        }, {
+          "name" : "test_addr_registration_fees[addr_fee0]",
+          "uid" : "2310096a86e915bd",
+          "parentUid" : "cbfab39cf0c2e18ee7f9c082e2ad678e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070941292,
+            "stop" : 1604070941384,
+            "duration" : 92
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "(1, 179141)" ]
+        }, {
+          "name" : "test_addr_registration_fees[addr_fee1]",
+          "uid" : "393a91e14f3f61ce",
+          "parentUid" : "cbfab39cf0c2e18ee7f9c082e2ad678e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070941389,
+            "stop" : 1604070941511,
+            "duration" : 122
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "(3, 207125)" ]
+        }, {
+          "name" : "test_addr_registration_fees[addr_fee2]",
+          "uid" : "f7f607a7be606635",
+          "parentUid" : "cbfab39cf0c2e18ee7f9c082e2ad678e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070941517,
+            "stop" : 1604070941668,
+            "duration" : 151
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "(5, 235109)" ]
+        }, {
+          "name" : "test_addr_registration_fees[addr_fee3]",
+          "uid" : "8cd9be8994e9d2f3",
+          "parentUid" : "cbfab39cf0c2e18ee7f9c082e2ad678e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070941673,
+            "stop" : 1604070941899,
+            "duration" : 226
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "(10, 305069)" ]
+        }, {
+          "name" : "test_addr_deregistration_fees[addr_fee0]",
+          "uid" : "2dfcfc9302a54a2c",
+          "parentUid" : "cbfab39cf0c2e18ee7f9c082e2ad678e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070941905,
+            "stop" : 1604070941996,
+            "duration" : 91
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "(1, 179141)" ]
+        }, {
+          "name" : "test_addr_deregistration_fees[addr_fee1]",
+          "uid" : "23b2ad181ad463c0",
+          "parentUid" : "cbfab39cf0c2e18ee7f9c082e2ad678e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070942000,
+            "stop" : 1604070942123,
+            "duration" : 123
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "(3, 207125)" ]
+        }, {
+          "name" : "test_addr_deregistration_fees[addr_fee2]",
+          "uid" : "a3e49ef6627e9f3f",
+          "parentUid" : "cbfab39cf0c2e18ee7f9c082e2ad678e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070942128,
+            "stop" : 1604070942279,
+            "duration" : 151
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "(5, 235109)" ]
+        }, {
+          "name" : "test_addr_deregistration_fees[addr_fee3]",
+          "uid" : "e083723688e61ef0",
+          "parentUid" : "cbfab39cf0c2e18ee7f9c082e2ad678e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070942284,
+            "stop" : 1604070942512,
+            "duration" : 228
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "(10, 305069)" ]
+        }, {
+          "name" : "test_transaction_to_1_addr_from_1_addr_fees[amount_expected0]",
+          "uid" : "c951164a12104371",
+          "parentUid" : "cbfab39cf0c2e18ee7f9c082e2ad678e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070942517,
+            "stop" : 1604070942593,
+            "duration" : 76
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "(1, 176853)" ]
+        }, {
+          "name" : "test_transaction_to_1_addr_from_1_addr_fees[amount_expected1]",
+          "uid" : "40b06fa82d648202",
+          "parentUid" : "cbfab39cf0c2e18ee7f9c082e2ad678e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070942599,
+            "stop" : 1604070942676,
+            "duration" : 77
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "(100, 176897)" ]
+        }, {
+          "name" : "test_transaction_to_1_addr_from_1_addr_fees[amount_expected2]",
+          "uid" : "58d98a1d06e1cdc9",
+          "parentUid" : "cbfab39cf0c2e18ee7f9c082e2ad678e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070942682,
+            "stop" : 1604070942758,
+            "duration" : 76
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "(11000, 176941)" ]
+        }, {
+          "name" : "test_transaction_to_1_addr_from_1_addr_fees[amount_expected3]",
+          "uid" : "f25bb6d8e868d3dd",
+          "parentUid" : "cbfab39cf0c2e18ee7f9c082e2ad678e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070942764,
+            "stop" : 1604070942838,
+            "duration" : 74
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "(100000, 177029)" ]
+        }, {
+          "name" : "test_transaction_to_10_addrs_from_1_addr_fees[amount_expected0]",
+          "uid" : "a02d3f7054f2ca20",
+          "parentUid" : "cbfab39cf0c2e18ee7f9c082e2ad678e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070942843,
+            "stop" : 1604070942919,
+            "duration" : 76
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "(1, 226749)" ]
+        }, {
+          "name" : "test_transaction_to_10_addrs_from_1_addr_fees[amount_expected1]",
+          "uid" : "4fceb49fd496017b",
+          "parentUid" : "cbfab39cf0c2e18ee7f9c082e2ad678e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070942924,
+            "stop" : 1604070943000,
+            "duration" : 76
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "(100, 227189)" ]
+        }, {
+          "name" : "test_transaction_to_10_addrs_from_1_addr_fees[amount_expected2]",
+          "uid" : "4688242175fe3257",
+          "parentUid" : "cbfab39cf0c2e18ee7f9c082e2ad678e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070943006,
+            "stop" : 1604070943081,
+            "duration" : 75
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "(11000, 227629)" ]
+        }, {
+          "name" : "test_transaction_to_10_addrs_from_1_addr_fees[amount_expected3]",
+          "uid" : "f2bcbae6d45331c6",
+          "parentUid" : "cbfab39cf0c2e18ee7f9c082e2ad678e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070943086,
+            "stop" : 1604070943162,
+            "duration" : 76
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "(100000, 228509)" ]
+        }, {
+          "name" : "test_transaction_to_1_addr_from_10_addrs_fees[amount_expected0]",
+          "uid" : "4f173e7267e72ee0",
+          "parentUid" : "cbfab39cf0c2e18ee7f9c082e2ad678e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070943167,
+            "stop" : 1604070943378,
+            "duration" : 211
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "(1, 259837)" ]
+        }, {
+          "name" : "test_transaction_to_1_addr_from_10_addrs_fees[amount_expected1]",
+          "uid" : "6382b841264e3cbc",
+          "parentUid" : "cbfab39cf0c2e18ee7f9c082e2ad678e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070943383,
+            "stop" : 1604070943595,
+            "duration" : 212
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "(100, 259881)" ]
+        }, {
+          "name" : "test_transaction_to_1_addr_from_10_addrs_fees[amount_expected2]",
+          "uid" : "a04a634a27adebf9",
+          "parentUid" : "cbfab39cf0c2e18ee7f9c082e2ad678e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070943600,
+            "stop" : 1604070943813,
+            "duration" : 213
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "(11000, 259925)" ]
+        }, {
+          "name" : "test_transaction_to_1_addr_from_10_addrs_fees[amount_expected3]",
+          "uid" : "bb7bce4013750981",
+          "parentUid" : "cbfab39cf0c2e18ee7f9c082e2ad678e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070943818,
+            "stop" : 1604070944032,
+            "duration" : 214
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "(100000, 260013)" ]
+        }, {
+          "name" : "test_transaction_to_10_addrs_from_10_addrs_fees[amount_expected0]",
+          "uid" : "d8187050c7a3f54b",
+          "parentUid" : "cbfab39cf0c2e18ee7f9c082e2ad678e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070944037,
+            "stop" : 1604070944250,
+            "duration" : 213
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "(1, 309733)" ]
+        }, {
+          "name" : "test_transaction_to_10_addrs_from_10_addrs_fees[amount_expected1]",
+          "uid" : "c7b6324dfac0c090",
+          "parentUid" : "cbfab39cf0c2e18ee7f9c082e2ad678e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070944255,
+            "stop" : 1604070944467,
+            "duration" : 212
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "(100, 310173)" ]
+        }, {
+          "name" : "test_transaction_to_10_addrs_from_10_addrs_fees[amount_expected2]",
+          "uid" : "a30ece679a6549b",
+          "parentUid" : "cbfab39cf0c2e18ee7f9c082e2ad678e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070944472,
+            "stop" : 1604070944682,
+            "duration" : 210
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "(11000, 310613)" ]
+        }, {
+          "name" : "test_transaction_to_10_addrs_from_10_addrs_fees[amount_expected3]",
+          "uid" : "3550ae8bcd352498",
+          "parentUid" : "cbfab39cf0c2e18ee7f9c082e2ad678e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070944687,
+            "stop" : 1604070944902,
+            "duration" : 215
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "(100000, 311493)" ]
+        }, {
+          "name" : "test_transaction_to_100_addrs_from_100_addrs_fees[amount_expected0]",
+          "uid" : "c1cc0a10b431e56c",
+          "parentUid" : "cbfab39cf0c2e18ee7f9c082e2ad678e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070944907,
+            "stop" : 1604070946476,
+            "duration" : 1569
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "(1, 1371057)" ]
+        }, {
+          "name" : "test_transaction_to_100_addrs_from_100_addrs_fees[amount_expected1]",
+          "uid" : "9fcdd1e22cd4d934",
+          "parentUid" : "cbfab39cf0c2e18ee7f9c082e2ad678e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070946481,
+            "stop" : 1604070948055,
+            "duration" : 1574
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "(100, 1375457)" ]
+        }, {
+          "name" : "test_transaction_to_100_addrs_from_100_addrs_fees[amount_expected2]",
+          "uid" : "88fe547eae45764b",
+          "parentUid" : "cbfab39cf0c2e18ee7f9c082e2ad678e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070948060,
+            "stop" : 1604070949633,
+            "duration" : 1573
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "(11000, 1379857)" ]
+        }, {
+          "name" : "test_transaction_to_100_addrs_from_100_addrs_fees[amount_expected3]",
+          "uid" : "ab955e4fb0c7fefb",
+          "parentUid" : "cbfab39cf0c2e18ee7f9c082e2ad678e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070949638,
+            "stop" : 1604070951213,
+            "duration" : 1575
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "(100000, 1388657)" ]
+        } ],
+        "uid" : "cbfab39cf0c2e18ee7f9c082e2ad678e"
+      } ],
+      "uid" : "c58a511703ef87ac29a93021a6543534"
+    }, {
+      "name" : "test_transactions",
+      "children" : [ {
+        "name" : "TestBasic",
+        "children" : [ {
+          "name" : "test_transfer_funds[1]",
+          "uid" : "b3e65c02af6f3c37",
+          "parentUid" : "0145f934635a80a0b8daf77e1ac7519e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070954500,
+            "stop" : 1604070959481,
+            "duration" : 4981
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "1" ]
+        }, {
+          "name" : "test_transfer_funds[10]",
+          "uid" : "795413926994acff",
+          "parentUid" : "0145f934635a80a0b8daf77e1ac7519e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070959487,
+            "stop" : 1604070964466,
+            "duration" : 4979
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "10" ]
+        }, {
+          "name" : "test_transfer_funds[200]",
+          "uid" : "78d804ea029a511d",
+          "parentUid" : "0145f934635a80a0b8daf77e1ac7519e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070964471,
+            "stop" : 1604070969454,
+            "duration" : 4983
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "200" ]
+        }, {
+          "name" : "test_transfer_funds[2000]",
+          "uid" : "c18ed58caa92ad90",
+          "parentUid" : "0145f934635a80a0b8daf77e1ac7519e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070969460,
+            "stop" : 1604070974652,
+            "duration" : 5192
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "2000" ]
+        }, {
+          "name" : "test_transfer_funds[100000]",
+          "uid" : "855c9f32361defde",
+          "parentUid" : "0145f934635a80a0b8daf77e1ac7519e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070974659,
+            "stop" : 1604070979638,
+            "duration" : 4979
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "100000" ]
+        }, {
+          "name" : "test_transfer_all_funds",
+          "uid" : "d64273c93565d8b1",
+          "parentUid" : "0145f934635a80a0b8daf77e1ac7519e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070979644,
+            "stop" : 1604070984626,
+            "duration" : 4982
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_get_txid",
+          "uid" : "3efcd8b3d361c9b8",
+          "parentUid" : "0145f934635a80a0b8daf77e1ac7519e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070984631,
+            "stop" : 1604070989581,
+            "duration" : 4950
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        } ],
+        "uid" : "0145f934635a80a0b8daf77e1ac7519e"
+      }, {
+        "name" : "TestMultiInOut",
+        "children" : [ {
+          "name" : "test_10_transactions",
+          "uid" : "b6ef8dbe5dd98009",
+          "parentUid" : "1c0dcefc2c5bb85b6ff434954d83280f",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604070999490,
+            "stop" : 1604071044649,
+            "duration" : 45159
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_transaction_to_10_addrs_from_1_addr[1]",
+          "uid" : "9991ac83949f0947",
+          "parentUid" : "1c0dcefc2c5bb85b6ff434954d83280f",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604071044653,
+            "stop" : 1604071054625,
+            "duration" : 9972
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "1" ]
+        }, {
+          "name" : "test_transaction_to_10_addrs_from_1_addr[100]",
+          "uid" : "1db816fcdfe69bef",
+          "parentUid" : "1c0dcefc2c5bb85b6ff434954d83280f",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604071054631,
+            "stop" : 1604071064599,
+            "duration" : 9968
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "100" ]
+        }, {
+          "name" : "test_transaction_to_10_addrs_from_1_addr[11000]",
+          "uid" : "7edb33ebff070291",
+          "parentUid" : "1c0dcefc2c5bb85b6ff434954d83280f",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604071064605,
+            "stop" : 1604071069604,
+            "duration" : 4999
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "11000" ]
+        }, {
+          "name" : "test_transaction_to_1_addr_from_10_addrs[1]",
+          "uid" : "b9a850c6b98f49d9",
+          "parentUid" : "1c0dcefc2c5bb85b6ff434954d83280f",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604071069610,
+            "stop" : 1604071074749,
+            "duration" : 5139
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "1" ]
+        }, {
+          "name" : "test_transaction_to_1_addr_from_10_addrs[100]",
+          "uid" : "5ff75d441d3b063c",
+          "parentUid" : "1c0dcefc2c5bb85b6ff434954d83280f",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604071074755,
+            "stop" : 1604071081179,
+            "duration" : 6424
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "100" ]
+        }, {
+          "name" : "test_transaction_to_1_addr_from_10_addrs[11000]",
+          "uid" : "5f442941dcd91b51",
+          "parentUid" : "1c0dcefc2c5bb85b6ff434954d83280f",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604071081185,
+            "stop" : 1604071089776,
+            "duration" : 8591
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "11000" ]
+        }, {
+          "name" : "test_transaction_to_1_addr_from_10_addrs[100000]",
+          "uid" : "88ef148064d6071",
+          "parentUid" : "1c0dcefc2c5bb85b6ff434954d83280f",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604071089781,
+            "stop" : 1604071099674,
+            "duration" : 9893
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "100000" ]
+        }, {
+          "name" : "test_transaction_to_10_addrs_from_10_addrs[1]",
+          "uid" : "76b8a5f1a21719d6",
+          "parentUid" : "1c0dcefc2c5bb85b6ff434954d83280f",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604071099679,
+            "stop" : 1604071109846,
+            "duration" : 10167
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "1" ]
+        }, {
+          "name" : "test_transaction_to_10_addrs_from_10_addrs[100]",
+          "uid" : "7dcc2d122aae31aa",
+          "parentUid" : "1c0dcefc2c5bb85b6ff434954d83280f",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604071109851,
+            "stop" : 1604071115266,
+            "duration" : 5415
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "100" ]
+        }, {
+          "name" : "test_transaction_to_10_addrs_from_10_addrs[11000]",
+          "uid" : "a6e994855d583519",
+          "parentUid" : "1c0dcefc2c5bb85b6ff434954d83280f",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604071115271,
+            "stop" : 1604071119824,
+            "duration" : 4553
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "11000" ]
+        }, {
+          "name" : "test_transaction_to_100_addrs_from_50_addrs[1]",
+          "uid" : "a05e7a1cdf051ff",
+          "parentUid" : "1c0dcefc2c5bb85b6ff434954d83280f",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604071119829,
+            "stop" : 1604071134321,
+            "duration" : 14492
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "1" ]
+        }, {
+          "name" : "test_transaction_to_100_addrs_from_50_addrs[100]",
+          "uid" : "4e956b4a155391e9",
+          "parentUid" : "1c0dcefc2c5bb85b6ff434954d83280f",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604071134326,
+            "stop" : 1604071145184,
+            "duration" : 10858
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "100" ]
+        }, {
+          "name" : "test_transaction_to_100_addrs_from_50_addrs[1000]",
+          "uid" : "b387beb2a204f7c1",
+          "parentUid" : "1c0dcefc2c5bb85b6ff434954d83280f",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604071145188,
+            "stop" : 1604071157325,
+            "duration" : 12137
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ "1000" ]
+        } ],
+        "uid" : "1c0dcefc2c5bb85b6ff434954d83280f"
+      }, {
+        "name" : "TestNotBalanced",
+        "children" : [ {
+          "name" : "test_negative_change",
+          "uid" : "d653c282e3dcc5a1",
+          "parentUid" : "178c336f782b5bf9d65832a97bc7e8fc",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604071159514,
+            "stop" : 1604071159621,
+            "duration" : 107
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_wrong_balance",
+          "uid" : "de845cfaa003b7b",
+          "parentUid" : "178c336f782b5bf9d65832a97bc7e8fc",
+          "status" : "broken",
+          "time" : {
+            "start" : 1604071159625,
+            "stop" : 1604071167238,
+            "duration" : 7613
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        } ],
+        "uid" : "178c336f782b5bf9d65832a97bc7e8fc"
+      }, {
+        "name" : "TestNegative",
+        "children" : [ {
+          "name" : "test_past_ttl",
+          "uid" : "a04e2104f7d0034c",
+          "parentUid" : "12cc86ceacc521172c6a10e4a0facaaa",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604071169514,
+            "stop" : 1604071169652,
+            "duration" : 138
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_duplicated_tx",
+          "uid" : "f5b047a863105e96",
+          "parentUid" : "12cc86ceacc521172c6a10e4a0facaaa",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604071169657,
+            "stop" : 1604071174650,
+            "duration" : 4993
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_wrong_signing_key",
+          "uid" : "97134413ff38b068",
+          "parentUid" : "12cc86ceacc521172c6a10e4a0facaaa",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604071174655,
+            "stop" : 1604071174809,
+            "duration" : 154
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_extra_signing_keys",
+          "uid" : "330c154212ae8037",
+          "parentUid" : "12cc86ceacc521172c6a10e4a0facaaa",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604071174814,
+            "stop" : 1604071179577,
+            "duration" : 4763
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_duplicate_signing_keys",
+          "uid" : "bc10318572fc865b",
+          "parentUid" : "12cc86ceacc521172c6a10e4a0facaaa",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604071179582,
+            "stop" : 1604071184567,
+            "duration" : 4985
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_send_funds_to_reward_address",
+          "uid" : "1d03245316f52367",
+          "parentUid" : "12cc86ceacc521172c6a10e4a0facaaa",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604071184573,
+            "stop" : 1604071184619,
+            "duration" : 46
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_send_funds_to_non_existent_address",
+          "uid" : "d95df18a243c7380",
+          "parentUid" : "12cc86ceacc521172c6a10e4a0facaaa",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604071184624,
+            "stop" : 1604071189800,
+            "duration" : 5176
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_send_funds_to_invalid_length_address",
+          "uid" : "5ca81f5b35d5edda",
+          "parentUid" : "12cc86ceacc521172c6a10e4a0facaaa",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604071189805,
+            "stop" : 1604071195611,
+            "duration" : 5806
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_send_funds_to_invalid_chars_address",
+          "uid" : "a9d4b97cdc8ced66",
+          "parentUid" : "12cc86ceacc521172c6a10e4a0facaaa",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604071195617,
+            "stop" : 1604071201003,
+            "duration" : 5386
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_send_funds_from_non_existent_address",
+          "uid" : "fba8e16947500f75",
+          "parentUid" : "12cc86ceacc521172c6a10e4a0facaaa",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604071201008,
+            "stop" : 1604071204596,
+            "duration" : 3588
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_send_funds_from_invalid_length_address",
+          "uid" : "2ba59e161ab03481",
+          "parentUid" : "12cc86ceacc521172c6a10e4a0facaaa",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604071204601,
+            "stop" : 1604071208855,
+            "duration" : 4254
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_send_funds_from_invalid_chars_address",
+          "uid" : "659b5e265580c839",
+          "parentUid" : "12cc86ceacc521172c6a10e4a0facaaa",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604071208860,
+            "stop" : 1604071212720,
+            "duration" : 3860
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_missing_fee",
+          "uid" : "e9c997e4f03c0ee8",
+          "parentUid" : "12cc86ceacc521172c6a10e4a0facaaa",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604071212725,
+            "stop" : 1604071212832,
+            "duration" : 107
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_missing_ttl",
+          "uid" : "159533c9ca5c1adf",
+          "parentUid" : "12cc86ceacc521172c6a10e4a0facaaa",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604071212837,
+            "stop" : 1604071212944,
+            "duration" : 107
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_missing_tx_in",
+          "uid" : "fed2c28c66b6f8c0",
+          "parentUid" : "12cc86ceacc521172c6a10e4a0facaaa",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604071212949,
+            "stop" : 1604071213056,
+            "duration" : 107
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_missing_tx_out",
+          "uid" : "58983a12ea9d9627",
+          "parentUid" : "12cc86ceacc521172c6a10e4a0facaaa",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604071213061,
+            "stop" : 1604071213167,
+            "duration" : 106
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        } ],
+        "uid" : "12cc86ceacc521172c6a10e4a0facaaa"
+      }, {
+        "name" : "TestMetadata",
+        "children" : [ {
+          "name" : "test_tx_wrong_json_metadata_format",
+          "uid" : "30e863f10e778d99",
+          "parentUid" : "7940a8be176c91485acc5f79cb8c8279",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604071217059,
+            "stop" : 1604071217116,
+            "duration" : 57
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_tx_invalid_json_metadata",
+          "uid" : "47250e970bac26ae",
+          "parentUid" : "7940a8be176c91485acc5f79cb8c8279",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604071217121,
+            "stop" : 1604071217168,
+            "duration" : 47
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_tx_too_long_metadata_json",
+          "uid" : "12efbf71c0d273c",
+          "parentUid" : "7940a8be176c91485acc5f79cb8c8279",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604071217173,
+            "stop" : 1604071217219,
+            "duration" : 46
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_tx_metadata_json",
+          "uid" : "5a1b99e96e143563",
+          "parentUid" : "7940a8be176c91485acc5f79cb8c8279",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604071217224,
+            "stop" : 1604071222139,
+            "duration" : 4915
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_tx_metadata_cbor",
+          "uid" : "f87ee2507af2c32f",
+          "parentUid" : "7940a8be176c91485acc5f79cb8c8279",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604071222145,
+            "stop" : 1604071227074,
+            "duration" : 4929
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "test_tx_metadata_both",
+          "uid" : "c0f7c3793fd2f8c5",
+          "parentUid" : "7940a8be176c91485acc5f79cb8c8279",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604071227081,
+            "stop" : 1604071229627,
+            "duration" : 2546
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        } ],
+        "uid" : "7940a8be176c91485acc5f79cb8c8279"
+      } ],
+      "uid" : "e28c67859f37f30a740efee180ee3ffb"
+    }, {
+      "name" : "test_kes",
+      "children" : [ {
+        "name" : "TestKES",
+        "children" : [ {
+          "name" : "test_expired_kes",
+          "uid" : "8473267f56d3fe38",
+          "parentUid" : "bb71e386e14fe9aeac273c5a77b85c1e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1604086340113,
+            "stop" : 1604086702276,
+            "duration" : 362163
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        } ],
+        "uid" : "bb71e386e14fe9aeac273c5a77b85c1e"
+      } ],
+      "uid" : "cd5b885703b3f27a3f0cc31b00c5d43f"
+    }, {
+      "name" : "test_update_proposal",
+      "children" : [ {
+        "name" : "test_update_proposal",
+        "uid" : "71d38088e4e2a104",
+        "parentUid" : "755051f38e0884fd3ee31effdca3b7e9",
+        "status" : "passed",
+        "time" : {
+          "start" : 1604086924583,
+          "stop" : 1604087309003,
+          "duration" : 384420
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "755051f38e0884fd3ee31effdca3b7e9"
+    }, {
+      "name" : "test_configuration",
+      "children" : [ {
+        "name" : "test_slot_length",
+        "uid" : "85dca0e3c31b122e",
+        "parentUid" : "a8ecb5222f17b78ab292c398c7e022ea",
+        "status" : "passed",
+        "time" : {
+          "start" : 1604087327405,
+          "stop" : 1604087916652,
+          "duration" : 589247
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      }, {
+        "name" : "test_epoch_length",
+        "uid" : "76e75888e44dd135",
+        "parentUid" : "a8ecb5222f17b78ab292c398c7e022ea",
+        "status" : "passed",
+        "time" : {
+          "start" : 1604088144272,
+          "stop" : 1604088615493,
+          "duration" : 471221
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "a8ecb5222f17b78ab292c398c7e022ea"
+    } ],
+    "uid" : "37248bf2231bbe75b7ec3f0ac92c5cbd"
+  } ]
+}

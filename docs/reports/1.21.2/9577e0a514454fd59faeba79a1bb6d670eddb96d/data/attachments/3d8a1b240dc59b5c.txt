@@ -1,0 +1,5 @@
+INFO     cardano_node_tests.tests.conftest:conftest.py:50 Changed CWD to '/home/martink/toolbox_tmp/pytest-of-martink/pytest-1/popen-gw3'.
+INFO     cardano_node_tests.utils.devops_cluster:devops_cluster.py:65 Stopping cluster.
+INFO     cardano_node_tests.utils.devops_cluster:devops_cluster.py:55 Starting cluster with `/home/martink/toolbox_tmp/pytest-of-martink/pytest-1/tmp/startup_files_epoch_1200/start-cluster`.
+INFO     cardano_node_tests.utils.devops_cluster:devops_cluster.py:58 Cluster started.
+INFO     cardano_node_tests.utils.clusterlib:clusterlib.py:1386 Waiting for 231 sec for start of the epoch no 1

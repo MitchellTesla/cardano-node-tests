@@ -1,0 +1,26 @@
+{
+  "uid" : "4b4757e66a1912dae1a509f688f20b0f",
+  "name" : "categories",
+  "children" : [ {
+    "name" : "Test defects",
+    "children" : [ {
+      "name" : "hypothesis.errors.MultipleFailures: Hypothesis found 2 distinct failures.",
+      "children" : [ {
+        "name" : "test_wrong_balance",
+        "uid" : "41e18e6aecd4612",
+        "parentUid" : "d5b8021efc55e0dd2daee5b88c88c667",
+        "status" : "broken",
+        "time" : {
+          "start" : 1604005087288,
+          "stop" : 1604005094824,
+          "duration" : 7536
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "d5b8021efc55e0dd2daee5b88c88c667"
+    } ],
+    "uid" : "bdbf199525818fae7a8651db9eafe741"
+  } ]
+}

@@ -1,0 +1,1521 @@
+[ {
+  "uid" : "de8b2dee8bb722c7",
+  "name" : "test_deregister",
+  "time" : {
+    "start" : 1603207359228,
+    "stop" : 1603208170871,
+    "duration" : 811643
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "ec4a70b96e8c4c9d",
+  "name" : "test_stake_pool_metadata_long_name",
+  "time" : {
+    "start" : 1603206963307,
+    "stop" : 1603206967584,
+    "duration" : 4277
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "470999246e53e57a",
+  "name" : "test_epoch_length",
+  "time" : {
+    "start" : 1603222435094,
+    "stop" : 1603222906365,
+    "duration" : 471271
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "4ee0c5ca4626c7b1",
+  "name" : "test_smaller_fee[2]",
+  "time" : {
+    "start" : 1603207363444,
+    "stop" : 1603207363599,
+    "duration" : 155
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "6b2001af9848a018",
+  "name" : "test_addr_deregistration_fees[addr_fee3]",
+  "time" : {
+    "start" : 1603207192924,
+    "stop" : 1603207193126,
+    "duration" : 202
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "2595ce923ea8d026",
+  "name" : "test_no_reward_deregistered_stake_addr",
+  "time" : {
+    "start" : 1603218588283,
+    "stop" : 1603221588366,
+    "duration" : 3000083
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "453e62b7224ad99f",
+  "name" : "test_addr_registration_deregistration",
+  "time" : {
+    "start" : 1603208175563,
+    "stop" : 1603208178148,
+    "duration" : 2585
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "2633871ca422c0f8",
+  "name" : "test_reward_amount",
+  "time" : {
+    "start" : 1603206973334,
+    "stop" : 1603208393128,
+    "duration" : 1419794
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "6ece899045d386bb",
+  "name" : "test_addr_registration_fees[addr_fee1]",
+  "time" : {
+    "start" : 1603207192107,
+    "stop" : 1603207192217,
+    "duration" : 110
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "1ad9542f9ff0feae",
+  "name" : "test_transaction_to_10_addrs_from_1_addr_fees[amount_expected0]",
+  "time" : {
+    "start" : 1603207193430,
+    "stop" : 1603207193498,
+    "duration" : 68
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "fe78768a3928f668",
+  "name" : "test_transfer_funds[2000]",
+  "time" : {
+    "start" : 1603207220469,
+    "stop" : 1603207225611,
+    "duration" : 5142
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "c892c9408145f8d0",
+  "name" : "test_transaction_to_10_addrs_from_10_addrs_fees[amount_expected1]",
+  "time" : {
+    "start" : 1603207194731,
+    "stop" : 1603207194925,
+    "duration" : 194
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "568a743124d24b93",
+  "name" : "test_send_funds_to_reward_address",
+  "time" : {
+    "start" : 1603207408121,
+    "stop" : 1603207408163,
+    "duration" : 42
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "a154f4cc648ab075",
+  "name" : "test_stake_pool_metadata_no_ticker",
+  "time" : {
+    "start" : 1603222418186,
+    "stop" : 1603222418200,
+    "duration" : 14
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "26526e76a82ee0a2",
+  "name" : "test_pool_deregistration_fees[addr_fee3]",
+  "time" : {
+    "start" : 1603207191889,
+    "stop" : 1603207192014,
+    "duration" : 125
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "6efe86634259b4e0",
+  "name" : "test_transfer_funds[200]",
+  "time" : {
+    "start" : 1603207215532,
+    "stop" : 1603207220465,
+    "duration" : 4933
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "58c7f93712bbdf49",
+  "name" : "test_transaction_to_100_addrs_from_100_addrs_fees[amount_expected0]",
+  "time" : {
+    "start" : 1603207195327,
+    "stop" : 1603207196765,
+    "duration" : 1438
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "ea1b6122e1d28929",
+  "name" : "test_transaction_to_10_addrs_from_1_addr[11000]",
+  "time" : {
+    "start" : 1603207301080,
+    "stop" : 1603207310728,
+    "duration" : 9648
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "6dd6e802aac1bb45",
+  "name" : "test_transaction_to_10_addrs_from_10_addrs[1]",
+  "time" : {
+    "start" : 1603207346002,
+    "stop" : 1603207353446,
+    "duration" : 7444
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "a5031b6d878d104e",
+  "name" : "test_send_funds_from_invalid_chars_address",
+  "time" : {
+    "start" : 1603207421814,
+    "stop" : 1603207425450,
+    "duration" : 3636
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "37e19542af601e33",
+  "name" : "test_tx_metadata_cbor",
+  "time" : {
+    "start" : 1603207428282,
+    "stop" : 1603207433221,
+    "duration" : 4939
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "609f174eb20f101c",
+  "name" : "test_transaction_to_10_addrs_from_1_addr_fees[amount_expected2]",
+  "time" : {
+    "start" : 1603207193582,
+    "stop" : 1603207193651,
+    "duration" : 69
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "90339f02af416e8",
+  "name" : "test_tx_too_long_metadata_json",
+  "time" : {
+    "start" : 1603207433110,
+    "stop" : 1603207433153,
+    "duration" : 43
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "81ae538481684cf6",
+  "name" : "test_multisig_atleast_low_num_of_skeys",
+  "time" : {
+    "start" : 1603222218191,
+    "stop" : 1603222224255,
+    "duration" : 6064
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "730d354d9ea64e07",
+  "name" : "test_expected_or_higher_fee[1000000]",
+  "time" : {
+    "start" : 1603207170569,
+    "stop" : 1603207175500,
+    "duration" : 4931
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "94216af57e83756b",
+  "name" : "test_stake_pool_cost[500]",
+  "time" : {
+    "start" : 1603206722146,
+    "stop" : 1603206737155,
+    "duration" : 15009
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "2076d4f111d0bfbb",
+  "name" : "test_tx_invalid_json_metadata",
+  "time" : {
+    "start" : 1603207428231,
+    "stop" : 1603207428277,
+    "duration" : 46
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "5d1adf34de7217b2",
+  "name" : "test_wrong_balance",
+  "time" : {
+    "start" : 1603207390552,
+    "stop" : 1603207398014,
+    "duration" : 7462
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "c8338aa1c59ed76b",
+  "name" : "test_send_funds_to_invalid_length_address",
+  "time" : {
+    "start" : 1603207412924,
+    "stop" : 1603207418399,
+    "duration" : 5475
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "378a14393ccce0b8",
+  "name" : "test_transaction_to_1_addr_from_1_addr_fees[amount_expected1]",
+  "time" : {
+    "start" : 1603207193206,
+    "stop" : 1603207193275,
+    "duration" : 69
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "a2864959d7d4ecf7",
+  "name" : "test_stake_pool_metadata_no_name",
+  "time" : {
+    "start" : 1603207159389,
+    "stop" : 1603207159403,
+    "duration" : 14
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "22315582b42324fd",
+  "name" : "test_transaction_to_100_addrs_from_50_addrs[100]",
+  "time" : {
+    "start" : 1603207377913,
+    "stop" : 1603207390507,
+    "duration" : 12594
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "33135c5c50d16c74",
+  "name" : "test_transaction_to_10_addrs_from_10_addrs_fees[amount_expected2]",
+  "time" : {
+    "start" : 1603207194931,
+    "stop" : 1603207195123,
+    "duration" : 192
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "e5454c22b8524dae",
+  "name" : "test_no_reward_unmet_pledge1",
+  "time" : {
+    "start" : 1603210072166,
+    "stop" : 1603215388301,
+    "duration" : 5316135
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "e1ddaeffb5957c62",
+  "name" : "test_transaction_to_1_addr_from_10_addrs[11000]",
+  "time" : {
+    "start" : 1603207330730,
+    "stop" : 1603207339004,
+    "duration" : 8274
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "ea83e3792f5e5e2a",
+  "name" : "test_addr_deregistration_fees[addr_fee1]",
+  "time" : {
+    "start" : 1603207192667,
+    "stop" : 1603207192777,
+    "duration" : 110
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "7393f1a8e3ae55b3",
+  "name" : "test_transaction_to_10_addrs_from_10_addrs_fees[amount_expected3]",
+  "time" : {
+    "start" : 1603207195129,
+    "stop" : 1603207195322,
+    "duration" : 193
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "b1e1f72511dc0092",
+  "name" : "test_stake_pool_metadata_not_avail",
+  "time" : {
+    "start" : 1603206768160,
+    "stop" : 1603206783201,
+    "duration" : 15041
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "24a6f8db2dcdfee9",
+  "name" : "test_transaction_to_100_addrs_from_50_addrs[1000]",
+  "time" : {
+    "start" : 1603207390513,
+    "stop" : 1603207405512,
+    "duration" : 14999
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "8c79bff79e2f583c",
+  "name" : "test_multisig_atleast",
+  "time" : {
+    "start" : 1603206793060,
+    "stop" : 1603206823071,
+    "duration" : 30011
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "bcdba5ab2ef65fac",
+  "name" : "test_pool_deregistration_fees[addr_fee0]",
+  "time" : {
+    "start" : 1603207191498,
+    "stop" : 1603207191623,
+    "duration" : 125
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "10fc52fc4d80844b",
+  "name" : "test_send_funds_to_invalid_chars_address",
+  "time" : {
+    "start" : 1603207413125,
+    "stop" : 1603207418560,
+    "duration" : 5435
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "5a9a40e6df021a37",
+  "name" : "test_no_reward_unmet_pledge2",
+  "time" : {
+    "start" : 1603215388306,
+    "stop" : 1603218588279,
+    "duration" : 3199973
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "96218136ca9a3a8f",
+  "name" : "test_10_transactions",
+  "time" : {
+    "start" : 1603207244019,
+    "stop" : 1603207288003,
+    "duration" : 43984
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "ebb990d6593a8dd5",
+  "name" : "test_addr_registration_fees[addr_fee2]",
+  "time" : {
+    "start" : 1603207192223,
+    "stop" : 1603207192363,
+    "duration" : 140
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "6603cf0fa6781115",
+  "name" : "test_stake_pool_cost[9999999]",
+  "time" : {
+    "start" : 1603206717024,
+    "stop" : 1603206732281,
+    "duration" : 15257
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "9260c569291c4c35",
+  "name" : "test_addr_registration_fees[addr_fee3]",
+  "time" : {
+    "start" : 1603207192368,
+    "stop" : 1603207192574,
+    "duration" : 206
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "6289143c10996b9c",
+  "name" : "test_pool_deregistration_not_registered",
+  "time" : {
+    "start" : 1603206978035,
+    "stop" : 1603206978233,
+    "duration" : 198
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "97829c9465762d70",
+  "name" : "test_transaction_to_100_addrs_from_50_addrs[1]",
+  "time" : {
+    "start" : 1603207373491,
+    "stop" : 1603207385285,
+    "duration" : 11794
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "3dc383d4b76a8ffe",
+  "name" : "test_transaction_to_10_addrs_from_1_addr_fees[amount_expected3]",
+  "time" : {
+    "start" : 1603207193657,
+    "stop" : 1603207193726,
+    "duration" : 69
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "bf2a4702400c8ad2",
+  "name" : "test_stake_pool_metadata_long_homepage",
+  "time" : {
+    "start" : 1603206992538,
+    "stop" : 1603207035665,
+    "duration" : 43127
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "bf41a8337f3a974",
+  "name" : "test_transfer_funds[100000]",
+  "time" : {
+    "start" : 1603207225617,
+    "stop" : 1603207228189,
+    "duration" : 2572
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "b5a550e8eeaaaccb",
+  "name" : "test_transaction_to_10_addrs_from_10_addrs[11000]",
+  "time" : {
+    "start" : 1603207363480,
+    "stop" : 1603207373486,
+    "duration" : 10006
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "ebca7edbea302ae1",
+  "name" : "test_missing_ttl",
+  "time" : {
+    "start" : 1603207425455,
+    "stop" : 1603207425552,
+    "duration" : 97
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "f8ae2d5fd38ff58f",
+  "name" : "test_update_stake_pool_parameters[1]",
+  "time" : {
+    "start" : 1603206843300,
+    "stop" : 1603206959303,
+    "duration" : 116003
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "f74de054202667db",
+  "name" : "test_cancel_stake_pool_deregistration",
+  "time" : {
+    "start" : 1603206818226,
+    "stop" : 1603207564972,
+    "duration" : 746746
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "78d242097dd1f128",
+  "name" : "test_send_funds_to_non_existent_address",
+  "time" : {
+    "start" : 1603207408168,
+    "stop" : 1603207412919,
+    "duration" : 4751
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "b48731cca24d32f",
+  "name" : "test_transaction_to_100_addrs_from_100_addrs_fees[amount_expected2]",
+  "time" : {
+    "start" : 1603207198225,
+    "stop" : 1603207199663,
+    "duration" : 1438
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "16cf73ad59e59aef",
+  "name" : "test_multisig_all",
+  "time" : {
+    "start" : 1603206788187,
+    "stop" : 1603206798175,
+    "duration" : 9988
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "9203afc48863649e",
+  "name" : "test_send_funds_from_non_existent_address",
+  "time" : {
+    "start" : 1603207418419,
+    "stop" : 1603207421809,
+    "duration" : 3390
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "c4be1a65e044b3b6",
+  "name" : "test_extra_signing_keys",
+  "time" : {
+    "start" : 1603207408353,
+    "stop" : 1603207413118,
+    "duration" : 4765
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "fbf4c917f215c2f3",
+  "name" : "test_expected_or_higher_fee[1000]",
+  "time" : {
+    "start" : 1603207163062,
+    "stop" : 1603207165628,
+    "duration" : 2566
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "6c36770f1ed60cf4",
+  "name" : "test_stake_pool_low_cost",
+  "time" : {
+    "start" : 1603206712133,
+    "stop" : 1603206723454,
+    "duration" : 11321
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "e33800e55d71bd7b",
+  "name" : "test_multisig_any_unlisted_skey",
+  "time" : {
+    "start" : 1603222927201,
+    "stop" : 1603222932238,
+    "duration" : 5037
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "963b7c7da8820f25",
+  "name" : "test_pool_registration_missing_payment_skey",
+  "time" : {
+    "start" : 1603206968212,
+    "stop" : 1603206968394,
+    "duration" : 182
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "64a2999fccea8090",
+  "name" : "test_missing_tx_out",
+  "time" : {
+    "start" : 1603207423082,
+    "stop" : 1603207423190,
+    "duration" : 108
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "bcd4f9d92d1b3bff",
+  "name" : "test_transfer_funds[1]",
+  "time" : {
+    "start" : 1603207205433,
+    "stop" : 1603207210587,
+    "duration" : 5154
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "8fb65f4575d2fa39",
+  "name" : "test_deregister_stake_pool[3]",
+  "time" : {
+    "start" : 1603222932242,
+    "stop" : 1603223112595,
+    "duration" : 180353
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "6812f12f33155203",
+  "name" : "test_no_reward_deregistered_reward_addr",
+  "time" : {
+    "start" : 1603206993889,
+    "stop" : 1603209988167,
+    "duration" : 2994278
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "75fb4a917782a5f1",
+  "name" : "test_negative_change",
+  "time" : {
+    "start" : 1603207390448,
+    "stop" : 1603207390547,
+    "duration" : 99
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "ef3a3b366f479033",
+  "name" : "test_stake_pool_metadata_no_description",
+  "time" : {
+    "start" : 1603223117223,
+    "stop" : 1603223117237,
+    "duration" : 14
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "eb2d9e3a8bb4dd2f",
+  "name" : "test_pool_registration_fees[addr_fee0]",
+  "time" : {
+    "start" : 1603207190459,
+    "stop" : 1603207190612,
+    "duration" : 153
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "c02031259888b049",
+  "name" : "test_stake_pool_metadata_long_ticker",
+  "time" : {
+    "start" : 1603206990731,
+    "stop" : 1603206992534,
+    "duration" : 1803
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "3b043cc9985db4e7",
+  "name" : "test_pool_registration_fees[addr_fee1]",
+  "time" : {
+    "start" : 1603207190618,
+    "stop" : 1603207190822,
+    "duration" : 204
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "c371e2d6e4404404",
+  "name" : "test_expected_or_higher_fee[100000]",
+  "time" : {
+    "start" : 1603207165634,
+    "stop" : 1603207170561,
+    "duration" : 4927
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "5962e50aa24e3551",
+  "name" : "test_transaction_to_1_addr_from_10_addrs[100000]",
+  "time" : {
+    "start" : 1603207339010,
+    "stop" : 1603207345997,
+    "duration" : 6987
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "695620536711ed84",
+  "name" : "test_normal_tx_from_script_addr",
+  "time" : {
+    "start" : 1603206813214,
+    "stop" : 1603206818221,
+    "duration" : 5007
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "a3342ebb027c680a",
+  "name" : "test_register_addr_with_wrong_key",
+  "time" : {
+    "start" : 1603206988172,
+    "stop" : 1603206988340,
+    "duration" : 168
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "d41e47c5158e178b",
+  "name" : "test_transaction_to_1_addr_from_1_addr_fees[amount_expected0]",
+  "time" : {
+    "start" : 1603207193132,
+    "stop" : 1603207193202,
+    "duration" : 70
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "803b4eda1fc8d64b",
+  "name" : "test_stake_pool_metadata_long_description",
+  "time" : {
+    "start" : 1603206967588,
+    "stop" : 1603206990728,
+    "duration" : 23140
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "8f9a8d07f25a230d",
+  "name" : "test_transaction_to_10_addrs_from_10_addrs[100]",
+  "time" : {
+    "start" : 1603207353451,
+    "stop" : 1603207363475,
+    "duration" : 10024
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "434662d107e3e9bf",
+  "name" : "test_update_proposal",
+  "time" : {
+    "start" : 1603223119968,
+    "stop" : 1603223514419,
+    "duration" : 394451
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "9094375240ec2384",
+  "name" : "test_addr_registration_fees[addr_fee0]",
+  "time" : {
+    "start" : 1603207192019,
+    "stop" : 1603207192102,
+    "duration" : 83
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "569c14bc74aa54a6",
+  "name" : "test_pool_registration_fees[addr_fee2]",
+  "time" : {
+    "start" : 1603207190827,
+    "stop" : 1603207191089,
+    "duration" : 262
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "82204bf7d6d9f23f",
+  "name" : "test_expected_or_higher_fee[0]",
+  "time" : {
+    "start" : 1603207363606,
+    "stop" : 1603207367947,
+    "duration" : 4341
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "4e3a832b817513bc",
+  "name" : "test_create_stake_pool[3]",
+  "time" : {
+    "start" : 1603206788090,
+    "stop" : 1603206823121,
+    "duration" : 35031
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "a4ccc0ebf3dac645",
+  "name" : "test_duplicate_signing_keys",
+  "time" : {
+    "start" : 1603207405757,
+    "stop" : 1603207408116,
+    "duration" : 2359
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "1328fdea518bd7b0",
+  "name" : "test_update_stake_pool_parameters[2]",
+  "time" : {
+    "start" : 1603206823126,
+    "stop" : 1603206959207,
+    "duration" : 136081
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "2a62a2ce8dda814e",
+  "name" : "test_get_txid",
+  "time" : {
+    "start" : 1603207233140,
+    "stop" : 1603207235467,
+    "duration" : 2327
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "98c52c36ff169f56",
+  "name" : "test_negative_fee",
+  "time" : {
+    "start" : 1603212193028,
+    "stop" : 1603212197310,
+    "duration" : 4282
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "8b2956ed2b22a80b",
+  "name" : "test_reregister_stake_pool",
+  "time" : {
+    "start" : 1603222224260,
+    "stop" : 1603222413344,
+    "duration" : 189084
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "d0b9a8ec70999b9f",
+  "name" : "test_stake_pool_metadata_no_homepage",
+  "time" : {
+    "start" : 1603207568093,
+    "stop" : 1603207568107,
+    "duration" : 14
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "47ab53012d0eca5e",
+  "name" : "test_transaction_to_1_addr_from_10_addrs_fees[amount_expected0]",
+  "time" : {
+    "start" : 1603207193730,
+    "stop" : 1603207193920,
+    "duration" : 190
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "3b72bbcdea5127a",
+  "name" : "test_transaction_to_1_addr_from_10_addrs_fees[amount_expected1]",
+  "time" : {
+    "start" : 1603207193926,
+    "stop" : 1603207194122,
+    "duration" : 196
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "7176ce6fe3819d41",
+  "name" : "test_addr_delegation_deregistration",
+  "time" : {
+    "start" : 1603208178264,
+    "stop" : 1603208188219,
+    "duration" : 9955
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "71c3552bd7a4e6c8",
+  "name" : "test_transaction_to_10_addrs_from_1_addr[100]",
+  "time" : {
+    "start" : 1603207295085,
+    "stop" : 1603207301075,
+    "duration" : 5990
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "e9bdb498b11fcc42",
+  "name" : "test_delegation_cert_with_wrong_key",
+  "time" : {
+    "start" : 1603206988039,
+    "stop" : 1603206988054,
+    "duration" : 15
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "a1fa65b7e2ea29f4",
+  "name" : "test_decreasing_reward_transfered_funds",
+  "time" : {
+    "start" : 1603208393133,
+    "stop" : 1603210072161,
+    "duration" : 1679028
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "9252624fc8d74102",
+  "name" : "test_stake_pool_long_metadata_url",
+  "time" : {
+    "start" : 1603207035668,
+    "stop" : 1603207035731,
+    "duration" : 63
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "4c338f63fcc4a6b7",
+  "name" : "test_update_stake_pool_metadata[1]",
+  "time" : {
+    "start" : 1603206813429,
+    "stop" : 1603206959181,
+    "duration" : 145752
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "86474c89be168952",
+  "name" : "test_delegate_addr_with_wrong_key",
+  "time" : {
+    "start" : 1603206988457,
+    "stop" : 1603206993312,
+    "duration" : 4855
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "7ba12c2e030f79d2",
+  "name" : "test_smaller_fee[1.5]",
+  "time" : {
+    "start" : 1603207363282,
+    "stop" : 1603207363438,
+    "duration" : 156
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "3185b6f938775959",
+  "name" : "test_deregister_not_registered_addr",
+  "time" : {
+    "start" : 1603206993717,
+    "stop" : 1603206993884,
+    "duration" : 167
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "1c304294a627b2dd",
+  "name" : "test_pool_registration_fees[addr_fee3]",
+  "time" : {
+    "start" : 1603207191095,
+    "stop" : 1603207191492,
+    "duration" : 397
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "e15c26e154309eaf",
+  "name" : "test_tx_metadata_json",
+  "time" : {
+    "start" : 1603207433158,
+    "stop" : 1603207438051,
+    "duration" : 4893
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "499094a1da4a5c71",
+  "name" : "test_send_funds_from_invalid_length_address",
+  "time" : {
+    "start" : 1603207418567,
+    "stop" : 1603207422848,
+    "duration" : 4281
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "88af4ba8e3c01ee",
+  "name" : "test_transaction_to_10_addrs_from_1_addr_fees[amount_expected1]",
+  "time" : {
+    "start" : 1603207193504,
+    "stop" : 1603207193575,
+    "duration" : 71
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "26fb9e07a48bdf5f",
+  "name" : "test_stake_pool_metadata",
+  "time" : {
+    "start" : 1603206798180,
+    "stop" : 1603206813425,
+    "duration" : 15245
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "b87cf140fbd3f77c",
+  "name" : "test_transaction_to_10_addrs_from_1_addr[1]",
+  "time" : {
+    "start" : 1603207288007,
+    "stop" : 1603207295080,
+    "duration" : 7073
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "4156275cf23a536e",
+  "name" : "test_past_ttl",
+  "time" : {
+    "start" : 1603207408208,
+    "stop" : 1603207408347,
+    "duration" : 139
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "e017532347d9eab6",
+  "name" : "test_registration_cert_with_wrong_key",
+  "time" : {
+    "start" : 1603208188224,
+    "stop" : 1603208188238,
+    "duration" : 14
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "24688b3abb82a931",
+  "name" : "test_pool_registration_cert_wrong_cold",
+  "time" : {
+    "start" : 1603222418139,
+    "stop" : 1603222418181,
+    "duration" : 42
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "2d5f988c245be382",
+  "name" : "test_smaller_fee[0]",
+  "time" : {
+    "start" : 1603212197314,
+    "stop" : 1603212197382,
+    "duration" : 68
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "479b67e54d2b46eb",
+  "name" : "test_pool_registration_cert_wrong_vrf",
+  "time" : {
+    "start" : 1603223117176,
+    "stop" : 1603223117217,
+    "duration" : 41
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "837c59e439bf3c16",
+  "name" : "test_deregister_reward_addr_retire_pool",
+  "time" : {
+    "start" : 1603209988172,
+    "stop" : 1603212188285,
+    "duration" : 2200113
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "c8f7b64447c549dd",
+  "name" : "test_script_addr_length",
+  "time" : {
+    "start" : 1603206803032,
+    "stop" : 1603206803326,
+    "duration" : 294
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "2432d1c7cef2a6ba",
+  "name" : "test_transaction_to_1_addr_from_10_addrs_fees[amount_expected2]",
+  "time" : {
+    "start" : 1603207194127,
+    "stop" : 1603207194324,
+    "duration" : 197
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "b7227cc464452e7b",
+  "name" : "test_pool_registration_conflicting_certs",
+  "time" : {
+    "start" : 1603206973121,
+    "stop" : 1603206973329,
+    "duration" : 208
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "fbc76d80278e7b02",
+  "name" : "test_duplicated_tx",
+  "time" : {
+    "start" : 1603207403023,
+    "stop" : 1603207405606,
+    "duration" : 2583
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "970759f5f44d7edc",
+  "name" : "test_multisig_any",
+  "time" : {
+    "start" : 1603206635056,
+    "stop" : 1603206690120,
+    "duration" : 55064
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "3b4a131c0a891052",
+  "name" : "test_transaction_to_100_addrs_from_100_addrs_fees[amount_expected1]",
+  "time" : {
+    "start" : 1603207196772,
+    "stop" : 1603207198221,
+    "duration" : 1449
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "ffd9f88c5fd60cc4",
+  "name" : "test_transaction_to_1_addr_from_10_addrs[100]",
+  "time" : {
+    "start" : 1603207320734,
+    "stop" : 1603207330725,
+    "duration" : 9991
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "5d73cde9ad4ead37",
+  "name" : "test_multisig_all_missing_skey",
+  "time" : {
+    "start" : 1603206778212,
+    "stop" : 1603206783371,
+    "duration" : 5159
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "bc069135c7ad0c86",
+  "name" : "test_delegate_using_vkey",
+  "time" : {
+    "start" : 1603206968399,
+    "stop" : 1603207359224,
+    "duration" : 390825
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "1c4f0c09abc1e0cc",
+  "name" : "test_transaction_to_1_addr_from_10_addrs[1]",
+  "time" : {
+    "start" : 1603207310733,
+    "stop" : 1603207320729,
+    "duration" : 9996
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "407bd477e12297af",
+  "name" : "test_delegate_unregistered_addr",
+  "time" : {
+    "start" : 1603206993428,
+    "stop" : 1603206993598,
+    "duration" : 170
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "ddcbadb68361159d",
+  "name" : "test_transaction_to_1_addr_from_1_addr_fees[amount_expected2]",
+  "time" : {
+    "start" : 1603207193281,
+    "stop" : 1603207193351,
+    "duration" : 70
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "3b2a9fadbd559f15",
+  "name" : "test_deregister_stake_pool[1]",
+  "time" : {
+    "start" : 1603206783376,
+    "stop" : 1603206963471,
+    "duration" : 180095
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "79da3e1018aad0ad",
+  "name" : "test_transaction_to_100_addrs_from_100_addrs_fees[amount_expected3]",
+  "time" : {
+    "start" : 1603207199668,
+    "stop" : 1603207201117,
+    "duration" : 1449
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "73c89f592f499b66",
+  "name" : "test_pool_registration_missing_cold_skey",
+  "time" : {
+    "start" : 1603206963105,
+    "stop" : 1603206963302,
+    "duration" : 197
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "94dab4a131a7737a",
+  "name" : "test_wrong_signing_key",
+  "time" : {
+    "start" : 1603207405610,
+    "stop" : 1603207405751,
+    "duration" : 141
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "fc0fb830be0cff62",
+  "name" : "test_addr_deregistration_fees[addr_fee0]",
+  "time" : {
+    "start" : 1603207192579,
+    "stop" : 1603207192662,
+    "duration" : 83
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "2878ad1212eb9e40",
+  "name" : "test_sign_in_multiple_stages",
+  "time" : {
+    "start" : 1603206963476,
+    "stop" : 1603207159384,
+    "duration" : 195908
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "f11a52e0ed2d7783",
+  "name" : "test_missing_tx_in",
+  "time" : {
+    "start" : 1603207422968,
+    "stop" : 1603207423077,
+    "duration" : 109
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "d2e31b4eb0cfd05c",
+  "name" : "test_transaction_to_1_addr_from_10_addrs_fees[amount_expected3]",
+  "time" : {
+    "start" : 1603207194330,
+    "stop" : 1603207194525,
+    "duration" : 195
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "e57ef7d00b72e26",
+  "name" : "test_pool_deregistration_fees[addr_fee2]",
+  "time" : {
+    "start" : 1603207191759,
+    "stop" : 1603207191885,
+    "duration" : 126
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "c9939ce7844cbf3e",
+  "name" : "test_transaction_to_1_addr_from_1_addr_fees[amount_expected3]",
+  "time" : {
+    "start" : 1603207193356,
+    "stop" : 1603207193426,
+    "duration" : 70
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "bcede544b1cb2e4c",
+  "name" : "test_smaller_fee[1.1]",
+  "time" : {
+    "start" : 1603207363120,
+    "stop" : 1603207363277,
+    "duration" : 157
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "83f97a65f9754148",
+  "name" : "test_tx_wrong_json_metadata_format",
+  "time" : {
+    "start" : 1603207428180,
+    "stop" : 1603207428226,
+    "duration" : 46
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "81d49b2f648514fb",
+  "name" : "test_update_stake_pool_metadata[2]",
+  "time" : {
+    "start" : 1603206783205,
+    "stop" : 1603206959192,
+    "duration" : 175987
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "809c56d81ce40469",
+  "name" : "test_missing_fee",
+  "time" : {
+    "start" : 1603207422854,
+    "stop" : 1603207422964,
+    "duration" : 110
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "48be9e73487880ea",
+  "name" : "test_transaction_to_10_addrs_from_10_addrs_fees[amount_expected0]",
+  "time" : {
+    "start" : 1603207194531,
+    "stop" : 1603207194725,
+    "duration" : 194
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "fea5c82df7a7695e",
+  "name" : "test_transfer_all_funds",
+  "time" : {
+    "start" : 1603207228194,
+    "stop" : 1603207233134,
+    "duration" : 4940
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "1cbd16c510d49b82",
+  "name" : "test_addr_deregistration_fees[addr_fee2]",
+  "time" : {
+    "start" : 1603207192782,
+    "stop" : 1603207192921,
+    "duration" : 139
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "69fd8038a38ef3cb",
+  "name" : "test_pool_deregistration_fees[addr_fee1]",
+  "time" : {
+    "start" : 1603207191628,
+    "stop" : 1603207191752,
+    "duration" : 124
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "8309e2d572bc8670",
+  "name" : "test_normal_tx_to_script_addr",
+  "time" : {
+    "start" : 1603206783084,
+    "stop" : 1603206788084,
+    "duration" : 5000
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "b6144ee2afc906c5",
+  "name" : "test_slot_length",
+  "time" : {
+    "start" : 1603221607441,
+    "stop" : 1603222196697,
+    "duration" : 589256
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "d940b9d561e83dc1",
+  "name" : "test_transfer_funds[10]",
+  "time" : {
+    "start" : 1603207210592,
+    "stop" : 1603207215526,
+    "duration" : 4934
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "b53011b2be414e0a",
+  "name" : "test_delegate_using_pool_id",
+  "time" : {
+    "start" : 1603207035737,
+    "stop" : 1603207358755,
+    "duration" : 323018
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "4d057536fb907615",
+  "name" : "test_pool_registration_cert_wrong_stake",
+  "time" : {
+    "start" : 1603207568046,
+    "stop" : 1603207568088,
+    "duration" : 42
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "43620f05cbdc2b33",
+  "name" : "test_create_stake_pool[1]",
+  "time" : {
+    "start" : 1603206823077,
+    "stop" : 1603206843296,
+    "duration" : 20219
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "202dfd67dce37929",
+  "name" : "test_tx_metadata_both",
+  "time" : {
+    "start" : 1603207433226,
+    "stop" : 1603207438169,
+    "duration" : 4943
+  },
+  "status" : "passed",
+  "severity" : "normal"
+} ]

@@ -1,0 +1,205 @@
+{
+  "uid" : "3f95637b57d918d9",
+  "name" : "test_pool_deregistration_fees[addr_fee1]",
+  "fullName" : "cardano_node_tests.tests.test_transaction_fees.TestExpectedFees#test_pool_deregistration_fees",
+  "historyId" : "c50170a00824df4ca5d6a3e8b057c4a1",
+  "time" : {
+    "start" : 1603206583989,
+    "stop" : 1603206583989,
+    "duration" : 0
+  },
+  "description" : "Test pool deregistration fees.",
+  "descriptionHtml" : "<p>Test pool deregistration fees.</p>\n",
+  "status" : "broken",
+  "statusMessage" : "FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-martink/pytest-5/popen-gw0/test_transaction_fees_py0/tmp/testrun_20201020.log'",
+  "statusTrace" : "tmp_path_factory = TempPathFactory(_given_basetemp=PosixPath('/tmp/pytest-of-martink/pytest-5/popen-gw0'), _trace=<pluggy._tracing.TagTracerSub object at 0x7f08cf306fd0>, _basetemp=PosixPath('/tmp/pytest-of-martink/pytest-5/popen-gw0')), worker_id = 'gw0'\nrequest = <SubRequest 'cluster_manager' for <Function test_pool_deregistration_fees[addr_fee1]>>\n\n    @pytest.yield_fixture\n    def cluster_manager(\n        tmp_path_factory: TempdirFactory,\n        worker_id: str,\n        request: FixtureRequest,\n    ) -> Generator[parallel_run.ClusterManager, None, None]:\n>       cluster_manager_obj = parallel_run.ClusterManager(\n            tmp_path_factory=tmp_path_factory, worker_id=worker_id, request=request\n        )\n\n/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/conftest.py:121: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/utils/parallel_run.py:67: in __init__\n    self.lock_log = self._init_log()\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <cardano_node_tests.utils.parallel_run.ClusterManager object at 0x7f08cef46df0>\n\n    def _init_log(self) -> Path:\n        \"\"\"Return path to run log file.\"\"\"\n        env_log = os.environ.get(\"PARALLEL_LOG\")\n        run_log = Path(env_log or self.lock_dir / RUN_LOG_FILE).resolve()\n        # if PARALLEL_LOG env variable was set, create the log file if it doesn't exist\n        if env_log:\n>           open(run_log, \"a\").close()\nE           FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-martink/pytest-5/popen-gw0/test_transaction_fees_py0/tmp/testrun_20201020.log'\n\n/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/utils/parallel_run.py:79: FileNotFoundError",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ {
+    "name" : "worker_id",
+    "time" : {
+      "start" : 1603206583862,
+      "stop" : 1603206583862,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "change_dir",
+    "time" : {
+      "start" : 1603206583862,
+      "stop" : 1603206583862,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "session_autouse",
+    "time" : {
+      "start" : 1603206583863,
+      "stop" : 1603206583863,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "tmp_path_factory",
+    "time" : {
+      "start" : 1603206583861,
+      "stop" : 1603206583861,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "temp_dir",
+    "time" : {
+      "start" : 1603206583989,
+      "stop" : 1603206583989,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "cluster_manager",
+    "time" : {
+      "start" : 1603206583989,
+      "stop" : 1603206583990,
+      "duration" : 1
+    },
+    "status" : "broken",
+    "statusMessage" : "FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-martink/pytest-5/popen-gw0/test_transaction_fees_py0/tmp/testrun_20201020.log'\n",
+    "statusTrace" : "  File \"/home/martink/.local/python_venvs/cardano_node/lib64/python3.8/site-packages/pluggy/callers.py\", line 187, in _multicall\n    res = hook_impl.function(*args)\n  File \"/home/martink/.local/python_venvs/cardano_node/lib64/python3.8/site-packages/_pytest/fixtures.py\", line 1111, in pytest_fixture_setup\n    result = call_fixture_func(fixturefunc, request, kwargs)\n  File \"/home/martink/.local/python_venvs/cardano_node/lib64/python3.8/site-packages/_pytest/fixtures.py\", line 908, in call_fixture_func\n    fixture_result = next(generator)\n  File \"/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/conftest.py\", line 121, in cluster_manager\n    cluster_manager_obj = parallel_run.ClusterManager(\n  File \"/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/utils/parallel_run.py\", line 67, in __init__\n    self.lock_log = self._init_log()\n  File \"/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/utils/parallel_run.py\", line 79, in _init_log\n    open(run_log, \"a\").close()\n",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : true,
+    "hasContent" : true
+  }, {
+    "name" : "cluster_cleanup",
+    "time" : {
+      "start" : 1603206583862,
+      "stop" : 1603206583862,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  } ],
+  "afterStages" : [ {
+    "name" : "temp_dir::0",
+    "time" : {
+      "start" : 1603206584077,
+      "stop" : 1603206584077,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "cluster_cleanup::0",
+    "time" : {
+      "start" : 1603206584159,
+      "stop" : 1603206584159,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  } ],
+  "labels" : [ {
+    "name" : "tag",
+    "value" : "@pytest.mark.usefixtures('temp_dir')"
+  }, {
+    "name" : "parentSuite",
+    "value" : "cardano_node_tests.tests"
+  }, {
+    "name" : "suite",
+    "value" : "test_transaction_fees"
+  }, {
+    "name" : "subSuite",
+    "value" : "TestExpectedFees"
+  }, {
+    "name" : "host",
+    "value" : "bender-3900x"
+  }, {
+    "name" : "thread",
+    "value" : "273049-MainThread"
+  }, {
+    "name" : "framework",
+    "value" : "pytest"
+  }, {
+    "name" : "language",
+    "value" : "cpython3"
+  }, {
+    "name" : "package",
+    "value" : "cardano_node_tests.tests.test_transaction_fees"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ {
+    "name" : "addr_fee",
+    "value" : "(3, 210337)"
+  } ],
+  "links" : [ {
+    "name" : "https://github.com/input-output-hk/cardano-node-tests/blob/26dda6fa7b63cb50e400fc7bdd3b38a9e569a112/cardano_node_tests/tests/test_transaction_fees.py#L350",
+    "url" : "https://github.com/input-output-hk/cardano-node-tests/blob/26dda6fa7b63cb50e400fc7bdd3b38a9e569a112/cardano_node_tests/tests/test_transaction_fees.py#L350",
+    "type" : "link"
+  } ],
+  "hidden" : true,
+  "retry" : true,
+  "extra" : {
+    "categories" : [ ],
+    "tags" : [ "@pytest.mark.usefixtures('temp_dir')" ]
+  },
+  "source" : "3f95637b57d918d9.json",
+  "parameterValues" : [ "(3, 210337)" ]
+}

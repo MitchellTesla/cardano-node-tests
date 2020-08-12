@@ -1,0 +1,7 @@
+INFO     cardano_node_tests.tests.conftest:conftest.py:50 Changed CWD to '/tmp/pytest-of-martink/pytest-9/popen-gw3'.
+INFO     cardano_node_tests.tests.test_pools:test_pools.py:109 Waiting up to 3 epochs for stake pool to be registered.
+INFO     cardano_node_tests.tests.test_pools:test_pools.py:547 Waiting up to 3 epochs for stake pool to be deregistered.
+INFO     cardano_node_tests.utils.devops_cluster:devops_cluster.py:69 Stopping cluster.
+INFO     cardano_node_tests.utils.devops_cluster:devops_cluster.py:254 Cluster artifacts saved to '/tmp/pytest-of-martink/pytest-9/popen-gw3/cluster_artifacts_tzgfgwnj'.
+INFO     cardano_node_tests.utils.clusterlib_utils:clusterlib_utils.py:417 Coverage files saved to '/home/martink/Source/repos/cardano-node-tests2/.cli_coverage'.
+INFO     cardano_node_tests.utils.devops_cluster:devops_cluster.py:229 Collected artifacts saved to '/home/martink/Source/repos/cardano-node-tests2/.artifacts'.

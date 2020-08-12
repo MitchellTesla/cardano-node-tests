@@ -1,0 +1,270 @@
+{
+  "uid" : "aa3329b3d3069a16",
+  "name" : "test_multisig_atleast_low_num_of_skeys",
+  "fullName" : "cardano_node_tests.tests.test_multisig.TestNegative#test_multisig_atleast_low_num_of_skeys",
+  "historyId" : "9fc546c9eaa98e6256ab65b45f7f3a09",
+  "time" : {
+    "start" : 1601580631197,
+    "stop" : 1601580631215,
+    "duration" : 18
+  },
+  "description" : "Send funds from script address using the \"atLeast\" script. Num of skeys < required.",
+  "descriptionHtml" : "<p>Send funds from script address using the &quot;atLeast&quot; script. Num of skeys &lt; required.</p>\n",
+  "status" : "broken",
+  "statusMessage" : "cardano_node_tests.utils.clusterlib.CLIError: An error occurred running a CLI command `cardano-cli shelley transaction build-multisig --at-least --required 6 --out-file test_multisig_atleast_low_num_of_skeys_multisig.script --payment-verification-key-file multi_neg_addr0.vkey --payment-verification-key-file multi_neg_addr1.vkey --payment-verification-key-file multi_neg_addr2.vkey --payment-verification-key-file multi_neg_addr3.vkey --payment-verification-key-file multi_neg_addr4.vkey --payment-verification-key-file multi_neg_addr5.vkey --payment-verification-key-file multi_neg_addr6.vkey --payment-verification-key-file multi_neg_addr7.vkey --payment-verification-key-file multi_neg_addr8.vkey --payment-verification-key-file multi_neg_addr9.vkey`: Invalid argument `build-multisig'\n\nUsage: cardano-cli shelley transaction (COMMAND | COMMAND | COMMAND | COMMAND | \n                                         COMMAND | COMMAND | COMMAND)\n  Shelley transaction commands",
+  "statusTrace" : "self = <cardano_node_tests.tests.test_multisig.TestNegative object at 0x7fa5fa1e0460>\ncluster = <cardano_node_tests.utils.clusterlib.ClusterLib object at 0x7fa5fa0dcb80>\npayment_addrs = [AddressRecord(address='addr_test1vrxh02w60u3wky04dnrjuwl0gal3zmlfx33etpvextsksfgjvq820', vkey_file=PosixPath('multi_n...k03qlzrcszaspasku64vj', vkey_file=PosixPath('multi_neg_addr5.vkey'), skey_file=PosixPath('multi_neg_addr5.skey')), ...]\n\n    @allure.link(helpers.get_vcs_link())\n    def test_multisig_atleast_low_num_of_skeys(\n        self, cluster: clusterlib.ClusterLib, payment_addrs: List[clusterlib.AddressRecord]\n    ):\n        \"\"\"Send funds from script address using the \"atLeast\" script. Num of skeys < required.\"\"\"\n        temp_template = helpers.get_func_name()\n    \n        payment_vkey_files = [p.vkey_file for p in payment_addrs]\n        payment_skey_files = [p.skey_file for p in payment_addrs]\n    \n        skeys_len = len(payment_skey_files)\n        required = skeys_len - 4\n    \n        # create multisig script\n>       multisig_script = cluster.build_multisig_script(\n            script_type_arg=clusterlib.MultiSigTypeArgs.AT_LEAST,\n            payment_vkey_files=payment_vkey_files,\n            script_name=temp_template,\n            required=required,\n        )\n\n/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_multisig.py:481: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/utils/clusterlib.py:1254: in build_multisig_script\n    self.cli(\n/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/utils/clusterlib.py:274: in cli\n    return self.cli_base(cmd)\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n\nself = <cardano_node_tests.utils.clusterlib.ClusterLib object at 0x7fa5fa0dcb80>\ncli_args = ['cardano-cli', 'shelley', 'transaction', 'build-multisig', '--at-least', '--required', ...]\n\n    def cli_base(self, cli_args: List[str]) -> CLIOut:\n        \"\"\"Run command.\"\"\"\n        cmd_str = \" \".join(cli_args)\n        LOGGER.debug(\"Running `%s`\", cmd_str)\n    \n        # re-run the command when running into\n        # Network.Socket.connect: <socket: X>: resource exhausted (Resource temporarily unavailable)\n        for __ in range(3):\n            p = subprocess.Popen(cli_args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)\n            stdout, stderr = p.communicate()\n    \n            if p.returncode == 0:\n                break\n    \n            stderr_dec = stderr.decode()\n            err_msg = f\"An error occurred running a CLI command `{cmd_str}`: {stderr_dec}\"\n            if \"resource exhausted\" in stderr_dec:\n                LOGGER.error(err_msg)\n                time.sleep(1)\n                continue\n>           raise CLIError(err_msg)\nE           cardano_node_tests.utils.clusterlib.CLIError: An error occurred running a CLI command `cardano-cli shelley transaction build-multisig --at-least --required 6 --out-file test_multisig_atleast_low_num_of_skeys_multisig.script --payment-verification-key-file multi_neg_addr0.vkey --payment-verification-key-file multi_neg_addr1.vkey --payment-verification-key-file multi_neg_addr2.vkey --payment-verification-key-file multi_neg_addr3.vkey --payment-verification-key-file multi_neg_addr4.vkey --payment-verification-key-file multi_neg_addr5.vkey --payment-verification-key-file multi_neg_addr6.vkey --payment-verification-key-file multi_neg_addr7.vkey --payment-verification-key-file multi_neg_addr8.vkey --payment-verification-key-file multi_neg_addr9.vkey`: Invalid argument `build-multisig'\nE           \nE           Usage: cardano-cli shelley transaction (COMMAND | COMMAND | COMMAND | COMMAND | \nE                                                    COMMAND | COMMAND | COMMAND)\nE             Shelley transaction commands\n\n/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/utils/clusterlib.py:264: CLIError",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ {
+    "name" : "payment_addrs",
+    "time" : {
+      "start" : 1601580626168,
+      "stop" : 1601580631194,
+      "duration" : 5026
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "temp_dir",
+    "time" : {
+      "start" : 1601580609738,
+      "stop" : 1601580609739,
+      "duration" : 1
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "tmp_path_factory",
+    "time" : {
+      "start" : 1601566201683,
+      "stop" : 1601566201683,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "cluster_manager",
+    "time" : {
+      "start" : 1601580609739,
+      "stop" : 1601580609739,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "cluster_cleanup",
+    "time" : {
+      "start" : 1601566201684,
+      "stop" : 1601566201684,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "session_autouse",
+    "time" : {
+      "start" : 1601566201689,
+      "stop" : 1601566201689,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "worker_id",
+    "time" : {
+      "start" : 1601566201684,
+      "stop" : 1601566201684,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "change_dir",
+    "time" : {
+      "start" : 1601566201683,
+      "stop" : 1601566201684,
+      "duration" : 1
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "cluster",
+    "time" : {
+      "start" : 1601580609740,
+      "stop" : 1601580626168,
+      "duration" : 16428
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  } ],
+  "testStage" : {
+    "description" : "Send funds from script address using the \"atLeast\" script. Num of skeys < required.",
+    "status" : "broken",
+    "statusMessage" : "cardano_node_tests.utils.clusterlib.CLIError: An error occurred running a CLI command `cardano-cli shelley transaction build-multisig --at-least --required 6 --out-file test_multisig_atleast_low_num_of_skeys_multisig.script --payment-verification-key-file multi_neg_addr0.vkey --payment-verification-key-file multi_neg_addr1.vkey --payment-verification-key-file multi_neg_addr2.vkey --payment-verification-key-file multi_neg_addr3.vkey --payment-verification-key-file multi_neg_addr4.vkey --payment-verification-key-file multi_neg_addr5.vkey --payment-verification-key-file multi_neg_addr6.vkey --payment-verification-key-file multi_neg_addr7.vkey --payment-verification-key-file multi_neg_addr8.vkey --payment-verification-key-file multi_neg_addr9.vkey`: Invalid argument `build-multisig'\n\nUsage: cardano-cli shelley transaction (COMMAND | COMMAND | COMMAND | COMMAND | \n                                         COMMAND | COMMAND | COMMAND)\n  Shelley transaction commands",
+    "statusTrace" : "self = <cardano_node_tests.tests.test_multisig.TestNegative object at 0x7fa5fa1e0460>\ncluster = <cardano_node_tests.utils.clusterlib.ClusterLib object at 0x7fa5fa0dcb80>\npayment_addrs = [AddressRecord(address='addr_test1vrxh02w60u3wky04dnrjuwl0gal3zmlfx33etpvextsksfgjvq820', vkey_file=PosixPath('multi_n...k03qlzrcszaspasku64vj', vkey_file=PosixPath('multi_neg_addr5.vkey'), skey_file=PosixPath('multi_neg_addr5.skey')), ...]\n\n    @allure.link(helpers.get_vcs_link())\n    def test_multisig_atleast_low_num_of_skeys(\n        self, cluster: clusterlib.ClusterLib, payment_addrs: List[clusterlib.AddressRecord]\n    ):\n        \"\"\"Send funds from script address using the \"atLeast\" script. Num of skeys < required.\"\"\"\n        temp_template = helpers.get_func_name()\n    \n        payment_vkey_files = [p.vkey_file for p in payment_addrs]\n        payment_skey_files = [p.skey_file for p in payment_addrs]\n    \n        skeys_len = len(payment_skey_files)\n        required = skeys_len - 4\n    \n        # create multisig script\n>       multisig_script = cluster.build_multisig_script(\n            script_type_arg=clusterlib.MultiSigTypeArgs.AT_LEAST,\n            payment_vkey_files=payment_vkey_files,\n            script_name=temp_template,\n            required=required,\n        )\n\n/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_multisig.py:481: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/utils/clusterlib.py:1254: in build_multisig_script\n    self.cli(\n/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/utils/clusterlib.py:274: in cli\n    return self.cli_base(cmd)\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n\nself = <cardano_node_tests.utils.clusterlib.ClusterLib object at 0x7fa5fa0dcb80>\ncli_args = ['cardano-cli', 'shelley', 'transaction', 'build-multisig', '--at-least', '--required', ...]\n\n    def cli_base(self, cli_args: List[str]) -> CLIOut:\n        \"\"\"Run command.\"\"\"\n        cmd_str = \" \".join(cli_args)\n        LOGGER.debug(\"Running `%s`\", cmd_str)\n    \n        # re-run the command when running into\n        # Network.Socket.connect: <socket: X>: resource exhausted (Resource temporarily unavailable)\n        for __ in range(3):\n            p = subprocess.Popen(cli_args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)\n            stdout, stderr = p.communicate()\n    \n            if p.returncode == 0:\n                break\n    \n            stderr_dec = stderr.decode()\n            err_msg = f\"An error occurred running a CLI command `{cmd_str}`: {stderr_dec}\"\n            if \"resource exhausted\" in stderr_dec:\n                LOGGER.error(err_msg)\n                time.sleep(1)\n                continue\n>           raise CLIError(err_msg)\nE           cardano_node_tests.utils.clusterlib.CLIError: An error occurred running a CLI command `cardano-cli shelley transaction build-multisig --at-least --required 6 --out-file test_multisig_atleast_low_num_of_skeys_multisig.script --payment-verification-key-file multi_neg_addr0.vkey --payment-verification-key-file multi_neg_addr1.vkey --payment-verification-key-file multi_neg_addr2.vkey --payment-verification-key-file multi_neg_addr3.vkey --payment-verification-key-file multi_neg_addr4.vkey --payment-verification-key-file multi_neg_addr5.vkey --payment-verification-key-file multi_neg_addr6.vkey --payment-verification-key-file multi_neg_addr7.vkey --payment-verification-key-file multi_neg_addr8.vkey --payment-verification-key-file multi_neg_addr9.vkey`: Invalid argument `build-multisig'\nE           \nE           Usage: cardano-cli shelley transaction (COMMAND | COMMAND | COMMAND | COMMAND | \nE                                                    COMMAND | COMMAND | COMMAND)\nE             Shelley transaction commands\n\n/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/utils/clusterlib.py:264: CLIError",
+    "steps" : [ ],
+    "attachments" : [ {
+      "uid" : "172d1d15233578f4",
+      "name" : "log",
+      "source" : "172d1d15233578f4.txt",
+      "type" : "text/plain",
+      "size" : 637
+    } ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 1,
+    "shouldDisplayMessage" : true,
+    "hasContent" : true
+  },
+  "afterStages" : [ {
+    "name" : "temp_dir::0",
+    "time" : {
+      "start" : 1601580631324,
+      "stop" : 1601580631324,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "cluster_manager::0",
+    "time" : {
+      "start" : 1601580631323,
+      "stop" : 1601580631323,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "cluster_cleanup::0",
+    "time" : {
+      "start" : 1601580826306,
+      "stop" : 1601580828982,
+      "duration" : 2676
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  } ],
+  "labels" : [ {
+    "name" : "tag",
+    "value" : "@pytest.mark.usefixtures('temp_dir')"
+  }, {
+    "name" : "parentSuite",
+    "value" : "cardano_node_tests.tests"
+  }, {
+    "name" : "suite",
+    "value" : "test_multisig"
+  }, {
+    "name" : "subSuite",
+    "value" : "TestNegative"
+  }, {
+    "name" : "host",
+    "value" : "toolbox"
+  }, {
+    "name" : "thread",
+    "value" : "576209-MainThread"
+  }, {
+    "name" : "framework",
+    "value" : "pytest"
+  }, {
+    "name" : "language",
+    "value" : "cpython3"
+  }, {
+    "name" : "package",
+    "value" : "cardano_node_tests.tests.test_multisig"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ {
+    "name" : "https://github.com/input-output-hk/cardano-node-tests/blob/a7da4f49cb8f8e6e34f6838e09349d8b326b20df/cardano_node_tests/tests/test_multisig.py#L468",
+    "url" : "https://github.com/input-output-hk/cardano-node-tests/blob/a7da4f49cb8f8e6e34f6838e09349d8b326b20df/cardano_node_tests/tests/test_multisig.py#L468",
+    "type" : "link"
+  } ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "normal",
+    "retries" : [ ],
+    "categories" : [ {
+      "name" : "Test defects",
+      "matchedStatuses" : [ ],
+      "flaky" : false
+    } ],
+    "tags" : [ "@pytest.mark.usefixtures('temp_dir')" ]
+  },
+  "source" : "aa3329b3d3069a16.json",
+  "parameterValues" : [ ]
+}

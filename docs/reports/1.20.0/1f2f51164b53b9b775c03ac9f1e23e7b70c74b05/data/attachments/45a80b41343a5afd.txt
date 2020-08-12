@@ -1,0 +1,10 @@
+INFO     cardano_node_tests.utils.helpers:helpers.py:582 Stopping cluster.
+INFO     cardano_node_tests.utils.helpers:helpers.py:567 Coverage files saved to '/home/martink/Source/repos/cardano-node-tests/.cli_coverage'.
+INFO     cardano_node_tests.utils.helpers:helpers.py:714 Cluster artifacts saved to '/home/martink/toolbox_tmp/pytest-of-martink/pytest-24/popen-gw5/cluster_artifacts_umgewlcp'.
+INFO     cardano_node_tests.utils.helpers:helpers.py:572 Starting cluster.
+INFO     cardano_node_tests.utils.helpers:helpers.py:575 Cluster started.
+INFO     cardano_node_tests.utils.helpers:helpers.py:413 Waiting 3 epoch(s) to get stake distribution.
+INFO     cardano_node_tests.utils.clusterlib:clusterlib.py:1331 Waiting for 581 sec for start of the epoch no 3
+INFO     cardano_node_tests.utils.clusterlib:clusterlib.py:1331 Waiting for 825 sec for start of the epoch no 8
+INFO     cardano_node_tests.utils.clusterlib:clusterlib.py:1331 Waiting for 571 sec for start of the epoch no 11
+INFO     cardano_node_tests.utils.clusterlib:clusterlib.py:1331 Waiting for 820 sec for start of the epoch no 15

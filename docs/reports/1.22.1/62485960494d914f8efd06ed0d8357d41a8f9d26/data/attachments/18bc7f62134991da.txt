@@ -1,0 +1,9 @@
+INFO     cardano_node_tests.tests.conftest:conftest.py:50 Changed CWD to '/tmp/pytest-of-martink/pytest-4/popen-gw2'.
+INFO     cardano_node_tests.utils.devops_cluster:devops_cluster.py:69 Stopping cluster.
+INFO     cardano_node_tests.utils.devops_cluster:devops_cluster.py:59 Starting cluster with `start-cluster`.
+INFO     cardano_node_tests.utils.devops_cluster:devops_cluster.py:62 Cluster started.
+INFO     cardano_node_tests.tests.test_staking:test_staking.py:663 Checking rewards for 9 epochs.
+INFO     cardano_node_tests.utils.devops_cluster:devops_cluster.py:69 Stopping cluster.
+INFO     cardano_node_tests.utils.devops_cluster:devops_cluster.py:258 Cluster artifacts saved to '/tmp/pytest-of-martink/pytest-4/popen-gw2/cluster_artifacts_xnkwcwwv'.
+INFO     cardano_node_tests.utils.clusterlib_utils:clusterlib_utils.py:425 Coverage files saved to '/home/martink/Source/repos/cardano-node-tests2/.cli_coverage'.
+INFO     cardano_node_tests.utils.devops_cluster:devops_cluster.py:233 Collected artifacts saved to '/home/martink/Source/repos/cardano-node-tests2/.artifacts'.

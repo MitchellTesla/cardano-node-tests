@@ -1,0 +1,22 @@
+[ {
+  "values" : [ "ghc-8.6" ],
+  "name" : "ghc"
+}, {
+  "values" : [ "f1fbdeeb38a188f686b1f7ef69aeb152d1148cf5" ],
+  "name" : "cardano-node.rev"
+}, {
+  "values" : [ "Linux-5.8.11-200.fc32.x86_64-x86_64-with-glibc2.2.5" ],
+  "name" : "Platform"
+}, {
+  "values" : [ "https://github.com/input-output-hk/cardano-node-tests/tree/a7da4f49cb8f8e6e34f6838e09349d8b326b20df" ],
+  "name" : "cardano-node-tests.url"
+}, {
+  "values" : [ "1.20.0" ],
+  "name" : "cardano-node"
+}, {
+  "values" : [ "a7da4f49cb8f8e6e34f6838e09349d8b326b20df" ],
+  "name" : "cardano-node-tests.rev"
+}, {
+  "values" : [ "3.8.5" ],
+  "name" : "Python"
+} ]

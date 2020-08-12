@@ -1,0 +1,5 @@
+INFO     cardano_node_tests.utils.devops_cluster:devops_cluster.py:65 Stopping cluster.
+INFO     cardano_node_tests.utils.clusterlib_utils:clusterlib_utils.py:389 Coverage files saved to '/home/martink/Source/repos/cardano-node-tests/.cli_coverage'.
+INFO     cardano_node_tests.utils.devops_cluster:devops_cluster.py:249 Cluster artifacts saved to '/home/martink/toolbox_tmp/pytest-of-martink/pytest-24/popen-gw1/cluster_artifacts_dzoggzux'.
+INFO     cardano_node_tests.utils.devops_cluster:devops_cluster.py:55 Starting cluster with `start-cluster`.
+INFO     cardano_node_tests.utils.devops_cluster:devops_cluster.py:58 Cluster started.

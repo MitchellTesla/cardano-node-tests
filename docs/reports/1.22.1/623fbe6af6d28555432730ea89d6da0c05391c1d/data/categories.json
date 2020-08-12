@@ -1,0 +1,26 @@
+{
+  "uid" : "4b4757e66a1912dae1a509f688f20b0f",
+  "name" : "categories",
+  "children" : [ {
+    "name" : "Test defects",
+    "children" : [ {
+      "name" : "cardano_node_tests.utils.clusterlib.CLIError: An error occurred running a CLI command `cardano-cli shelley transaction build-raw --ttl 3187 --fee 200000 --out-file /tmp/pytest-of-martink/pytest-1/popen-gw7/test_transactions_py0/test_wrong_balance_201104_135320774_mynb_tx.body --tx-in 77df88f54059b9f19649e298d6645c4370cd4358583106340995f87da1358217#0 --tx-out addr_test1vrw2qjxyd4w5rtcqltkxta5vdevfgnm4ffvlsyvh7ywj79gfxu2dh+2800000 --tx-out addr_test1vpgpgpss8k2r53vus3m3d3j9jvmjc9a8ve836h7pdaff6rc69n7v6+18446744073709551616`: \ncardano-cli: out of bounds : 18446744073709551616\nCallStack (from HasCallStack):\n  error, called at src/Shelley/Spec/Ledger/Coin.hs:85:7 in shelley-spec-ledger-0.1.0.0-HfhISpN74MdH4YWGDs1y5I:Shelley.Spec.Ledger.Coin",
+      "children" : [ {
+        "name" : "test_wrong_balance",
+        "uid" : "77dab675f1b70fd5",
+        "parentUid" : "a3ea8f1b8bcab4dc9c6c2bea48c3106c",
+        "status" : "broken",
+        "time" : {
+          "start" : 1604494399561,
+          "stop" : 1604494400806,
+          "duration" : 1245
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "a3ea8f1b8bcab4dc9c6c2bea48c3106c"
+    } ],
+    "uid" : "bdbf199525818fae7a8651db9eafe741"
+  } ]
+}

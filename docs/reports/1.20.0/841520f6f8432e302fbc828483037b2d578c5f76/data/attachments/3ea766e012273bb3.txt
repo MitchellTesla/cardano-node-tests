@@ -1,0 +1,5 @@
+INFO     cardano_node_tests.tests.conftest:conftest.py:50 Changed CWD to '/home/martink/toolbox_tmp/pytest-of-martink/pytest-6/popen-gw3'.
+INFO     cardano_node_tests.utils.clusterlib_utils:clusterlib_utils.py:364 Waiting for new epoch to submit proposal.
+INFO     cardano_node_tests.utils.clusterlib:clusterlib.py:1393 Waiting for 181 sec for start of the epoch no 1
+INFO     cardano_node_tests.utils.clusterlib_utils:clusterlib_utils.py:369 Update Proposal submitted (cli_arg=--min-pool-cost, param_value=5000)
+INFO     cardano_node_tests.utils.clusterlib:clusterlib.py:1393 Waiting for 201 sec for start of the epoch no 2

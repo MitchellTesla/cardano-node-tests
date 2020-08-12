@@ -1,0 +1,8 @@
+INFO     cardano_node_tests.utils.clusterlib_utils:clusterlib_utils.py:364 Waiting for new epoch to submit proposal.
+INFO     cardano_node_tests.utils.clusterlib:clusterlib.py:1393 Waiting for 171 sec for start of the epoch no 71
+INFO     cardano_node_tests.utils.clusterlib_utils:clusterlib_utils.py:369 Update Proposal submitted (cli_arg=--decentralization-parameter, param_value=0.5)
+INFO     cardano_node_tests.utils.clusterlib:clusterlib.py:1393 Waiting for 201 sec for start of the epoch no 72
+INFO     cardano_node_tests.utils.devops_cluster:devops_cluster.py:58 Stopping cluster.
+INFO     cardano_node_tests.utils.clusterlib_utils:clusterlib_utils.py:389 Coverage files saved to '/home/martink/Source/repos/cardano-node-tests/.cli_coverage'.
+INFO     cardano_node_tests.utils.devops_cluster:devops_cluster.py:241 Cluster artifacts saved to '/home/martink/toolbox_tmp/pytest-of-martink/pytest-6/popen-gw3/cluster_artifacts_gaowpmyt'.
+INFO     cardano_node_tests.utils.devops_cluster:devops_cluster.py:216 Tests artifacts saved to '/home/martink/Source/repos/cardano-node-tests/.artifacts'.

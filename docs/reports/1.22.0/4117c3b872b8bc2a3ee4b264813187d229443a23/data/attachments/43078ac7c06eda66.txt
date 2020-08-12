@@ -1,0 +1,10 @@
+INFO     cardano_node_tests.utils.devops_cluster:devops_cluster.py:69 Stopping cluster.
+INFO     cardano_node_tests.utils.devops_cluster:devops_cluster.py:254 Cluster artifacts saved to '/tmp/pytest-of-martink/pytest-0/popen-gw2/cluster_artifacts_dkgzwkir'.
+INFO     cardano_node_tests.utils.devops_cluster:devops_cluster.py:59 Starting cluster with `start-cluster`.
+INFO     cardano_node_tests.utils.devops_cluster:devops_cluster.py:62 Cluster started.
+INFO     cardano_node_tests.utils.clusterlib_utils:clusterlib_utils.py:417 Coverage files saved to '/home/martink/Source/repos/cardano-node-tests/.cli_coverage'.
+INFO     cardano_node_tests.utils.clusterlib:clusterlib.py:1386 Waiting for 820 sec for start of the epoch no 8
+INFO     cardano_node_tests.utils.clusterlib:clusterlib.py:1386 Waiting for 571 sec for start of the epoch no 11
+INFO     cardano_node_tests.tests.test_staking:test_staking.py:1533 Waiting up to 3 epochs for stake pool to be deregistered.
+INFO     cardano_node_tests.tests.test_staking:test_staking.py:1597 Waiting up to 5 epochs for stake pool to be reregistered.
+INFO     cardano_node_tests.utils.clusterlib:clusterlib.py:1386 Waiting for 625 sec for start of the epoch no 15

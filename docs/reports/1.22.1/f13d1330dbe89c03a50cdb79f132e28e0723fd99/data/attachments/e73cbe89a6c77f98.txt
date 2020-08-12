@@ -1,0 +1,3 @@
+INFO     cardano_node_tests.tests.conftest:conftest.py:50 Changed CWD to '/tmp/pytest-of-martink/pytest-9/popen-gw2'.
+INFO     cardano_node_tests.tests.test_pools:test_pools.py:109 Waiting up to 3 epochs for stake pool to be registered.
+INFO     cardano_node_tests.tests.test_pools:test_pools.py:547 Waiting up to 3 epochs for stake pool to be deregistered.

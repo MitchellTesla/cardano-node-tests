@@ -1,0 +1,15 @@
+{
+  "total" : 1,
+  "items" : [ {
+    "uid" : "37248bf2231bbe75b7ec3f0ac92c5cbd",
+    "name" : "cardano_node_tests.tests",
+    "statistic" : {
+      "failed" : 1,
+      "broken" : 1,
+      "skipped" : 0,
+      "passed" : 151,
+      "unknown" : 0,
+      "total" : 153
+    }
+  } ]
+}

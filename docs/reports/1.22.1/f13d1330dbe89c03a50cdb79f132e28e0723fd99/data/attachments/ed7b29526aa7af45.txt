@@ -1,0 +1,10 @@
+[32mINFO    [0m cardano_node_tests.utils.devops_cluster:devops_cluster.py:69 Stopping cluster.
+[32mINFO    [0m cardano_node_tests.utils.devops_cluster:devops_cluster.py:254 Cluster artifacts saved to '/tmp/pytest-of-martink/pytest-5/cluster_artifacts_xyabxcfa'.
+[32mINFO    [0m cardano_node_tests.utils.devops_cluster:devops_cluster.py:59 Starting cluster with `/tmp/pytest-of-martink/pytest-5/tmp/startup_files_slot_03/start-cluster`.
+[32mINFO    [0m cardano_node_tests.utils.devops_cluster:devops_cluster.py:62 Cluster started.
+[32mINFO    [0m cardano_node_tests.utils.clusterlib_utils:clusterlib_utils.py:417 Coverage files saved to '/home/martink/Source/repos/cardano-node-tests2/.cli_coverage'.
+[32mINFO    [0m cardano_node_tests.utils.clusterlib:clusterlib.py:1386 Waiting for 289 sec for start of the epoch no 1
+[32mINFO    [0m cardano_node_tests.utils.devops_cluster:devops_cluster.py:69 Stopping cluster.
+[32mINFO    [0m cardano_node_tests.utils.devops_cluster:devops_cluster.py:254 Cluster artifacts saved to '/tmp/pytest-of-martink/pytest-5/cluster_artifacts_jcugjcco'.
+[32mINFO    [0m cardano_node_tests.utils.clusterlib_utils:clusterlib_utils.py:417 Coverage files saved to '/home/martink/Source/repos/cardano-node-tests2/.cli_coverage'.
+[32mINFO    [0m cardano_node_tests.utils.devops_cluster:devops_cluster.py:229 Collected artifacts saved to '/home/martink/Source/repos/cardano-node-tests2/.artifacts'.

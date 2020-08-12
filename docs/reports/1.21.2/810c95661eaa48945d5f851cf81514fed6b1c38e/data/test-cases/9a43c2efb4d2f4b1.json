@@ -1,0 +1,249 @@
+{
+  "uid" : "9a43c2efb4d2f4b1",
+  "name" : "test_reward_amount",
+  "fullName" : "cardano_node_tests.tests.test_staking.TestRewards#test_reward_amount",
+  "historyId" : "4d70b99d6f55a37d1c661b1bebebbd97",
+  "time" : {
+    "start" : 1603380433280,
+    "stop" : 1603381039479,
+    "duration" : 606199
+  },
+  "description" : "Check that the stake address and pool owner are receiving rewards.",
+  "descriptionHtml" : "<p>Check that the stake address and pool owner are receiving rewards.</p>\n",
+  "status" : "failed",
+  "statusMessage" : "AssertionError: New reward was not received by pool owner\nassert 0 > 0",
+  "statusTrace" : "self = <cardano_node_tests.tests.test_staking.TestRewards object at 0x7f404963a760>, cluster_manager = <cardano_node_tests.utils.parallel_run.ClusterManager object at 0x7f4049928040>, cluster_use_pool1 = <cardano_node_tests.utils.clusterlib.ClusterLib object at 0x7f40499106d0>\n\n    @allure.link(helpers.get_vcs_link())\n    def test_reward_amount(\n        self,\n        cluster_manager: parallel_run.ClusterManager,\n        cluster_use_pool1: clusterlib.ClusterLib,\n    ):\n        \"\"\"Check that the stake address and pool owner are receiving rewards.\"\"\"\n        pool_name = \"node-pool1\"\n        cluster = cluster_use_pool1\n    \n        temp_template = helpers.get_func_name()\n        rewards_address = cluster_manager.cache.addrs_data[pool_name][\"reward\"].address\n    \n        init_epoch = cluster.get_last_block_epoch()\n        stake_rewards = [(init_epoch, 0)]\n        owner_rewards = [\n            (init_epoch, cluster.get_stake_addr_info(rewards_address).reward_account_balance)\n        ]\n    \n        # submit registration certificate and delegate to pool\n        pool_user = _delegate_stake_addr(\n            cluster_obj=cluster,\n            addrs_data=cluster_manager.cache.addrs_data,\n            temp_template=temp_template,\n            pool_name=pool_name,\n        )\n        delegate_epoch = cluster.get_last_block_epoch()\n    \n        # check that new reward is received every epoch\n        LOGGER.info(\"Checking rewards for 5 epochs.\")\n        for __ in range(5):\n            # let's wait for new epoch and then some more seconds\n            cluster.wait_for_new_epoch(padding_seconds=30)\n    \n            this_epoch = cluster.get_last_block_epoch()\n            stake_reward = cluster.get_stake_addr_info(\n                pool_user.stake.address\n            ).reward_account_balance\n            owner_reward = cluster.get_stake_addr_info(rewards_address).reward_account_balance\n    \n            __, prev_stake_reward_amount = stake_rewards[-1]\n            __, prev_owner_reward_amount = owner_rewards[-1]\n    \n            stake_rewards.append((this_epoch, stake_reward))\n            owner_rewards.append((this_epoch, owner_reward))\n    \n            # check that new reward was received by the pool owner\n>           assert (\n                owner_reward > prev_owner_reward_amount\n            ), \"New reward was not received by pool owner\"\nE           AssertionError: New reward was not received by pool owner\nE           assert 0 > 0\n\n/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:644: AssertionError",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ {
+    "name" : "session_autouse",
+    "time" : {
+      "start" : 1603380065315,
+      "stop" : 1603380065315,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "tmp_path_factory",
+    "time" : {
+      "start" : 1603380065314,
+      "stop" : 1603380065314,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "cluster_cleanup",
+    "time" : {
+      "start" : 1603380065315,
+      "stop" : 1603380065315,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "cluster_manager",
+    "time" : {
+      "start" : 1603380433279,
+      "stop" : 1603380433279,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "cluster_use_pool1",
+    "time" : {
+      "start" : 1603380433279,
+      "stop" : 1603380433279,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "worker_id",
+    "time" : {
+      "start" : 1603380065315,
+      "stop" : 1603380065315,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "temp_dir",
+    "time" : {
+      "start" : 1603380433278,
+      "stop" : 1603380433279,
+      "duration" : 1
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "change_dir",
+    "time" : {
+      "start" : 1603380065314,
+      "stop" : 1603380065314,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  } ],
+  "testStage" : {
+    "description" : "Check that the stake address and pool owner are receiving rewards.",
+    "status" : "failed",
+    "statusMessage" : "AssertionError: New reward was not received by pool owner\nassert 0 > 0",
+    "statusTrace" : "self = <cardano_node_tests.tests.test_staking.TestRewards object at 0x7f404963a760>, cluster_manager = <cardano_node_tests.utils.parallel_run.ClusterManager object at 0x7f4049928040>, cluster_use_pool1 = <cardano_node_tests.utils.clusterlib.ClusterLib object at 0x7f40499106d0>\n\n    @allure.link(helpers.get_vcs_link())\n    def test_reward_amount(\n        self,\n        cluster_manager: parallel_run.ClusterManager,\n        cluster_use_pool1: clusterlib.ClusterLib,\n    ):\n        \"\"\"Check that the stake address and pool owner are receiving rewards.\"\"\"\n        pool_name = \"node-pool1\"\n        cluster = cluster_use_pool1\n    \n        temp_template = helpers.get_func_name()\n        rewards_address = cluster_manager.cache.addrs_data[pool_name][\"reward\"].address\n    \n        init_epoch = cluster.get_last_block_epoch()\n        stake_rewards = [(init_epoch, 0)]\n        owner_rewards = [\n            (init_epoch, cluster.get_stake_addr_info(rewards_address).reward_account_balance)\n        ]\n    \n        # submit registration certificate and delegate to pool\n        pool_user = _delegate_stake_addr(\n            cluster_obj=cluster,\n            addrs_data=cluster_manager.cache.addrs_data,\n            temp_template=temp_template,\n            pool_name=pool_name,\n        )\n        delegate_epoch = cluster.get_last_block_epoch()\n    \n        # check that new reward is received every epoch\n        LOGGER.info(\"Checking rewards for 5 epochs.\")\n        for __ in range(5):\n            # let's wait for new epoch and then some more seconds\n            cluster.wait_for_new_epoch(padding_seconds=30)\n    \n            this_epoch = cluster.get_last_block_epoch()\n            stake_reward = cluster.get_stake_addr_info(\n                pool_user.stake.address\n            ).reward_account_balance\n            owner_reward = cluster.get_stake_addr_info(rewards_address).reward_account_balance\n    \n            __, prev_stake_reward_amount = stake_rewards[-1]\n            __, prev_owner_reward_amount = owner_rewards[-1]\n    \n            stake_rewards.append((this_epoch, stake_reward))\n            owner_rewards.append((this_epoch, owner_reward))\n    \n            # check that new reward was received by the pool owner\n>           assert (\n                owner_reward > prev_owner_reward_amount\n            ), \"New reward was not received by pool owner\"\nE           AssertionError: New reward was not received by pool owner\nE           assert 0 > 0\n\n/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:644: AssertionError",
+    "steps" : [ ],
+    "attachments" : [ {
+      "uid" : "1d359fba00465f53",
+      "name" : "log",
+      "source" : "1d359fba00465f53.txt",
+      "type" : "text/plain",
+      "size" : 442
+    } ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 1,
+    "shouldDisplayMessage" : true,
+    "hasContent" : true
+  },
+  "afterStages" : [ {
+    "name" : "cluster_cleanup::0",
+    "time" : {
+      "start" : 1603395873791,
+      "stop" : 1603395873791,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "cluster_manager::0",
+    "time" : {
+      "start" : 1603381039508,
+      "stop" : 1603381039509,
+      "duration" : 1
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "temp_dir::0",
+    "time" : {
+      "start" : 1603395873790,
+      "stop" : 1603395873790,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  } ],
+  "labels" : [ {
+    "name" : "tag",
+    "value" : "@pytest.mark.usefixtures('temp_dir')"
+  }, {
+    "name" : "parentSuite",
+    "value" : "cardano_node_tests.tests"
+  }, {
+    "name" : "suite",
+    "value" : "test_staking"
+  }, {
+    "name" : "subSuite",
+    "value" : "TestRewards"
+  }, {
+    "name" : "host",
+    "value" : "bender-3900x"
+  }, {
+    "name" : "thread",
+    "value" : "47886-MainThread"
+  }, {
+    "name" : "framework",
+    "value" : "pytest"
+  }, {
+    "name" : "language",
+    "value" : "cpython3"
+  }, {
+    "name" : "package",
+    "value" : "cardano_node_tests.tests.test_staking"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ {
+    "name" : "https://github.com/input-output-hk/cardano-node-tests/blob/2091568ec9a34fef11a4aed640cef460e7cd3979/cardano_node_tests/tests/test_staking.py#L598",
+    "url" : "https://github.com/input-output-hk/cardano-node-tests/blob/2091568ec9a34fef11a4aed640cef460e7cd3979/cardano_node_tests/tests/test_staking.py#L598",
+    "type" : "link"
+  } ],
+  "hidden" : true,
+  "retry" : true,
+  "extra" : {
+    "categories" : [ ],
+    "tags" : [ "@pytest.mark.usefixtures('temp_dir')" ]
+  },
+  "source" : "9a43c2efb4d2f4b1.json",
+  "parameterValues" : [ ]
+}

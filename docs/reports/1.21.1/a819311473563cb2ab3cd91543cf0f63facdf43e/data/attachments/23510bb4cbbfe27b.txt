@@ -1,0 +1,2 @@
+ERROR    cardano_node_tests.utils.clusterlib:clusterlib.py:248 An error occurred running a CLI command `cardano-cli shelley query utxo --address addr_test1vqd4czhly3ruc6zel3w4s93gt8wk5m3ajkzp698am0m9g8c6n34qu --out-file /dev/stdout --testnet-magic 42 --shelley-mode`: 
+cardano-cli: Network.Socket.connect: <socket: 11>: resource exhausted (Resource temporarily unavailable)

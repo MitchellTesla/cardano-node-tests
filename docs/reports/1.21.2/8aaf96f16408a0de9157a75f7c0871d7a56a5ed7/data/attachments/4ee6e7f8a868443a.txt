@@ -1,0 +1,4 @@
+INFO     cardano_node_tests.tests.conftest:conftest.py:50 Changed CWD to '/tmp/pytest-of-martink/pytest-6/popen-gw0'.
+INFO     cardano_node_tests.utils.devops_cluster:devops_cluster.py:65 Stopping cluster.
+INFO     cardano_node_tests.utils.devops_cluster:devops_cluster.py:55 Starting cluster with `/tmp/pytest-of-martink/pytest-6/tmp/startup_files_pool_500/start-cluster`.
+INFO     cardano_node_tests.utils.devops_cluster:devops_cluster.py:58 Cluster started.

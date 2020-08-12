@@ -1,0 +1,559 @@
+{
+    "cardano-cli": {
+        "shelley": {
+            "-h,--help": 0,
+            "address": {
+                "key-gen": {
+                    "--normal-key": 0,
+                    "--extended-key": 0,
+                    "--byron-key": 0,
+                    "--verification-key-file": 351,
+                    "--signing-key-file": 351,
+                    "_count_key-gen": 351,
+                    "_coverage_key-gen": 40.0
+                },
+                "key-hash": {
+                    "--payment-verification-key": 0,
+                    "--payment-verification-key-file": 99,
+                    "--out-file": 0,
+                    "_count_key-hash": 99,
+                    "_coverage_key-hash": 33.333333333333336
+                },
+                "build": {
+                    "--payment-verification-key": 0,
+                    "--payment-verification-key-file": 351,
+                    "--stake-verification-key": 0,
+                    "--stake-verification-key-file": 47,
+                    "--mainnet": 0,
+                    "--testnet-magic": 351,
+                    "--out-file": 351,
+                    "_count_build": 351,
+                    "_coverage_build": 57.142857142857146
+                },
+                "build-script": {
+                    "--script-file": 6,
+                    "--mainnet": 0,
+                    "--testnet-magic": 6,
+                    "--out-file": 6,
+                    "_count_build-script": 6,
+                    "_coverage_build-script": 75.0
+                },
+                "info": {
+                    "--address": 0,
+                    "--out-file": 0,
+                    "_count_info": 0,
+                    "_coverage_info": 0
+                },
+                "_count_address": 807,
+                "_coverage_address": 47.61904761904762
+            },
+            "stake-address": {
+                "key-gen": {
+                    "--verification-key-file": 47,
+                    "--signing-key-file": 47,
+                    "_count_key-gen": 47,
+                    "_coverage_key-gen": 100.0
+                },
+                "build": {
+                    "--stake-verification-key": 0,
+                    "--stake-verification-key-file": 47,
+                    "--mainnet": 0,
+                    "--testnet-magic": 47,
+                    "--out-file": 47,
+                    "_count_build": 47,
+                    "_coverage_build": 60.0
+                },
+                "key-hash": {
+                    "--stake-verification-key": 0,
+                    "--stake-verification-key-file": 0,
+                    "--out-file": 0,
+                    "_count_key-hash": 0,
+                    "_coverage_key-hash": 0
+                },
+                "registration-certificate": {
+                    "--stake-verification-key": 0,
+                    "--stake-verification-key-file": 17,
+                    "--out-file": 17,
+                    "_count_registration-certificate": 17,
+                    "_coverage_registration-certificate": 66.66666666666667
+                },
+                "deregistration-certificate": {
+                    "--stake-verification-key": 0,
+                    "--stake-verification-key-file": 1,
+                    "--out-file": 1,
+                    "_count_deregistration-certificate": 1,
+                    "_coverage_deregistration-certificate": 66.66666666666667
+                },
+                "delegation-certificate": {
+                    "--stake-verification-key": 0,
+                    "--stake-verification-key-file": 17,
+                    "--stake-pool-verification-key": 0,
+                    "--cold-verification-key-file": 16,
+                    "--stake-pool-id": 1,
+                    "--out-file": 17,
+                    "_count_delegation-certificate": 17,
+                    "_coverage_delegation-certificate": 66.66666666666667
+                },
+                "_count_stake-address": 129,
+                "_coverage_stake-address": 59.09090909090909
+            },
+            "key": {
+                "verification-key": {
+                    "--signing-key-file": 0,
+                    "--verification-key-file": 0,
+                    "_count_verification-key": 0,
+                    "_coverage_verification-key": 0
+                },
+                "non-extended-key": {
+                    "--extended-verification-key-file": 0,
+                    "--verification-key-file": 0,
+                    "_count_non-extended-key": 0,
+                    "_coverage_non-extended-key": 0
+                },
+                "convert-byron-key": {
+                    "--password": 0,
+                    "--byron-payment-key-type": 0,
+                    "--legacy-byron-payment-key-type": 0,
+                    "--byron-genesis-key-type": 0,
+                    "--legacy-byron-genesis-key-type": 0,
+                    "--byron-genesis-delegate-key-type": 0,
+                    "--legacy-byron-genesis-delegate-key-type": 0,
+                    "--byron-signing-key-file": 0,
+                    "--byron-verification-key-file": 0,
+                    "--out-file": 0,
+                    "_count_convert-byron-key": 0,
+                    "_coverage_convert-byron-key": 0
+                },
+                "convert-byron-genesis-vkey": {
+                    "--byron-genesis-verification-key": 0,
+                    "--out-file": 0,
+                    "_count_convert-byron-genesis-vkey": 0,
+                    "_coverage_convert-byron-genesis-vkey": 0
+                },
+                "convert-itn-key": {
+                    "--itn-signing-key-file": 0,
+                    "--itn-verification-key-file": 0,
+                    "--out-file": 0,
+                    "_count_convert-itn-key": 0,
+                    "_coverage_convert-itn-key": 0
+                },
+                "convert-itn-extended-key": {
+                    "--itn-signing-key-file": 0,
+                    "--out-file": 0,
+                    "_count_convert-itn-extended-key": 0,
+                    "_coverage_convert-itn-extended-key": 0
+                },
+                "convert-itn-bip32-key": {
+                    "--itn-signing-key-file": 0,
+                    "--out-file": 0,
+                    "_count_convert-itn-bip32-key": 0,
+                    "_coverage_convert-itn-bip32-key": 0
+                },
+                "convert-cardano-address-key": {
+                    "--shelley-payment-key": 0,
+                    "--shelley-stake-key": 0,
+                    "--icarus-payment-key": 0,
+                    "--byron-payment-key": 0,
+                    "--signing-key-file": 0,
+                    "--out-file": 0,
+                    "_count_convert-cardano-address-key": 0,
+                    "_coverage_convert-cardano-address-key": 0
+                },
+                "_count_key": 0,
+                "_coverage_key": 0
+            },
+            "transaction": {
+                "build-raw": {
+                    "--tx-in": 855,
+                    "--tx-out": 1489,
+                    "--ttl": 600,
+                    "--fee": 601,
+                    "--certificate-file": 168,
+                    "--withdrawal": 1,
+                    "--json-metadata-no-schema": 0,
+                    "--json-metadata-detailed-schema": 0,
+                    "--metadata-json-file": 4,
+                    "--metadata-cbor-file": 4,
+                    "--update-proposal-file": 0,
+                    "--out-file": 601,
+                    "_count_build-raw": 601,
+                    "_coverage_build-raw": 75.0
+                },
+                "sign": {
+                    "--tx-body-file": 223,
+                    "--signing-key-file": 437,
+                    "--address": 0,
+                    "--script-file": 0,
+                    "--mainnet": 0,
+                    "--testnet-magic": 223,
+                    "--out-file": 223,
+                    "_count_sign": 223,
+                    "_coverage_sign": 57.142857142857146
+                },
+                "witness": {
+                    "--tx-body-file": 215,
+                    "--signing-key-file": 197,
+                    "--address": 0,
+                    "--script-file": 18,
+                    "--mainnet": 0,
+                    "--testnet-magic": 215,
+                    "--out-file": 215,
+                    "_count_witness": 215,
+                    "_coverage_witness": 71.42857142857143
+                },
+                "assemble": {
+                    "--tx-body-file": 24,
+                    "--witness-file": 215,
+                    "--out-file": 24,
+                    "_count_assemble": 24,
+                    "_coverage_assemble": 100.0
+                },
+                "submit": {
+                    "--shelley-mode": 248,
+                    "--byron-mode": 0,
+                    "--epoch-slots": 0,
+                    "--cardano-mode": 0,
+                    "--mainnet": 0,
+                    "--testnet-magic": 248,
+                    "--tx-file": 248,
+                    "_count_submit": 248,
+                    "_coverage_submit": 42.857142857142854
+                },
+                "calculate-min-fee": {
+                    "--tx-body-file": 149,
+                    "--mainnet": 0,
+                    "--testnet-magic": 149,
+                    "--protocol-params-file": 149,
+                    "--tx-in-count": 149,
+                    "--tx-out-count": 149,
+                    "--witness-count": 149,
+                    "--byron-witness-count": 149,
+                    "_count_calculate-min-fee": 149,
+                    "_coverage_calculate-min-fee": 87.5
+                },
+                "txid": {
+                    "--tx-body-file": 0,
+                    "_count_txid": 0,
+                    "_coverage_txid": 0
+                },
+                "_count_transaction": 1460,
+                "_coverage_transaction": 68.88888888888889
+            },
+            "node": {
+                "key-gen": {
+                    "--cold-verification-key-file": 0,
+                    "--cold-signing-key-file": 0,
+                    "--operational-certificate-issue-counter-file": 0,
+                    "_count_key-gen": 115,
+                    "_coverage_key-gen": 0
+                },
+                "key-gen-KES": {
+                    "--verification-key-file": 109,
+                    "--signing-key-file": 109,
+                    "_count_key-gen-KES": 109,
+                    "_coverage_key-gen-KES": 100.0
+                },
+                "key-gen-VRF": {
+                    "--verification-key-file": 115,
+                    "--signing-key-file": 115,
+                    "_count_key-gen-VRF": 115,
+                    "_coverage_key-gen-VRF": 100.0
+                },
+                "key-hash-VRF": {
+                    "--verification-key": 0,
+                    "--verification-key-file": 0,
+                    "--out-file": 0,
+                    "_count_key-hash-VRF": 0,
+                    "_coverage_key-hash-VRF": 0
+                },
+                "new-counter": {
+                    "--stake-pool-verification-key": 0,
+                    "--genesis-delegate-verification-key": 0,
+                    "--cold-verification-key-file": 0,
+                    "--counter-value": 0,
+                    "--operational-certificate-issue-counter-file": 0,
+                    "_count_new-counter": 0,
+                    "_coverage_new-counter": 0
+                },
+                "issue-op-cert": {
+                    "--kes-verification-key": 0,
+                    "--kes-verification-key-file": 0,
+                    "--cold-signing-key-file": 0,
+                    "--operational-certificate-issue-counter-file": 0,
+                    "--kes-period": 0,
+                    "--out-file": 0,
+                    "_count_issue-op-cert": 0,
+                    "_coverage_issue-op-cert": 0
+                },
+                "_count_node": 339,
+                "_coverage_node": 19.047619047619047
+            },
+            "stake-pool": {
+                "registration-certificate": {
+                    "--stake-pool-verification-key": 0,
+                    "--cold-verification-key-file": 119,
+                    "--vrf-verification-key": 0,
+                    "--vrf-verification-key-file": 119,
+                    "--pool-pledge": 119,
+                    "--pool-cost": 119,
+                    "--pool-margin": 119,
+                    "--pool-reward-account-verification-key": 0,
+                    "--pool-reward-account-verification-key-file": 119,
+                    "--pool-owner-verification-key": 0,
+                    "--pool-owner-stake-verification-key-file": 126,
+                    "--pool-relay-ipv4": 1,
+                    "--pool-relay-ipv6": 0,
+                    "--pool-relay-port": 1,
+                    "--single-host-pool-relay": 0,
+                    "--multi-host-pool-relay": 0,
+                    "--metadata-url": 11,
+                    "--metadata-hash": 11,
+                    "--mainnet": 0,
+                    "--testnet-magic": 119,
+                    "--out-file": 119,
+                    "_count_registration-certificate": 119,
+                    "_coverage_registration-certificate": 61.904761904761905
+                },
+                "deregistration-certificate": {
+                    "--stake-pool-verification-key": 0,
+                    "--cold-verification-key-file": 3,
+                    "--epoch": 3,
+                    "--out-file": 3,
+                    "_count_deregistration-certificate": 3,
+                    "_coverage_deregistration-certificate": 75.0
+                },
+                "id": {
+                    "--stake-pool-verification-key": 0,
+                    "--cold-verification-key-file": 19,
+                    "--output-format": 0,
+                    "_count_id": 19,
+                    "_coverage_id": 33.333333333333336
+                },
+                "metadata-hash": {
+                    "--pool-metadata-file": 11,
+                    "--out-file": 0,
+                    "_count_metadata-hash": 11,
+                    "_coverage_metadata-hash": 50.0
+                },
+                "_count_stake-pool": 152,
+                "_coverage_stake-pool": 60.0
+            },
+            "query": {
+                "protocol-parameters": {
+                    "--shelley-mode": 247,
+                    "--byron-mode": 0,
+                    "--epoch-slots": 0,
+                    "--cardano-mode": 0,
+                    "--mainnet": 0,
+                    "--testnet-magic": 247,
+                    "--out-file": 247,
+                    "_count_protocol-parameters": 247,
+                    "_coverage_protocol-parameters": 42.857142857142854
+                },
+                "tip": {
+                    "--shelley-mode": 3154,
+                    "--byron-mode": 0,
+                    "--epoch-slots": 0,
+                    "--cardano-mode": 0,
+                    "--mainnet": 0,
+                    "--testnet-magic": 3154,
+                    "--out-file": 0,
+                    "_count_tip": 3154,
+                    "_coverage_tip": 28.571428571428573
+                },
+                "stake-distribution": {
+                    "--shelley-mode": 9,
+                    "--byron-mode": 0,
+                    "--epoch-slots": 0,
+                    "--cardano-mode": 0,
+                    "--mainnet": 0,
+                    "--testnet-magic": 9,
+                    "--out-file": 0,
+                    "_count_stake-distribution": 9,
+                    "_coverage_stake-distribution": 28.571428571428573
+                },
+                "stake-address-info": {
+                    "--shelley-mode": 187,
+                    "--byron-mode": 0,
+                    "--epoch-slots": 0,
+                    "--cardano-mode": 0,
+                    "--address": 187,
+                    "--mainnet": 0,
+                    "--testnet-magic": 187,
+                    "--out-file": 0,
+                    "_count_stake-address-info": 187,
+                    "_coverage_stake-address-info": 37.5
+                },
+                "utxo": {
+                    "--shelley-mode": 1545,
+                    "--byron-mode": 0,
+                    "--epoch-slots": 0,
+                    "--cardano-mode": 0,
+                    "--address": 1545,
+                    "--mainnet": 0,
+                    "--testnet-magic": 1545,
+                    "--out-file": 1545,
+                    "_count_utxo": 1545,
+                    "_coverage_utxo": 50.0
+                },
+                "ledger-state": {
+                    "--shelley-mode": 82,
+                    "--byron-mode": 0,
+                    "--epoch-slots": 0,
+                    "--cardano-mode": 0,
+                    "--mainnet": 0,
+                    "--testnet-magic": 82,
+                    "--out-file": 15,
+                    "_count_ledger-state": 82,
+                    "_coverage_ledger-state": 42.857142857142854
+                },
+                "protocol-state": {
+                    "--shelley-mode": 0,
+                    "--byron-mode": 0,
+                    "--epoch-slots": 0,
+                    "--cardano-mode": 0,
+                    "--mainnet": 0,
+                    "--testnet-magic": 0,
+                    "--out-file": 0,
+                    "_count_protocol-state": 0,
+                    "_coverage_protocol-state": 0
+                },
+                "_count_query": 5224,
+                "_coverage_query": 33.333333333333336
+            },
+            "genesis": {
+                "key-gen-genesis": {
+                    "--verification-key-file": 0,
+                    "--signing-key-file": 0,
+                    "_count_key-gen-genesis": 0,
+                    "_coverage_key-gen-genesis": 0
+                },
+                "key-gen-delegate": {
+                    "--verification-key-file": 0,
+                    "--signing-key-file": 0,
+                    "--operational-certificate-issue-counter-file": 0,
+                    "_count_key-gen-delegate": 0,
+                    "_coverage_key-gen-delegate": 0
+                },
+                "key-gen-utxo": {
+                    "--verification-key-file": 0,
+                    "--signing-key-file": 0,
+                    "_count_key-gen-utxo": 0,
+                    "_coverage_key-gen-utxo": 0
+                },
+                "key-hash": {
+                    "--verification-key-file": 0,
+                    "_count_key-hash": 0,
+                    "_coverage_key-hash": 0
+                },
+                "get-ver-key": {
+                    "--verification-key-file": 0,
+                    "--signing-key-file": 0,
+                    "_count_get-ver-key": 0,
+                    "_coverage_get-ver-key": 0
+                },
+                "initial-addr": {
+                    "--verification-key-file": 14,
+                    "--mainnet": 0,
+                    "--testnet-magic": 14,
+                    "--out-file": 14,
+                    "_count_initial-addr": 14,
+                    "_coverage_initial-addr": 75.0
+                },
+                "initial-txin": {
+                    "--verification-key-file": 0,
+                    "--mainnet": 0,
+                    "--testnet-magic": 0,
+                    "--out-file": 0,
+                    "_count_initial-txin": 0,
+                    "_coverage_initial-txin": 0
+                },
+                "create": {
+                    "--genesis-dir": 0,
+                    "--gen-genesis-keys": 0,
+                    "--gen-utxo-keys": 0,
+                    "--start-time": 0,
+                    "--supply": 0,
+                    "--mainnet": 0,
+                    "--testnet-magic": 0,
+                    "_count_create": 0,
+                    "_coverage_create": 0
+                },
+                "hash": {
+                    "--genesis": 0,
+                    "_count_hash": 0,
+                    "_coverage_hash": 0
+                },
+                "_count_genesis": 14,
+                "_coverage_genesis": 11.53846153846154
+            },
+            "governance": {
+                "create-mir-certificate": {
+                    "--reserves": 0,
+                    "--treasury": 0,
+                    "--stake-verification-key-file": 0,
+                    "--reward": 0,
+                    "--out-file": 0,
+                    "_count_create-mir-certificate": 0,
+                    "_coverage_create-mir-certificate": 0
+                },
+                "create-genesis-key-delegation-certificate": {
+                    "--genesis-verification-key": 0,
+                    "--genesis-verification-key-file": 0,
+                    "--genesis-verification-key-hash": 0,
+                    "--genesis-delegate-verification-key": 0,
+                    "--genesis-delegate-verification-key-file": 0,
+                    "--genesis-delegate-verification-key-hash": 0,
+                    "--vrf-verification-key": 0,
+                    "--vrf-verification-key-file": 0,
+                    "--vrf-verification-key-hash": 0,
+                    "--out-file": 0,
+                    "_count_create-genesis-key-delegation-certificate": 0,
+                    "_coverage_create-genesis-key-delegation-certificate": 0
+                },
+                "create-update-proposal": {
+                    "--out-file": 0,
+                    "--epoch": 0,
+                    "--genesis-verification-key-file": 0,
+                    "--protocol-major-version": 0,
+                    "--protocol-minor-version": 0,
+                    "--decentralization-parameter": 0,
+                    "--extra-entropy": 0,
+                    "--reset-extra-entropy": 0,
+                    "--max-block-header-size": 0,
+                    "--max-block-body-size": 0,
+                    "--max-tx-size": 0,
+                    "--min-fee-constant": 0,
+                    "--min-fee-linear": 0,
+                    "--min-utxo-value": 0,
+                    "--key-reg-deposit-amt": 0,
+                    "--pool-reg-deposit": 0,
+                    "--min-pool-cost": 0,
+                    "--pool-retirement-epoch-boundary": 0,
+                    "--number-of-pools": 0,
+                    "--pool-influence": 0,
+                    "--monetary-expansion": 0,
+                    "--treasury-expansion": 0,
+                    "_count_create-update-proposal": 0,
+                    "_coverage_create-update-proposal": 0
+                },
+                "_count_governance": 0,
+                "_coverage_governance": 0
+            },
+            "text-view": {
+                "decode-cbor": {
+                    "--in-file": 0,
+                    "--out-file": 0,
+                    "_count_decode-cbor": 0,
+                    "_coverage_decode-cbor": 0
+                },
+                "_count_text-view": 0,
+                "_coverage_text-view": 0
+            },
+            "_count_shelley": 8125,
+            "_coverage_shelley": 33.68421052631579
+        },
+        "_count_cardano-cli": 8125,
+        "_coverage_cardano-cli": 33.68421052631579
+    }
+}

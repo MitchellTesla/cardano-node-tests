@@ -1,0 +1,7 @@
+[32mINFO    [0m cardano_node_tests.utils.clusterlib:clusterlib.py:1393 Waiting for 823 sec for start of the epoch no 24
+[32mINFO    [0m cardano_node_tests.utils.clusterlib:clusterlib.py:1393 Waiting for 571 sec for start of the epoch no 27
+[32mINFO    [0m cardano_node_tests.utils.clusterlib:clusterlib.py:1393 Waiting for 1020 sec for start of the epoch no 32
+[32mINFO    [0m cardano_node_tests.utils.devops_cluster:devops_cluster.py:57 Stopping cluster.
+[32mINFO    [0m cardano_node_tests.utils.clusterlib_utils:clusterlib_utils.py:392 Coverage files saved to '/home/martink/Source/repos/cardano-node-tests/.cli_coverage'.
+[32mINFO    [0m cardano_node_tests.utils.devops_cluster:devops_cluster.py:192 Cluster artifacts saved to '/home/martink/toolbox_tmp/pytest-of-martink/pytest-119/cluster_artifacts_nxeogxsf'.
+[32mINFO    [0m cardano_node_tests.utils.devops_cluster:devops_cluster.py:167 Tests artifacts saved to '/home/martink/Source/repos/cardano-node-tests/.artifacts'.

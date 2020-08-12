@@ -1,0 +1,47 @@
+{
+  "uid" : "4b4757e66a1912dae1a509f688f20b0f",
+  "children" : [ {
+    "name" : "Product defects",
+    "children" : [ {
+      "name" : "AssertionError: assert 'TextView type error' in 'An error occurred running a CLI command `cardano-cli shelley transaction sign --tx-body-file conflicting_certs_tx.bod...elegateExtendedSigningKey_ed25519_bip32, GenesisUTxOSigningKey_ed25519 Actual: PaymentVerificationKeyShelley_ed25519\\n'\n +  where 'An error occurred running a CLI command `cardano-cli shelley transaction sign --tx-body-file conflicting_certs_tx.bod...elegateExtendedSigningKey_ed25519_bip32, GenesisUTxOSigningKey_ed25519 Actual: PaymentVerificationKeyShelley_ed25519\\n' = str(CLIError('An error occurred running a CLI command `cardano-cli shelley transaction sign --tx-body-file conflicting_cer...legateExtendedSigningKey_ed25519_bip32, GenesisUTxOSigningKey_ed25519 Actual: PaymentVerificationKeyShelley_ed25519\\n'))\n +    where CLIError('An error occurred running a CLI command `cardano-cli shelley transaction sign --tx-body-file conflicting_cer...legateExtendedSigningKey_ed25519_bip32, GenesisUTxOSigningKey_ed25519 Actual: PaymentVerificationKeyShelley_ed25519\\n') = <ExceptionInfo CLIError('An error occurred running a CLI command `cardano-cli shelley transaction sign --tx-body-file ...endedSigningKey_ed25519_bip32, GenesisUTxOSigningKey_ed25519 Actual: PaymentVerificationKeyShelley_ed25519\\n') tblen=5>.value",
+      "children" : [ {
+        "name" : "test_pool_registration_conflicting_certs",
+        "uid" : "ad7e7e0305d993a7",
+        "parentUid" : "69a20819bde98169ebd5265b131eb242",
+        "status" : "failed",
+        "time" : {
+          "start" : 1604567365061,
+          "stop" : 1604567365273,
+          "duration" : 212
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "69a20819bde98169ebd5265b131eb242"
+    } ],
+    "uid" : "8fb3a91ba5aaf9de24cc8a92edc82b5d"
+  }, {
+    "name" : "Test defects",
+    "children" : [ {
+      "name" : "cardano_node_tests.utils.clusterlib.CLIError: An error occurred running a CLI command `cardano-cli shelley transaction build-raw --ttl 3200 --fee 200000 --out-file /tmp/pytest-of-martink/pytest-0/popen-gw0/test_transactions_py0/test_wrong_balance_201105_101311345_mynb_tx.body --tx-in 6a017fb98f0271be10c586555dffe7d31d3ec2187ced6ce048a8e4eb6466535b#0 --tx-out addr_test1vqnw3llcedvjr25yvzz7p03nmzqdwcd79q53ul6d6dkn7vqv597tu+2800000 --tx-out addr_test1vp6hgc3ysfj802vhydsauvr7p95rtsluvvw2msgnmue55jcl30mzf+18446744073709551616`: \ncardano-cli: out of bounds : 18446744073709551616\nCallStack (from HasCallStack):\n  error, called at src/Shelley/Spec/Ledger/Coin.hs:85:7 in shelley-spec-ledger-0.1.0.0-IeGFDbbu6DOEY21tDs0yyj:Shelley.Spec.Ledger.Coin",
+      "children" : [ {
+        "name" : "test_wrong_balance",
+        "uid" : "86c2a4319df49a6b",
+        "parentUid" : "aba9e7fd9bca9988e3ee451208d7b8c6",
+        "status" : "broken",
+        "time" : {
+          "start" : 1604567590117,
+          "stop" : 1604567591377,
+          "duration" : 1260
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "aba9e7fd9bca9988e3ee451208d7b8c6"
+    } ],
+    "uid" : "bdbf199525818fae7a8651db9eafe741"
+  } ],
+  "name" : "categories"
+}

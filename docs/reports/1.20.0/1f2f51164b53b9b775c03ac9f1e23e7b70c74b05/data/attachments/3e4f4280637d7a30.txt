@@ -1,0 +1,6 @@
+INFO     cardano_node_tests.tests.conftest:conftest.py:47 Changed CWD to '/home/martink/toolbox_tmp/pytest-of-martink/pytest-4/popen-gw7'.
+INFO     cardano_node_tests.utils.helpers:helpers.py:565 Stopping cluster.
+INFO     cardano_node_tests.utils.helpers:helpers.py:555 Starting cluster.
+INFO     cardano_node_tests.utils.helpers:helpers.py:558 Cluster started.
+INFO     cardano_node_tests.tests.test_pools:test_pools.py:87 Waiting up to 3 epochs for stake pool to be registered.
+INFO     cardano_node_tests.tests.test_pools:test_pools.py:505 Waiting up to 3 epochs for stake pool to be deregistered.

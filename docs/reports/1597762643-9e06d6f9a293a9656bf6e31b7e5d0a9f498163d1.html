@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>Test Report</title>
+    <link href="assets/style.css" rel="stylesheet" type="text/css"/></head>
+  <body onLoad="init()">
+    <script>/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this file,
+ * You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+
+function toArray(iter) {
+    if (iter === null) {
+        return null;
+    }
+    return Array.prototype.slice.call(iter);
+}
+
+function find(selector, elem) {
+    if (!elem) {
+        elem = document;
+    }
+    return elem.querySelector(selector);
+}
+
+function find_all(selector, elem) {
+    if (!elem) {
+        elem = document;
+    }
+    return toArray(elem.querySelectorAll(selector));
+}
+
+function sort_column(elem) {
+    toggle_sort_states(elem);
+    var colIndex = toArray(elem.parentNode.childNodes).indexOf(elem);
+    var key;
+    if (elem.classList.contains('numeric')) {
+        key = key_num;
+    } else if (elem.classList.contains('result')) {
+        key = key_result;
+    } else {
+        key = key_alpha;
+    }
+    sort_table(elem, key(colIndex));
+}
+
+function show_all_extras() {
+    find_all('.col-result').forEach(show_extras);
+}
+
+function hide_all_extras() {
+    find_all('.col-result').forEach(hide_extras);
+}
+
+function show_extras(colresult_elem) {
+    var extras = colresult_elem.parentNode.nextElementSibling;
+    var expandcollapse = colresult_elem.firstElementChild;
+    extras.classList.remove("collapsed");
+    expandcollapse.classList.remove("expander");
+    expandcollapse.classList.add("collapser");
+}
+
+function hide_extras(colresult_elem) {
+    var extras = colresult_elem.parentNode.nextElementSibling;
+    var expandcollapse = colresult_elem.firstElementChild;
+    extras.classList.add("collapsed");
+    expandcollapse.classList.remove("collapser");
+    expandcollapse.classList.add("expander");
+}
+
+function show_filters() {
+    var filter_items = document.getElementsByClassName('filter');
+    for (var i = 0; i < filter_items.length; i++)
+        filter_items[i].hidden = false;
+}
+
+function add_collapse() {
+    // Add links for show/hide all
+    var resulttable = find('table#results-table');
+    var showhideall = document.createElement("p");
+    showhideall.innerHTML = '<a href="javascript:show_all_extras()">Show all details</a> / ' +
+                            '<a href="javascript:hide_all_extras()">Hide all details</a>';
+    resulttable.parentElement.insertBefore(showhideall, resulttable);
+
+    // Add show/hide link to each result
+    find_all('.col-result').forEach(function(elem) {
+        var collapsed = get_query_parameter('collapsed') || 'Passed';
+        var extras = elem.parentNode.nextElementSibling;
+        var expandcollapse = document.createElement("span");
+        if (extras.classList.contains("collapsed")) {
+            expandcollapse.classList.add("expander")
+        } else if (collapsed.includes(elem.innerHTML)) {
+            extras.classList.add("collapsed");
+            expandcollapse.classList.add("expander");
+        } else {
+            expandcollapse.classList.add("collapser");
+        }
+        elem.appendChild(expandcollapse);
+
+        elem.addEventListener("click", function(event) {
+            if (event.currentTarget.parentNode.nextElementSibling.classList.contains("collapsed")) {
+                show_extras(event.currentTarget);
+            } else {
+                hide_extras(event.currentTarget);
+            }
+        });
+    })
+}
+
+function get_query_parameter(name) {
+    var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+}
+
+function init () {
+    reset_sort_headers();
+
+    add_collapse();
+
+    show_filters();
+
+    sort_column(find('.initial-sort'));
+
+    find_all('.sortable').forEach(function(elem) {
+        elem.addEventListener("click",
+                              function(event) {
+                                  sort_column(elem);
+                              }, false)
+    });
+
+};
+
+function sort_table(clicked, key_func) {
+    var rows = find_all('.results-table-row');
+    var reversed = !clicked.classList.contains('asc');
+    var sorted_rows = sort(rows, key_func, reversed);
+    /* Whole table is removed here because browsers acts much slower
+     * when appending existing elements.
+     */
+    var thead = document.getElementById("results-table-head");
+    document.getElementById('results-table').remove();
+    var parent = document.createElement("table");
+    parent.id = "results-table";
+    parent.appendChild(thead);
+    sorted_rows.forEach(function(elem) {
+        parent.appendChild(elem);
+    });
+    document.getElementsByTagName("BODY")[0].appendChild(parent);
+}
+
+function sort(items, key_func, reversed) {
+    var sort_array = items.map(function(item, i) {
+        return [key_func(item), i];
+    });
+
+    sort_array.sort(function(a, b) {
+        var key_a = a[0];
+        var key_b = b[0];
+
+        if (key_a == key_b) return 0;
+
+        if (reversed) {
+            return (key_a < key_b ? 1 : -1);
+        } else {
+            return (key_a > key_b ? 1 : -1);
+        }
+    });
+
+    return sort_array.map(function(item) {
+        var index = item[1];
+        return items[index];
+    });
+}
+
+function key_alpha(col_index) {
+    return function(elem) {
+        return elem.childNodes[1].childNodes[col_index].firstChild.data.toLowerCase();
+    };
+}
+
+function key_num(col_index) {
+    return function(elem) {
+        return parseFloat(elem.childNodes[1].childNodes[col_index].firstChild.data);
+    };
+}
+
+function key_result(col_index) {
+    return function(elem) {
+        var strings = ['Error', 'Failed', 'Rerun', 'XFailed', 'XPassed',
+                       'Skipped', 'Passed'];
+        return strings.indexOf(elem.childNodes[1].childNodes[col_index].firstChild.data);
+    };
+}
+
+function reset_sort_headers() {
+    find_all('.sort-icon').forEach(function(elem) {
+        elem.parentNode.removeChild(elem);
+    });
+    find_all('.sortable').forEach(function(elem) {
+        var icon = document.createElement("div");
+        icon.className = "sort-icon";
+        icon.textContent = "vvv";
+        elem.insertBefore(icon, elem.firstChild);
+        elem.classList.remove("desc", "active");
+        elem.classList.add("asc", "inactive");
+    });
+}
+
+function toggle_sort_states(elem) {
+    //if active, toggle between asc and desc
+    if (elem.classList.contains('active')) {
+        elem.classList.toggle('asc');
+        elem.classList.toggle('desc');
+    }
+
+    //if inactive, reset all other functions and add ascending active
+    if (elem.classList.contains('inactive')) {
+        reset_sort_headers();
+        elem.classList.remove('inactive');
+        elem.classList.add('active');
+    }
+}
+
+function is_all_rows_hidden(value) {
+  return value.hidden == false;
+}
+
+function filter_table(elem) {
+    var outcome_att = "data-test-result";
+    var outcome = elem.getAttribute(outcome_att);
+    class_outcome = outcome + " results-table-row";
+    var outcome_rows = document.getElementsByClassName(class_outcome);
+
+    for(var i = 0; i < outcome_rows.length; i++){
+        outcome_rows[i].hidden = !elem.checked;
+    }
+
+    var rows = find_all('.results-table-row').filter(is_all_rows_hidden);
+    var all_rows_hidden = rows.length == 0 ? true : false;
+    var not_found_message = document.getElementById("not-found-message");
+    not_found_message.hidden = !all_rows_hidden;
+}
+</script>
+    <h1>cardano-node 1.18.0 (git rev 9e06d6f9a293a9656bf6e31b7e5d0a9f498163d1)</h1>
+    <p>Report generated on 18-Aug-2020 at 16:49:03 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a> v2.1.1</p>
+    <h2>Environment</h2>
+    <table id="environment">
+      <tr>
+        <td>Packages</td>
+        <td>{"pluggy": "0.13.1", "py": "1.9.0", "pytest": "6.0.0"}</td></tr>
+      <tr>
+        <td>Platform</td>
+        <td>Linux-5.7.12-200.fc32.x86_64-x86_64-with-glibc2.2.5</td></tr>
+      <tr>
+        <td>Plugins</td>
+        <td>{"clarity": "0.3.0a0", "forked": "1.3.0", "html": "2.1.1", "hypothesis": "5.23.9", "metadata": "1.10.0", "ordering": "0.6", "xdist": "2.0.0"}</td></tr>
+      <tr>
+        <td>Python</td>
+        <td>3.8.5</td></tr>
+      <tr>
+        <td>cardano-node</td>
+        <td>1.18.0</td></tr>
+      <tr>
+        <td>cardano-node rev</td>
+        <td>9e06d6f9a293a9656bf6e31b7e5d0a9f498163d1</td></tr>
+      <tr>
+        <td>ghc</td>
+        <td>ghc-8.6</td></tr></table>
+    <h2>Summary</h2>
+    <p>52 tests ran in 4230.02 seconds. </p>
+    <p class="filter" hidden="true">(Un)check the boxes to filter the results.</p><input checked="true" class="filter" data-test-result="passed" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="passed">36 passed</span>, <input checked="true" class="filter" data-test-result="skipped" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="skipped">0 skipped</span>, <input checked="true" class="filter" data-test-result="failed" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="failed">16 failed</span>, <input checked="true" class="filter" data-test-result="error" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="error">0 errors</span>, <input checked="true" class="filter" data-test-result="xfailed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="xfailed">0 expected failures</span>, <input checked="true" class="filter" data-test-result="xpassed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="xpassed">0 unexpected passes</span>
+    <h2>Results</h2>
+    <table id="results-table">
+      <thead id="results-table-head">
+        <tr>
+          <th class="sortable result initial-sort" col="result">Result</th>
+          <th class="sortable" col="name">Test</th>
+          <th class="sortable numeric" col="duration">Duration</th>
+          <th>Links</th></tr>
+        <tr hidden="true" id="not-found-message">
+          <th colspan="4">No results found. Try to check the filters</th></tr></thead>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">cardano_node_tests/tests/test_staking.py::TestPoolCost::test_stake_pool_cost[9999999]</td>
+          <td class="col-duration">610.83</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">[gw3] linux -- Python 3.8.5 /home/martink/.local/python_venvs/cardano_node/bin/python<br/><br/>self = &lt;cardano_node_tests.tests.test_staking.TestPoolCost object at 0x7f24044abf40&gt;<br/>cluster_class = &lt;cardano_node_tests.utils.clusterlib.ClusterLib object at 0x7f24048f84f0&gt;<br/>addrs_data_class = {&#x27;node-pool1&#x27;: {&#x27;cold_key_pair&#x27;: ColdKeyPair(vkey_file=PosixPath(&#x27;/home/martink/Source/repos/cardano-node/state-cluste...t&#x27;: PosixPath(&#x27;/home/martink/toolbox_tmp/pytest-of-martink/pytest-2/popen-gw3/addrs_data0/user1_stake_reg.cert&#x27;), ...}}<br/>pool_cost = 9999999, request = &lt;FixtureRequest for &lt;Function test_stake_pool_cost[9999999]&gt;&gt;<br/><br/>    @pytest.mark.parametrize(&quot;pool_cost&quot;, [5000, 9999999])<br/>    def test_stake_pool_cost(<br/>        self,<br/>        cluster_class: clusterlib.ClusterLib,<br/>        addrs_data_class: dict,<br/>        pool_cost: int,<br/>        request: FixtureRequest,<br/>    ):<br/>        &quot;&quot;&quot;Create and register a stake pool with pool cost &gt;= &#x27;minPoolCost&#x27;.&quot;&quot;&quot;<br/>        cluster = cluster_class<br/>        rand_str = clusterlib.get_rand_str()<br/>        temp_template = f&quot;test_stake_pool_cost_{rand_str}&quot;<br/>    <br/>        pool_data = clusterlib.PoolData(<br/>            pool_name=f&quot;pool_{rand_str}&quot;, pool_pledge=12345, pool_cost=pool_cost, pool_margin=0.123,<br/>        )<br/>    <br/>        # create pool owners<br/>        pool_owners = common.create_pool_owners(<br/>            cluster_obj=cluster, temp_template=temp_template, no_of_addr=1,<br/>        )<br/>    <br/>        # fund source address<br/>        helpers.fund_from_faucet(<br/>            pool_owners[0].payment,<br/>            cluster_obj=cluster,<br/>            faucet_data=addrs_data_class[&quot;user1&quot;],<br/>            amount=900_000_000,<br/>            request=request,<br/>        )<br/>    <br/>        # register pool and delegate stake address<br/>&gt;       _create_register_pool_delegate_stake_tx(<br/>            cluster_obj=cluster,<br/>            pool_owners=pool_owners,<br/>            temp_template=temp_template,<br/>            pool_data=pool_data,<br/>        )<br/><br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:1017: <br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:154: in _create_register_pool_delegate_stake_tx<br/>    _check_staking(<br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:49: in _check_staking<br/>    helpers.wait_for(<br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/><br/>func = &lt;function _check_staking.&lt;locals&gt;.&lt;lambda&gt; at 0x7f24048d5dc0&gt;, delay = 10, num_sec = 600.0, message = &#x27;register stake pool&#x27;, silent = False<br/><br/>    def wait_for(<br/>        func: Callable, delay: int = 5, num_sec: int = 180, message: str = &quot;&quot;, silent: bool = False<br/>    ) -&gt; Any:<br/>        &quot;&quot;&quot;Wait for success of `func` for `num_sec`.&quot;&quot;&quot;<br/>        end_time = time.time() + num_sec<br/>    <br/>        while time.time() &lt; end_time:<br/>            response = func()<br/>            if response:<br/>                return response<br/>            time.sleep(delay)<br/>    <br/>        if not silent:<br/>&gt;           raise RuntimeError(f&quot;Failed to {message or &#x27;finish&#x27;} in time.&quot;)<br/><span class="error">E           RuntimeError: Failed to register stake pool in time.</span><br/><br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/utils/helpers.py:49: RuntimeError<br/> -------------------------------Captured log setup------------------------------- <br/>INFO     cardano_node_tests.tests.conftest:conftest.py:123 Changed CWD to &#x27;/home/martink/toolbox_tmp/pytest-of-martink/pytest-2/popen-gw3&#x27;.
+INFO     filelock:filelock.py:274 Lock 139792672064272 acquired on /home/martink/toolbox_tmp/pytest-of-martink/pytest-2/fresh_pytest_cluster.lock
+INFO     cardano_node_tests.utils.helpers:helpers.py:407 Stopping cluster.
+INFO     cardano_node_tests.utils.helpers:helpers.py:397 Starting cluster.
+INFO     cardano_node_tests.utils.helpers:helpers.py:400 Cluster started.
+INFO     filelock:filelock.py:274 Lock 139792672066624 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1vzrrflp2qhpa07xu4ypjrkhpngsh92el79r9zfnqwg06zkc0xcng4.lock
+INFO     filelock:filelock.py:318 Lock 139792672066624 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1vzrrflp2qhpa07xu4ypjrkhpngsh92el79r9zfnqwg06zkc0xcng4.lock
+INFO     cardano_node_tests.utils.helpers:helpers.py:486 Waiting for new epoch to submit proposal.
+INFO     cardano_node_tests.utils.helpers:helpers.py:491 Update Proposal submitted (cli_arg=--min-pool-cost, param_value=5000). Sleeping until next epoch.<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 139792672067488 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qz44atjlmpkq8zgzjjn5ndtycyg0qc9patukp7eynx3kwfg4allzjman596sje3quatpekdpu6mh736vsstzlurp9ayqw40883.lock
+INFO     filelock:filelock.py:318 Lock 139792672067488 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qz44atjlmpkq8zgzjjn5ndtycyg0qc9patukp7eynx3kwfg4allzjman596sje3quatpekdpu6mh736vsstzlurp9ayqw40883.lock
+INFO     cardano_node_tests.tests.test_staking:test_staking.py:48 Waiting up to 3 epochs for stake pool to be registered.<br/></div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">cardano_node_tests/tests/test_staking.py::TestPoolCost::test_stake_pool_cost[5000]</td>
+          <td class="col-duration">611.67</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">[gw1] linux -- Python 3.8.5 /home/martink/.local/python_venvs/cardano_node/bin/python<br/><br/>self = &lt;cardano_node_tests.tests.test_staking.TestPoolCost object at 0x7fbf60790f10&gt;<br/>cluster_class = &lt;cardano_node_tests.utils.clusterlib.ClusterLib object at 0x7fbf60bde4f0&gt;<br/>addrs_data_class = {&#x27;node-pool1&#x27;: {&#x27;cold_key_pair&#x27;: ColdKeyPair(vkey_file=PosixPath(&#x27;/home/martink/Source/repos/cardano-node/state-cluste...t&#x27;: PosixPath(&#x27;/home/martink/toolbox_tmp/pytest-of-martink/pytest-2/popen-gw1/addrs_data0/user1_stake_reg.cert&#x27;), ...}}<br/>pool_cost = 5000, request = &lt;FixtureRequest for &lt;Function test_stake_pool_cost[5000]&gt;&gt;<br/><br/>    @pytest.mark.parametrize(&quot;pool_cost&quot;, [5000, 9999999])<br/>    def test_stake_pool_cost(<br/>        self,<br/>        cluster_class: clusterlib.ClusterLib,<br/>        addrs_data_class: dict,<br/>        pool_cost: int,<br/>        request: FixtureRequest,<br/>    ):<br/>        &quot;&quot;&quot;Create and register a stake pool with pool cost &gt;= &#x27;minPoolCost&#x27;.&quot;&quot;&quot;<br/>        cluster = cluster_class<br/>        rand_str = clusterlib.get_rand_str()<br/>        temp_template = f&quot;test_stake_pool_cost_{rand_str}&quot;<br/>    <br/>        pool_data = clusterlib.PoolData(<br/>            pool_name=f&quot;pool_{rand_str}&quot;, pool_pledge=12345, pool_cost=pool_cost, pool_margin=0.123,<br/>        )<br/>    <br/>        # create pool owners<br/>        pool_owners = common.create_pool_owners(<br/>            cluster_obj=cluster, temp_template=temp_template, no_of_addr=1,<br/>        )<br/>    <br/>        # fund source address<br/>        helpers.fund_from_faucet(<br/>            pool_owners[0].payment,<br/>            cluster_obj=cluster,<br/>            faucet_data=addrs_data_class[&quot;user1&quot;],<br/>            amount=900_000_000,<br/>            request=request,<br/>        )<br/>    <br/>        # register pool and delegate stake address<br/>&gt;       _create_register_pool_delegate_stake_tx(<br/>            cluster_obj=cluster,<br/>            pool_owners=pool_owners,<br/>            temp_template=temp_template,<br/>            pool_data=pool_data,<br/>        )<br/><br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:1017: <br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:154: in _create_register_pool_delegate_stake_tx<br/>    _check_staking(<br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:49: in _check_staking<br/>    helpers.wait_for(<br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/><br/>func = &lt;function _check_staking.&lt;locals&gt;.&lt;lambda&gt; at 0x7fbf60bb95e0&gt;, delay = 10, num_sec = 600.0, message = &#x27;register stake pool&#x27;, silent = False<br/><br/>    def wait_for(<br/>        func: Callable, delay: int = 5, num_sec: int = 180, message: str = &quot;&quot;, silent: bool = False<br/>    ) -&gt; Any:<br/>        &quot;&quot;&quot;Wait for success of `func` for `num_sec`.&quot;&quot;&quot;<br/>        end_time = time.time() + num_sec<br/>    <br/>        while time.time() &lt; end_time:<br/>            response = func()<br/>            if response:<br/>                return response<br/>            time.sleep(delay)<br/>    <br/>        if not silent:<br/>&gt;           raise RuntimeError(f&quot;Failed to {message or &#x27;finish&#x27;} in time.&quot;)<br/><span class="error">E           RuntimeError: Failed to register stake pool in time.</span><br/><br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/utils/helpers.py:49: RuntimeError<br/> -------------------------------Captured log setup------------------------------- <br/>INFO     cardano_node_tests.tests.conftest:conftest.py:123 Changed CWD to &#x27;/home/martink/toolbox_tmp/pytest-of-martink/pytest-2/popen-gw1&#x27;.
+INFO     filelock:filelock.py:274 Lock 140459938538256 acquired on /home/martink/toolbox_tmp/pytest-of-martink/pytest-2/fresh_pytest_cluster.lock
+INFO     cardano_node_tests.utils.helpers:helpers.py:407 Stopping cluster.
+INFO     cardano_node_tests.utils.helpers:helpers.py:397 Starting cluster.
+INFO     cardano_node_tests.utils.helpers:helpers.py:400 Cluster started.
+INFO     filelock:filelock.py:274 Lock 140459938540608 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1vzrrflp2qhpa07xu4ypjrkhpngsh92el79r9zfnqwg06zkc0xcng4.lock
+INFO     filelock:filelock.py:318 Lock 140459938540608 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1vzrrflp2qhpa07xu4ypjrkhpngsh92el79r9zfnqwg06zkc0xcng4.lock
+INFO     cardano_node_tests.utils.helpers:helpers.py:486 Waiting for new epoch to submit proposal.
+INFO     cardano_node_tests.utils.helpers:helpers.py:491 Update Proposal submitted (cli_arg=--min-pool-cost, param_value=5000). Sleeping until next epoch.<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140459938541472 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzvx2lk5ch96kzmqwhdrf4cpe77pa33mhn6h2uwlhl55y6s3ryzvhv3amrfdnzef0axcp72r6a6y783med00lk6t4rcs5glrm2.lock
+INFO     filelock:filelock.py:318 Lock 140459938541472 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qzvx2lk5ch96kzmqwhdrf4cpe77pa33mhn6h2uwlhl55y6s3ryzvhv3amrfdnzef0axcp72r6a6y783med00lk6t4rcs5glrm2.lock
+INFO     cardano_node_tests.tests.test_staking:test_staking.py:48 Waiting up to 3 epochs for stake pool to be registered.<br/></div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">cardano_node_tests/tests/test_staking.py::TestDelegateAddr::test_deregister_using_cert</td>
+          <td class="col-duration">588.30</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">[gw6] linux -- Python 3.8.5 /home/martink/.local/python_venvs/cardano_node/bin/python<br/><br/>self = &lt;cardano_node_tests.tests.test_staking.TestDelegateAddr object at 0x7effe715af40&gt;<br/>cluster_session = &lt;cardano_node_tests.utils.clusterlib.ClusterLib object at 0x7effe75a6160&gt;<br/>addrs_data_session = {&#x27;node-pool1&#x27;: {&#x27;cold_key_pair&#x27;: ColdKeyPair(vkey_file=PosixPath(&#x27;/home/martink/Source/repos/cardano-node/state-cluste...t&#x27;: PosixPath(&#x27;/home/martink/toolbox_tmp/pytest-of-martink/pytest-2/popen-gw7/addrs_data0/user1_stake_reg.cert&#x27;), ...}}<br/>request = &lt;FixtureRequest for &lt;Function test_deregister_using_cert&gt;&gt;<br/><br/>    def test_deregister_using_cert(<br/>        self,<br/>        cluster_session: clusterlib.ClusterLib,<br/>        addrs_data_session: dict,<br/>        request: FixtureRequest,<br/>    ):<br/>        &quot;&quot;&quot;De-register stake address.&quot;&quot;&quot;<br/>        cluster = cluster_session<br/>        temp_template = &quot;test_deregister_addr&quot;<br/>    <br/>        # submit registration certificate and delegate to pool using certificate<br/>&gt;       pool_user = _delegate_addr_using_cert(<br/>            cluster_obj=cluster,<br/>            addrs_data=addrs_data_session,<br/>            temp_template=temp_template,<br/>            request=request,<br/>        )<br/><br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:411: <br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:287: in _delegate_addr_using_cert<br/>    stake_addr_info = cluster_obj.get_stake_addr_info(stake_addr_rec.address)<br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/><br/>self = &lt;cardano_node_tests.utils.clusterlib.ClusterLib object at 0x7effe75a6160&gt;, stake_addr = &#x27;stake_test1uqqkvmqlyyfrxw5k5kx082hltlpxl33s800gdeaxwz5uevg77zlq8&#x27;<br/><br/>    <br/>    def get_stake_addr_info(self, stake_addr: str) -&gt; Optional[StakeAddrInfo]:<br/>        &quot;&quot;&quot;Return info about stake pool address.&quot;&quot;&quot;<br/>        output_json = json.loads(self.query_cli([&quot;stake-address-info&quot;, &quot;--address&quot;, stake_addr]))<br/>        if not output_json:<br/>            return None<br/>    <br/>&gt;       addr_hash = list(output_json)[0]<br/><span class="error">E       TypeError: list indices must be integers or slices, not dict</span><br/><br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/utils/clusterlib.py:706: TypeError<br/> -------------------------------Captured log setup------------------------------- <br/>INFO     cardano_node_tests.tests.conftest:conftest.py:123 Changed CWD to &#x27;/home/martink/toolbox_tmp/pytest-of-martink/pytest-2/popen-gw6&#x27;.
+INFO     filelock:filelock.py:274 Lock 139637563220752 acquired on /home/martink/toolbox_tmp/pytest-of-martink/pytest-2/session_pytest_cluster.lock
+INFO     filelock:filelock.py:318 Lock 139637563220752 released on /home/martink/toolbox_tmp/pytest-of-martink/pytest-2/session_pytest_cluster.lock<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 139637563223104 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock
+INFO     filelock:filelock.py:318 Lock 139637563223104 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock
+INFO     cardano_node_tests.utils.helpers:helpers.py:304 Waiting 3 epoch(s) to get stake distribution.<br/></div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">cardano_node_tests/tests/test_staking.py::TestDelegateAddr::test_delegate_using_cert</td>
+          <td class="col-duration">588.58</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">[gw5] linux -- Python 3.8.5 /home/martink/.local/python_venvs/cardano_node/bin/python<br/><br/>self = &lt;cardano_node_tests.tests.test_staking.TestDelegateAddr object at 0x7f979ab66f10&gt;<br/>cluster_session = &lt;cardano_node_tests.utils.clusterlib.ClusterLib object at 0x7f979afb1160&gt;<br/>addrs_data_session = {&#x27;node-pool1&#x27;: {&#x27;cold_key_pair&#x27;: ColdKeyPair(vkey_file=PosixPath(&#x27;/home/martink/Source/repos/cardano-node/state-cluste...t&#x27;: PosixPath(&#x27;/home/martink/toolbox_tmp/pytest-of-martink/pytest-2/popen-gw7/addrs_data0/user1_stake_reg.cert&#x27;), ...}}<br/>request = &lt;FixtureRequest for &lt;Function test_delegate_using_cert&gt;&gt;<br/><br/>    def test_delegate_using_cert(<br/>        self,<br/>        cluster_session: clusterlib.ClusterLib,<br/>        addrs_data_session: dict,<br/>        request: FixtureRequest,<br/>    ):<br/>        &quot;&quot;&quot;Submit registration certificate and delegate to pool using certificate.&quot;&quot;&quot;<br/>        cluster = cluster_session<br/>        temp_template = &quot;test_delegate_using_cert&quot;<br/>    <br/>        # submit registration certificate and delegate to pool using certificate<br/>&gt;       _delegate_addr_using_cert(<br/>            cluster_obj=cluster,<br/>            addrs_data=addrs_data_session,<br/>            temp_template=temp_template,<br/>            request=request,<br/>        )<br/><br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:393: <br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:287: in _delegate_addr_using_cert<br/>    stake_addr_info = cluster_obj.get_stake_addr_info(stake_addr_rec.address)<br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/><br/>self = &lt;cardano_node_tests.utils.clusterlib.ClusterLib object at 0x7f979afb1160&gt;, stake_addr = &#x27;stake_test1urykh7gtlfze9g3wwlrzql79avqrtvgtez9r7kgtw7jspusql30mg&#x27;<br/><br/>    <br/>    def get_stake_addr_info(self, stake_addr: str) -&gt; Optional[StakeAddrInfo]:<br/>        &quot;&quot;&quot;Return info about stake pool address.&quot;&quot;&quot;<br/>        output_json = json.loads(self.query_cli([&quot;stake-address-info&quot;, &quot;--address&quot;, stake_addr]))<br/>        if not output_json:<br/>            return None<br/>    <br/>&gt;       addr_hash = list(output_json)[0]<br/><span class="error">E       TypeError: list indices must be integers or slices, not dict</span><br/><br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/utils/clusterlib.py:706: TypeError<br/> -------------------------------Captured log setup------------------------------- <br/>INFO     cardano_node_tests.tests.conftest:conftest.py:123 Changed CWD to &#x27;/home/martink/toolbox_tmp/pytest-of-martink/pytest-2/popen-gw5&#x27;.
+INFO     filelock:filelock.py:274 Lock 140289116934928 acquired on /home/martink/toolbox_tmp/pytest-of-martink/pytest-2/session_pytest_cluster.lock
+INFO     filelock:filelock.py:318 Lock 140289116934928 released on /home/martink/toolbox_tmp/pytest-of-martink/pytest-2/session_pytest_cluster.lock<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140289116937232 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock
+INFO     filelock:filelock.py:318 Lock 140289116937232 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock
+INFO     cardano_node_tests.utils.helpers:helpers.py:304 Waiting 3 epoch(s) to get stake distribution.<br/></div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">cardano_node_tests/tests/test_staking.py::TestDelegateAddr::test_delegate_using_addr</td>
+          <td class="col-duration">590.81</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">[gw4] linux -- Python 3.8.5 /home/martink/.local/python_venvs/cardano_node/bin/python<br/><br/>self = &lt;cardano_node_tests.tests.test_staking.TestDelegateAddr object at 0x7f6d2005ff40&gt;<br/>cluster_session = &lt;cardano_node_tests.utils.clusterlib.ClusterLib object at 0x7f6d204ab160&gt;<br/>addrs_data_session = {&#x27;node-pool1&#x27;: {&#x27;cold_key_pair&#x27;: ColdKeyPair(vkey_file=PosixPath(&#x27;/home/martink/Source/repos/cardano-node/state-cluste...t&#x27;: PosixPath(&#x27;/home/martink/toolbox_tmp/pytest-of-martink/pytest-2/popen-gw7/addrs_data0/user1_stake_reg.cert&#x27;), ...}}<br/>request = &lt;FixtureRequest for &lt;Function test_delegate_using_addr&gt;&gt;<br/><br/>    def test_delegate_using_addr(<br/>        self,<br/>        cluster_session: clusterlib.ClusterLib,<br/>        addrs_data_session: dict,<br/>        request: FixtureRequest,<br/>    ):<br/>        &quot;&quot;&quot;Submit registration certificate and delegate to pool using stake address.&quot;&quot;&quot;<br/>        cluster = cluster_session<br/>        temp_template = &quot;test_delegate_using_addr&quot;<br/>    <br/>        # create key pairs and addresses<br/>        stake_addr_rec = helpers.create_stake_addr_records(<br/>            f&quot;addr0_{temp_template}&quot;, cluster_obj=cluster<br/>        )[0]<br/>        payment_addr_rec = helpers.create_payment_addr_records(<br/>            f&quot;addr0_{temp_template}&quot;, cluster_obj=cluster, stake_vkey_file=stake_addr_rec.vkey_file,<br/>        )[0]<br/>        stake_addr_reg_cert_file = cluster.gen_stake_addr_registration_cert(<br/>            addr_name=f&quot;addr0_{temp_template}&quot;, stake_vkey_file=stake_addr_rec.vkey_file<br/>        )<br/>    <br/>        # fund source address<br/>        helpers.fund_from_faucet(<br/>            payment_addr_rec,<br/>            cluster_obj=cluster,<br/>            faucet_data=addrs_data_session[&quot;user1&quot;],<br/>            request=request,<br/>        )<br/>    <br/>        src_address = payment_addr_rec.address<br/>        src_init_balance = cluster.get_address_balance(src_address)<br/>    <br/>        # register stake address<br/>        tx_files = clusterlib.TxFiles(<br/>            certificate_files=[stake_addr_reg_cert_file],<br/>            signing_key_files=[payment_addr_rec.skey_file, stake_addr_rec.skey_file],<br/>        )<br/>        tx_raw_data = cluster.send_tx(src_address=src_address, tx_files=tx_files)<br/>        cluster.wait_for_new_block(new_blocks=2)<br/>    <br/>        # check that the balance for source address was correctly updated<br/>        assert (<br/>            cluster.get_address_balance(src_address)<br/>            == src_init_balance - tx_raw_data.fee - cluster.get_key_deposit()<br/>        ), f&quot;Incorrect balance for source address `{src_address}`&quot;<br/>        src_register_balance = cluster.get_address_balance(src_address)<br/>    <br/>        first_pool_id_in_stake_dist = list(helpers.wait_for_stake_distribution(cluster))[0]<br/>        delegation_fee = cluster.calculate_tx_fee(src_address=src_address, tx_files=tx_files)<br/>    <br/>        # delegate the stake address to pool<br/>        # TODO: remove try..catch once the functionality is implemented<br/>        try:<br/>            cluster.delegate_stake_addr(<br/>                stake_addr_skey=stake_addr_rec.skey_file,<br/>                pool_id=first_pool_id_in_stake_dist,<br/>                delegation_fee=delegation_fee,<br/>            )<br/>        except clusterlib.CLIError as exc:<br/>            if &quot;command not implemented yet&quot; in str(exc):<br/>                pytest.xfail(<br/>                    &quot;Delegating stake address using `cardano-cli shelley stake-address delegate` &quot;<br/>                    &quot;not implemented yet.&quot;<br/>                )<br/>        cluster.wait_for_new_block(new_blocks=2)<br/>    <br/>        # check that the balance for source address was correctly updated<br/>&gt;       assert (<br/>            cluster.get_address_balance(src_address) == src_register_balance - delegation_fee<br/>        ), f&quot;Incorrect balance for source address `{src_address}`&quot;<br/><span class="error">E       AssertionError: Incorrect balance for source address `addr_test1qqh7m95d2cnv8m7frc5dpm7ggytyq8wulk4q306h364p2d2ruyjqmq04tttmjjaf5wn4hruwkdvduht8qspnupu8u0nqz0wj2d`</span><br/><span class="error">E       assert 2420859 == 2241718</span><br/><span class="error">E         +2420859</span><br/><span class="error">E         -2241718</span><br/><br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:366: AssertionError<br/> -------------------------------Captured log setup------------------------------- <br/>INFO     cardano_node_tests.tests.conftest:conftest.py:123 Changed CWD to &#x27;/home/martink/toolbox_tmp/pytest-of-martink/pytest-2/popen-gw4&#x27;.
+INFO     filelock:filelock.py:274 Lock 140106669929232 acquired on /home/martink/toolbox_tmp/pytest-of-martink/pytest-2/session_pytest_cluster.lock
+INFO     filelock:filelock.py:318 Lock 140106669929232 released on /home/martink/toolbox_tmp/pytest-of-martink/pytest-2/session_pytest_cluster.lock<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140106669931632 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock
+INFO     filelock:filelock.py:318 Lock 140106669931632 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock
+INFO     cardano_node_tests.utils.helpers:helpers.py:304 Waiting 3 epoch(s) to get stake distribution.<br/></div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">cardano_node_tests/tests/test_staking.py::TestStakePool::test_stake_pool_metadata[1]</td>
+          <td class="col-duration">613.69</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">[gw7] linux -- Python 3.8.5 /home/martink/.local/python_venvs/cardano_node/bin/python<br/><br/>self = &lt;cardano_node_tests.tests.test_staking.TestStakePool object at 0x7f9fea7a7f10&gt;<br/>cluster_session = &lt;cardano_node_tests.utils.clusterlib.ClusterLib object at 0x7f9feabf25b0&gt;<br/>addrs_data_session = {&#x27;node-pool1&#x27;: {&#x27;cold_key_pair&#x27;: ColdKeyPair(vkey_file=PosixPath(&#x27;/home/martink/Source/repos/cardano-node/state-cluste...t&#x27;: PosixPath(&#x27;/home/martink/toolbox_tmp/pytest-of-martink/pytest-2/popen-gw7/addrs_data0/user1_stake_reg.cert&#x27;), ...}}<br/>temp_dir = PosixPath(&#x27;/home/martink/toolbox_tmp/pytest-of-martink/pytest-2/popen-gw7/test_staking0&#x27;), no_of_addr = 1<br/>request = &lt;FixtureRequest for &lt;Function test_stake_pool_metadata[1]&gt;&gt;<br/><br/>    @pytest.mark.parametrize(&quot;no_of_addr&quot;, [1, 3])<br/>    def test_stake_pool_metadata(<br/>        self,<br/>        cluster_session: clusterlib.ClusterLib,<br/>        addrs_data_session: dict,<br/>        temp_dir: Path,<br/>        no_of_addr: int,<br/>        request: FixtureRequest,<br/>    ):<br/>        &quot;&quot;&quot;Create and register a stake pool with metadata.&quot;&quot;&quot;<br/>        cluster = cluster_session<br/>        temp_template = f&quot;test_stake_pool_metadata_{no_of_addr}owners&quot;<br/>    <br/>        pool_metadata = {<br/>            &quot;name&quot;: &quot;QA E2E test&quot;,<br/>            &quot;description&quot;: &quot;Shelley QA E2E test Test&quot;,<br/>            &quot;ticker&quot;: &quot;QA1&quot;,<br/>            &quot;homepage&quot;: &quot;www.test1.com&quot;,<br/>        }<br/>        pool_metadata_file = helpers.write_json(<br/>            temp_dir / f&quot;poolY_{no_of_addr}_registration_metadata.json&quot;, pool_metadata<br/>        )<br/>    <br/>        pool_data = clusterlib.PoolData(<br/>            pool_name=f&quot;poolY_{no_of_addr}&quot;,<br/>            pool_pledge=1000,<br/>            pool_cost=15,<br/>            pool_margin=0.2,<br/>            pool_metadata_url=&quot;https://www.where_metadata_file_is_located.com&quot;,<br/>            pool_metadata_hash=cluster.gen_pool_metadata_hash(pool_metadata_file),<br/>        )<br/>    <br/>        # create pool owners<br/>        pool_owners = common.create_pool_owners(<br/>            cluster_obj=cluster, temp_template=temp_template, no_of_addr=no_of_addr,<br/>        )<br/>    <br/>        # fund source address<br/>        helpers.fund_from_faucet(<br/>            pool_owners[0].payment,<br/>            cluster_obj=cluster,<br/>            faucet_data=addrs_data_session[&quot;user1&quot;],<br/>            amount=900_000_000,<br/>            request=request,<br/>        )<br/>    <br/>        # register pool and delegate stake address<br/>&gt;       _create_register_pool_delegate_stake_tx(<br/>            cluster_obj=cluster,<br/>            pool_owners=pool_owners,<br/>            temp_template=temp_template,<br/>            pool_data=pool_data,<br/>        )<br/><br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:494: <br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:154: in _create_register_pool_delegate_stake_tx<br/>    _check_staking(<br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:49: in _check_staking<br/>    helpers.wait_for(<br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/><br/>func = &lt;function _check_staking.&lt;locals&gt;.&lt;lambda&gt; at 0x7f9feab1c4c0&gt;, delay = 10, num_sec = 600.0, message = &#x27;register stake pool&#x27;, silent = False<br/><br/>    def wait_for(<br/>        func: Callable, delay: int = 5, num_sec: int = 180, message: str = &quot;&quot;, silent: bool = False<br/>    ) -&gt; Any:<br/>        &quot;&quot;&quot;Wait for success of `func` for `num_sec`.&quot;&quot;&quot;<br/>        end_time = time.time() + num_sec<br/>    <br/>        while time.time() &lt; end_time:<br/>            response = func()<br/>            if response:<br/>                return response<br/>            time.sleep(delay)<br/>    <br/>        if not silent:<br/>&gt;           raise RuntimeError(f&quot;Failed to {message or &#x27;finish&#x27;} in time.&quot;)<br/><span class="error">E           RuntimeError: Failed to register stake pool in time.</span><br/><br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/utils/helpers.py:49: RuntimeError<br/> -------------------------------Captured log setup------------------------------- <br/>INFO     cardano_node_tests.tests.conftest:conftest.py:123 Changed CWD to &#x27;/home/martink/toolbox_tmp/pytest-of-martink/pytest-2/popen-gw7&#x27;.
+INFO     filelock:filelock.py:274 Lock 140324810323520 acquired on /home/martink/toolbox_tmp/pytest-of-martink/pytest-2/session_pytest_cluster.lock
+INFO     cardano_node_tests.utils.helpers:helpers.py:407 Stopping cluster.
+INFO     cardano_node_tests.utils.helpers:helpers.py:397 Starting cluster.
+INFO     cardano_node_tests.utils.helpers:helpers.py:400 Cluster started.
+INFO     filelock:filelock.py:274 Lock 140324814925056 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1vzrrflp2qhpa07xu4ypjrkhpngsh92el79r9zfnqwg06zkc0xcng4.lock
+INFO     filelock:filelock.py:318 Lock 140324814925056 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1vzrrflp2qhpa07xu4ypjrkhpngsh92el79r9zfnqwg06zkc0xcng4.lock
+INFO     filelock:filelock.py:318 Lock 140324810323520 released on /home/martink/toolbox_tmp/pytest-of-martink/pytest-2/session_pytest_cluster.lock<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140324813997824 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock
+INFO     filelock:filelock.py:318 Lock 140324813997824 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock
+INFO     cardano_node_tests.tests.test_staking:test_staking.py:48 Waiting up to 3 epochs for stake pool to be registered.<br/></div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">cardano_node_tests/tests/test_staking.py::TestStakePool::test_create_stake_pool[1]</td>
+          <td class="col-duration">618.40</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">[gw1] linux -- Python 3.8.5 /home/martink/.local/python_venvs/cardano_node/bin/python<br/><br/>self = &lt;cardano_node_tests.tests.test_staking.TestStakePool object at 0x7fbf60bde2b0&gt;<br/>cluster_session = &lt;cardano_node_tests.utils.clusterlib.ClusterLib object at 0x7fbf607f86d0&gt;<br/>addrs_data_session = {&#x27;node-pool1&#x27;: {&#x27;cold_key_pair&#x27;: ColdKeyPair(vkey_file=PosixPath(&#x27;/home/martink/Source/repos/cardano-node/state-cluste...t&#x27;: PosixPath(&#x27;/home/martink/toolbox_tmp/pytest-of-martink/pytest-2/popen-gw7/addrs_data0/user1_stake_reg.cert&#x27;), ...}}<br/>no_of_addr = 1, request = &lt;FixtureRequest for &lt;Function test_create_stake_pool[1]&gt;&gt;<br/><br/>    @pytest.mark.parametrize(&quot;no_of_addr&quot;, [1, 3])<br/>    def test_create_stake_pool(<br/>        self,<br/>        cluster_session: clusterlib.ClusterLib,<br/>        addrs_data_session: dict,<br/>        no_of_addr: int,<br/>        request: FixtureRequest,<br/>    ):<br/>        &quot;&quot;&quot;Create and register a stake pool.&quot;&quot;&quot;<br/>        cluster = cluster_session<br/>        temp_template = f&quot;test_stake_pool_{no_of_addr}owners&quot;<br/>    <br/>        pool_data = clusterlib.PoolData(<br/>            pool_name=f&quot;poolX_{no_of_addr}&quot;,<br/>            pool_pledge=12345,<br/>            pool_cost=123456789,<br/>            pool_margin=0.123,<br/>        )<br/>    <br/>        # create pool owners<br/>        pool_owners = common.create_pool_owners(<br/>            cluster_obj=cluster, temp_template=temp_template, no_of_addr=no_of_addr,<br/>        )<br/>    <br/>        # fund source address<br/>        helpers.fund_from_faucet(<br/>            pool_owners[0].payment,<br/>            cluster_obj=cluster,<br/>            faucet_data=addrs_data_session[&quot;user1&quot;],<br/>            amount=900_000_000,<br/>            request=request,<br/>        )<br/>    <br/>        # register pool and delegate stake address<br/>&gt;       _create_register_pool_delegate_stake_tx(<br/>            cluster_obj=cluster,<br/>            pool_owners=pool_owners,<br/>            temp_template=temp_template,<br/>            pool_data=pool_data,<br/>        )<br/><br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:535: <br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:154: in _create_register_pool_delegate_stake_tx<br/>    _check_staking(<br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:49: in _check_staking<br/>    helpers.wait_for(<br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/><br/>func = &lt;function _check_staking.&lt;locals&gt;.&lt;lambda&gt; at 0x7fbf60bb9dc0&gt;, delay = 10, num_sec = 600.0, message = &#x27;register stake pool&#x27;, silent = False<br/><br/>    def wait_for(<br/>        func: Callable, delay: int = 5, num_sec: int = 180, message: str = &quot;&quot;, silent: bool = False<br/>    ) -&gt; Any:<br/>        &quot;&quot;&quot;Wait for success of `func` for `num_sec`.&quot;&quot;&quot;<br/>        end_time = time.time() + num_sec<br/>    <br/>        while time.time() &lt; end_time:<br/>            response = func()<br/>            if response:<br/>                return response<br/>            time.sleep(delay)<br/>    <br/>        if not silent:<br/>&gt;           raise RuntimeError(f&quot;Failed to {message or &#x27;finish&#x27;} in time.&quot;)<br/><span class="error">E           RuntimeError: Failed to register stake pool in time.</span><br/><br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/utils/helpers.py:49: RuntimeError<br/> -------------------------------Captured log setup------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140459934450784 acquired on /home/martink/toolbox_tmp/pytest-of-martink/pytest-2/session_pytest_cluster.lock
+INFO     filelock:filelock.py:318 Lock 140459934450784 released on /home/martink/toolbox_tmp/pytest-of-martink/pytest-2/session_pytest_cluster.lock<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140459934451840 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock
+INFO     filelock:filelock.py:318 Lock 140459934451840 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock
+INFO     cardano_node_tests.tests.test_staking:test_staking.py:48 Waiting up to 3 epochs for stake pool to be registered.<br/></div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">cardano_node_tests/tests/test_staking.py::TestStakePool::test_create_stake_pool[3]</td>
+          <td class="col-duration">623.24</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">[gw3] linux -- Python 3.8.5 /home/martink/.local/python_venvs/cardano_node/bin/python<br/><br/>self = &lt;cardano_node_tests.tests.test_staking.TestStakePool object at 0x7f24048f82b0&gt;<br/>cluster_session = &lt;cardano_node_tests.utils.clusterlib.ClusterLib object at 0x7f240451f700&gt;<br/>addrs_data_session = {&#x27;node-pool1&#x27;: {&#x27;cold_key_pair&#x27;: ColdKeyPair(vkey_file=PosixPath(&#x27;/home/martink/Source/repos/cardano-node/state-cluste...t&#x27;: PosixPath(&#x27;/home/martink/toolbox_tmp/pytest-of-martink/pytest-2/popen-gw7/addrs_data0/user1_stake_reg.cert&#x27;), ...}}<br/>no_of_addr = 3, request = &lt;FixtureRequest for &lt;Function test_create_stake_pool[3]&gt;&gt;<br/><br/>    @pytest.mark.parametrize(&quot;no_of_addr&quot;, [1, 3])<br/>    def test_create_stake_pool(<br/>        self,<br/>        cluster_session: clusterlib.ClusterLib,<br/>        addrs_data_session: dict,<br/>        no_of_addr: int,<br/>        request: FixtureRequest,<br/>    ):<br/>        &quot;&quot;&quot;Create and register a stake pool.&quot;&quot;&quot;<br/>        cluster = cluster_session<br/>        temp_template = f&quot;test_stake_pool_{no_of_addr}owners&quot;<br/>    <br/>        pool_data = clusterlib.PoolData(<br/>            pool_name=f&quot;poolX_{no_of_addr}&quot;,<br/>            pool_pledge=12345,<br/>            pool_cost=123456789,<br/>            pool_margin=0.123,<br/>        )<br/>    <br/>        # create pool owners<br/>        pool_owners = common.create_pool_owners(<br/>            cluster_obj=cluster, temp_template=temp_template, no_of_addr=no_of_addr,<br/>        )<br/>    <br/>        # fund source address<br/>        helpers.fund_from_faucet(<br/>            pool_owners[0].payment,<br/>            cluster_obj=cluster,<br/>            faucet_data=addrs_data_session[&quot;user1&quot;],<br/>            amount=900_000_000,<br/>            request=request,<br/>        )<br/>    <br/>        # register pool and delegate stake address<br/>&gt;       _create_register_pool_delegate_stake_tx(<br/>            cluster_obj=cluster,<br/>            pool_owners=pool_owners,<br/>            temp_template=temp_template,<br/>            pool_data=pool_data,<br/>        )<br/><br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:535: <br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:154: in _create_register_pool_delegate_stake_tx<br/>    _check_staking(<br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:49: in _check_staking<br/>    helpers.wait_for(<br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/><br/>func = &lt;function _check_staking.&lt;locals&gt;.&lt;lambda&gt; at 0x7f24048d5d30&gt;, delay = 10, num_sec = 600.0, message = &#x27;register stake pool&#x27;, silent = False<br/><br/>    def wait_for(<br/>        func: Callable, delay: int = 5, num_sec: int = 180, message: str = &quot;&quot;, silent: bool = False<br/>    ) -&gt; Any:<br/>        &quot;&quot;&quot;Wait for success of `func` for `num_sec`.&quot;&quot;&quot;<br/>        end_time = time.time() + num_sec<br/>    <br/>        while time.time() &lt; end_time:<br/>            response = func()<br/>            if response:<br/>                return response<br/>            time.sleep(delay)<br/>    <br/>        if not silent:<br/>&gt;           raise RuntimeError(f&quot;Failed to {message or &#x27;finish&#x27;} in time.&quot;)<br/><span class="error">E           RuntimeError: Failed to register stake pool in time.</span><br/><br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/utils/helpers.py:49: RuntimeError<br/> -------------------------------Captured log setup------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 139792668030048 acquired on /home/martink/toolbox_tmp/pytest-of-martink/pytest-2/session_pytest_cluster.lock
+INFO     filelock:filelock.py:318 Lock 139792668030048 released on /home/martink/toolbox_tmp/pytest-of-martink/pytest-2/session_pytest_cluster.lock<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 139792668031104 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock
+INFO     filelock:filelock.py:318 Lock 139792668031104 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock
+INFO     cardano_node_tests.tests.test_staking:test_staking.py:48 Waiting up to 3 epochs for stake pool to be registered.<br/></div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">cardano_node_tests/tests/test_staking.py::TestStakePool::test_stake_pool_metadata[3]</td>
+          <td class="col-duration">634.06</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">[gw0] linux -- Python 3.8.5 /home/martink/.local/python_venvs/cardano_node/bin/python<br/><br/>self = &lt;cardano_node_tests.tests.test_staking.TestStakePool object at 0x7fb435d98970&gt;<br/>cluster_session = &lt;cardano_node_tests.utils.clusterlib.ClusterLib object at 0x7fb435ed81c0&gt;<br/>addrs_data_session = {&#x27;node-pool1&#x27;: {&#x27;cold_key_pair&#x27;: ColdKeyPair(vkey_file=PosixPath(&#x27;/home/martink/Source/repos/cardano-node/state-cluste...t&#x27;: PosixPath(&#x27;/home/martink/toolbox_tmp/pytest-of-martink/pytest-2/popen-gw7/addrs_data0/user1_stake_reg.cert&#x27;), ...}}<br/>temp_dir = PosixPath(&#x27;/home/martink/toolbox_tmp/pytest-of-martink/pytest-2/popen-gw0/test_staking0&#x27;), no_of_addr = 3<br/>request = &lt;FixtureRequest for &lt;Function test_stake_pool_metadata[3]&gt;&gt;<br/><br/>    @pytest.mark.parametrize(&quot;no_of_addr&quot;, [1, 3])<br/>    def test_stake_pool_metadata(<br/>        self,<br/>        cluster_session: clusterlib.ClusterLib,<br/>        addrs_data_session: dict,<br/>        temp_dir: Path,<br/>        no_of_addr: int,<br/>        request: FixtureRequest,<br/>    ):<br/>        &quot;&quot;&quot;Create and register a stake pool with metadata.&quot;&quot;&quot;<br/>        cluster = cluster_session<br/>        temp_template = f&quot;test_stake_pool_metadata_{no_of_addr}owners&quot;<br/>    <br/>        pool_metadata = {<br/>            &quot;name&quot;: &quot;QA E2E test&quot;,<br/>            &quot;description&quot;: &quot;Shelley QA E2E test Test&quot;,<br/>            &quot;ticker&quot;: &quot;QA1&quot;,<br/>            &quot;homepage&quot;: &quot;www.test1.com&quot;,<br/>        }<br/>        pool_metadata_file = helpers.write_json(<br/>            temp_dir / f&quot;poolY_{no_of_addr}_registration_metadata.json&quot;, pool_metadata<br/>        )<br/>    <br/>        pool_data = clusterlib.PoolData(<br/>            pool_name=f&quot;poolY_{no_of_addr}&quot;,<br/>            pool_pledge=1000,<br/>            pool_cost=15,<br/>            pool_margin=0.2,<br/>            pool_metadata_url=&quot;https://www.where_metadata_file_is_located.com&quot;,<br/>            pool_metadata_hash=cluster.gen_pool_metadata_hash(pool_metadata_file),<br/>        )<br/>    <br/>        # create pool owners<br/>        pool_owners = common.create_pool_owners(<br/>            cluster_obj=cluster, temp_template=temp_template, no_of_addr=no_of_addr,<br/>        )<br/>    <br/>        # fund source address<br/>        helpers.fund_from_faucet(<br/>            pool_owners[0].payment,<br/>            cluster_obj=cluster,<br/>            faucet_data=addrs_data_session[&quot;user1&quot;],<br/>            amount=900_000_000,<br/>            request=request,<br/>        )<br/>    <br/>        # register pool and delegate stake address<br/>&gt;       _create_register_pool_delegate_stake_tx(<br/>            cluster_obj=cluster,<br/>            pool_owners=pool_owners,<br/>            temp_template=temp_template,<br/>            pool_data=pool_data,<br/>        )<br/><br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:494: <br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:154: in _create_register_pool_delegate_stake_tx<br/>    _check_staking(<br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:49: in _check_staking<br/>    helpers.wait_for(<br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/><br/>func = &lt;function _check_staking.&lt;locals&gt;.&lt;lambda&gt; at 0x7fb435b15160&gt;, delay = 10, num_sec = 600.0, message = &#x27;register stake pool&#x27;, silent = False<br/><br/>    def wait_for(<br/>        func: Callable, delay: int = 5, num_sec: int = 180, message: str = &quot;&quot;, silent: bool = False<br/>    ) -&gt; Any:<br/>        &quot;&quot;&quot;Wait for success of `func` for `num_sec`.&quot;&quot;&quot;<br/>        end_time = time.time() + num_sec<br/>    <br/>        while time.time() &lt; end_time:<br/>            response = func()<br/>            if response:<br/>                return response<br/>            time.sleep(delay)<br/>    <br/>        if not silent:<br/>&gt;           raise RuntimeError(f&quot;Failed to {message or &#x27;finish&#x27;} in time.&quot;)<br/><span class="error">E           RuntimeError: Failed to register stake pool in time.</span><br/><br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/utils/helpers.py:49: RuntimeError<br/> -------------------------------Captured log setup------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140411973816768 acquired on /home/martink/toolbox_tmp/pytest-of-martink/pytest-2/session_pytest_cluster.lock
+INFO     filelock:filelock.py:318 Lock 140411973816768 released on /home/martink/toolbox_tmp/pytest-of-martink/pytest-2/session_pytest_cluster.lock<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140411971397808 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock
+INFO     filelock:filelock.py:318 Lock 140411971397808 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock
+INFO     cardano_node_tests.tests.test_staking:test_staking.py:48 Waiting up to 3 epochs for stake pool to be registered.<br/></div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">cardano_node_tests/tests/test_staking.py::TestStakePool::test_deregister_stake_pool[1]</td>
+          <td class="col-duration">643.41</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">[gw2] linux -- Python 3.8.5 /home/martink/.local/python_venvs/cardano_node/bin/python<br/><br/>self = &lt;cardano_node_tests.tests.test_staking.TestStakePool object at 0x7fca2e555a00&gt;<br/>cluster_session = &lt;cardano_node_tests.utils.clusterlib.ClusterLib object at 0x7fca2e555f10&gt;<br/>addrs_data_session = {&#x27;node-pool1&#x27;: {&#x27;cold_key_pair&#x27;: ColdKeyPair(vkey_file=PosixPath(&#x27;/home/martink/Source/repos/cardano-node/state-cluste...t&#x27;: PosixPath(&#x27;/home/martink/toolbox_tmp/pytest-of-martink/pytest-2/popen-gw7/addrs_data0/user1_stake_reg.cert&#x27;), ...}}<br/>temp_dir = PosixPath(&#x27;/home/martink/toolbox_tmp/pytest-of-martink/pytest-2/popen-gw2/test_staking0&#x27;), no_of_addr = 1<br/>request = &lt;FixtureRequest for &lt;Function test_deregister_stake_pool[1]&gt;&gt;<br/><br/>    @pytest.mark.parametrize(&quot;no_of_addr&quot;, [1, 3])<br/>    def test_deregister_stake_pool(<br/>        self,<br/>        cluster_session: clusterlib.ClusterLib,<br/>        addrs_data_session: dict,<br/>        temp_dir: Path,<br/>        no_of_addr: int,<br/>        request: FixtureRequest,<br/>    ):<br/>        &quot;&quot;&quot;Deregister stake pool.&quot;&quot;&quot;<br/>        cluster = cluster_session<br/>        temp_template = f&quot;test_deregister_stake_pool_{no_of_addr}owners&quot;<br/>    <br/>        pool_metadata = {<br/>            &quot;name&quot;: &quot;QA E2E test&quot;,<br/>            &quot;description&quot;: &quot;Shelley QA E2E test Test&quot;,<br/>            &quot;ticker&quot;: &quot;QA1&quot;,<br/>            &quot;homepage&quot;: &quot;www.test1.com&quot;,<br/>        }<br/>        pool_metadata_file = helpers.write_json(<br/>            temp_dir / f&quot;poolZ_{no_of_addr}_registration_metadata.json&quot;, pool_metadata<br/>        )<br/>    <br/>        pool_data = clusterlib.PoolData(<br/>            pool_name=f&quot;poolZ_{no_of_addr}&quot;,<br/>            pool_pledge=222,<br/>            pool_cost=123,<br/>            pool_margin=0.512,<br/>            pool_metadata_url=&quot;https://www.where_metadata_file_is_located.com&quot;,<br/>            pool_metadata_hash=cluster.gen_pool_metadata_hash(pool_metadata_file),<br/>        )<br/>    <br/>        # create pool owners<br/>        pool_owners = common.create_pool_owners(<br/>            cluster_obj=cluster, temp_template=temp_template, no_of_addr=no_of_addr,<br/>        )<br/>    <br/>        # fund source address<br/>        helpers.fund_from_faucet(<br/>            pool_owners[0].payment,<br/>            cluster_obj=cluster,<br/>            faucet_data=addrs_data_session[&quot;user1&quot;],<br/>            amount=900_000_000,<br/>            request=request,<br/>        )<br/>    <br/>        # register pool and delegate stake address<br/>&gt;       pool_artifacts = _create_register_pool_tx_delegate_stake_tx(<br/>            cluster_obj=cluster,<br/>            pool_owners=pool_owners,<br/>            temp_template=temp_template,<br/>            pool_data=pool_data,<br/>        )<br/><br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:589: <br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:222: in _create_register_pool_tx_delegate_stake_tx<br/>    _check_staking(<br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:49: in _check_staking<br/>    helpers.wait_for(<br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/><br/>func = &lt;function _check_staking.&lt;locals&gt;.&lt;lambda&gt; at 0x7fca2e58a5e0&gt;, delay = 10, num_sec = 600.0, message = &#x27;register stake pool&#x27;, silent = False<br/><br/>    def wait_for(<br/>        func: Callable, delay: int = 5, num_sec: int = 180, message: str = &quot;&quot;, silent: bool = False<br/>    ) -&gt; Any:<br/>        &quot;&quot;&quot;Wait for success of `func` for `num_sec`.&quot;&quot;&quot;<br/>        end_time = time.time() + num_sec<br/>    <br/>        while time.time() &lt; end_time:<br/>            response = func()<br/>            if response:<br/>                return response<br/>            time.sleep(delay)<br/>    <br/>        if not silent:<br/>&gt;           raise RuntimeError(f&quot;Failed to {message or &#x27;finish&#x27;} in time.&quot;)<br/><span class="error">E           RuntimeError: Failed to register stake pool in time.</span><br/><br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/utils/helpers.py:49: RuntimeError<br/> -------------------------------Captured log setup------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140506337467456 acquired on /home/martink/toolbox_tmp/pytest-of-martink/pytest-2/session_pytest_cluster.lock
+INFO     filelock:filelock.py:318 Lock 140506337467456 released on /home/martink/toolbox_tmp/pytest-of-martink/pytest-2/session_pytest_cluster.lock<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140506337829120 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock
+INFO     filelock:filelock.py:318 Lock 140506337829120 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock
+INFO     cardano_node_tests.tests.test_staking:test_staking.py:48 Waiting up to 3 epochs for stake pool to be registered.<br/></div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">cardano_node_tests/tests/test_staking.py::TestStakePool::test_update_stake_pool_metadata[1]</td>
+          <td class="col-duration">626.47</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">[gw6] linux -- Python 3.8.5 /home/martink/.local/python_venvs/cardano_node/bin/python<br/><br/>self = &lt;cardano_node_tests.tests.test_staking.TestStakePool object at 0x7effe75a67c0&gt;<br/>cluster_session = &lt;cardano_node_tests.utils.clusterlib.ClusterLib object at 0x7effe75a6160&gt;<br/>addrs_data_session = {&#x27;node-pool1&#x27;: {&#x27;cold_key_pair&#x27;: ColdKeyPair(vkey_file=PosixPath(&#x27;/home/martink/Source/repos/cardano-node/state-cluste...t&#x27;: PosixPath(&#x27;/home/martink/toolbox_tmp/pytest-of-martink/pytest-2/popen-gw7/addrs_data0/user1_stake_reg.cert&#x27;), ...}}<br/>temp_dir = PosixPath(&#x27;/home/martink/toolbox_tmp/pytest-of-martink/pytest-2/popen-gw6/test_staking0&#x27;), no_of_addr = 1<br/>request = &lt;FixtureRequest for &lt;Function test_update_stake_pool_metadata[1]&gt;&gt;<br/><br/>    @pytest.mark.parametrize(&quot;no_of_addr&quot;, [1, 2])<br/>    def test_update_stake_pool_metadata(<br/>        self,<br/>        cluster_session: clusterlib.ClusterLib,<br/>        addrs_data_session: dict,<br/>        temp_dir: Path,<br/>        no_of_addr: int,<br/>        request: FixtureRequest,<br/>    ):<br/>        &quot;&quot;&quot;Update stake pool metadata.&quot;&quot;&quot;<br/>        cluster = cluster_session<br/>        temp_template = f&quot;test_update_stake_pool_metadata_{no_of_addr}owners&quot;<br/>    <br/>        pool_metadata = {<br/>            &quot;name&quot;: &quot;QA E2E test&quot;,<br/>            &quot;description&quot;: &quot;Shelley QA E2E test Test&quot;,<br/>            &quot;ticker&quot;: &quot;QA1&quot;,<br/>            &quot;homepage&quot;: &quot;www.test1.com&quot;,<br/>        }<br/>        pool_metadata_file = helpers.write_json(<br/>            temp_dir / f&quot;poolA_{no_of_addr}_registration_metadata.json&quot;, pool_metadata<br/>        )<br/>    <br/>        pool_metadata_updated = {<br/>            &quot;name&quot;: &quot;QA_test_pool&quot;,<br/>            &quot;description&quot;: &quot;pool description update&quot;,<br/>            &quot;ticker&quot;: &quot;QA22&quot;,<br/>            &quot;homepage&quot;: &quot;www.qa22.com&quot;,<br/>        }<br/>        pool_metadata_updated_file = helpers.write_json(<br/>            temp_dir / f&quot;poolA_{no_of_addr}_registration_metadata_updated.json&quot;,<br/>            pool_metadata_updated,<br/>        )<br/>    <br/>        pool_data = clusterlib.PoolData(<br/>            pool_name=f&quot;poolA_{no_of_addr}&quot;,<br/>            pool_pledge=4567,<br/>            pool_cost=3,<br/>            pool_margin=0.01,<br/>            pool_metadata_url=&quot;https://init_location.com&quot;,<br/>            pool_metadata_hash=cluster.gen_pool_metadata_hash(pool_metadata_file),<br/>        )<br/>    <br/>        pool_data_updated = pool_data._replace(<br/>            pool_metadata_url=&quot;https://www.updated_location.com&quot;,<br/>            pool_metadata_hash=cluster.gen_pool_metadata_hash(pool_metadata_updated_file),<br/>        )<br/>    <br/>        # create pool owners<br/>        pool_owners = common.create_pool_owners(<br/>            cluster_obj=cluster, temp_template=temp_template, no_of_addr=no_of_addr,<br/>        )<br/>    <br/>        # fund source address<br/>        helpers.fund_from_faucet(<br/>            pool_owners[0].payment,<br/>            cluster_obj=cluster,<br/>            faucet_data=addrs_data_session[&quot;user1&quot;],<br/>            amount=900_000_000,<br/>            request=request,<br/>        )<br/>    <br/>        # register pool and delegate stake address<br/>&gt;       pool_artifacts = _create_register_pool_tx_delegate_stake_tx(<br/>            cluster_obj=cluster,<br/>            pool_owners=pool_owners,<br/>            temp_template=temp_template,<br/>            pool_data=pool_data,<br/>        )<br/><br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:831: <br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:222: in _create_register_pool_tx_delegate_stake_tx<br/>    _check_staking(<br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:49: in _check_staking<br/>    helpers.wait_for(<br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/><br/>func = &lt;function _check_staking.&lt;locals&gt;.&lt;lambda&gt; at 0x7effe730a820&gt;, delay = 10, num_sec = 600.0, message = &#x27;register stake pool&#x27;, silent = False<br/><br/>    def wait_for(<br/>        func: Callable, delay: int = 5, num_sec: int = 180, message: str = &quot;&quot;, silent: bool = False<br/>    ) -&gt; Any:<br/>        &quot;&quot;&quot;Wait for success of `func` for `num_sec`.&quot;&quot;&quot;<br/>        end_time = time.time() + num_sec<br/>    <br/>        while time.time() &lt; end_time:<br/>            response = func()<br/>            if response:<br/>                return response<br/>            time.sleep(delay)<br/>    <br/>        if not silent:<br/>&gt;           raise RuntimeError(f&quot;Failed to {message or &#x27;finish&#x27;} in time.&quot;)<br/><span class="error">E           RuntimeError: Failed to register stake pool in time.</span><br/><br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/utils/helpers.py:49: RuntimeError<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 139637560490928 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock
+INFO     filelock:filelock.py:318 Lock 139637560490928 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock
+INFO     cardano_node_tests.tests.test_staking:test_staking.py:48 Waiting up to 3 epochs for stake pool to be registered.<br/></div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">cardano_node_tests/tests/test_staking.py::TestStakePool::test_reregister_stake_pool</td>
+          <td class="col-duration">626.77</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">[gw5] linux -- Python 3.8.5 /home/martink/.local/python_venvs/cardano_node/bin/python<br/><br/>self = &lt;cardano_node_tests.tests.test_staking.TestStakePool object at 0x7f979afb17c0&gt;<br/>cluster_session = &lt;cardano_node_tests.utils.clusterlib.ClusterLib object at 0x7f979afb1160&gt;<br/>addrs_data_session = {&#x27;node-pool1&#x27;: {&#x27;cold_key_pair&#x27;: ColdKeyPair(vkey_file=PosixPath(&#x27;/home/martink/Source/repos/cardano-node/state-cluste...t&#x27;: PosixPath(&#x27;/home/martink/toolbox_tmp/pytest-of-martink/pytest-2/popen-gw7/addrs_data0/user1_stake_reg.cert&#x27;), ...}}<br/>temp_dir = PosixPath(&#x27;/home/martink/toolbox_tmp/pytest-of-martink/pytest-2/popen-gw5/test_staking0&#x27;)<br/>request = &lt;FixtureRequest for &lt;Function test_reregister_stake_pool&gt;&gt;<br/><br/>    def test_reregister_stake_pool(<br/>        self,<br/>        cluster_session: clusterlib.ClusterLib,<br/>        addrs_data_session: dict,<br/>        temp_dir: Path,<br/>        request: FixtureRequest,<br/>    ):<br/>        &quot;&quot;&quot;Re-register stake pool.&quot;&quot;&quot;<br/>        cluster = cluster_session<br/>        temp_template = &quot;test_reregister_stake_pool&quot;<br/>    <br/>        pool_metadata = {<br/>            &quot;name&quot;: &quot;QA E2E test&quot;,<br/>            &quot;description&quot;: &quot;Shelley QA E2E test Test&quot;,<br/>            &quot;ticker&quot;: &quot;QA1&quot;,<br/>            &quot;homepage&quot;: &quot;www.test1.com&quot;,<br/>        }<br/>        pool_metadata_file = helpers.write_json(<br/>            temp_dir / &quot;poolR_registration_metadata.json&quot;, pool_metadata<br/>        )<br/>    <br/>        pool_data = clusterlib.PoolData(<br/>            pool_name=&quot;poolR&quot;,<br/>            pool_pledge=222,<br/>            pool_cost=123,<br/>            pool_margin=0.512,<br/>            pool_metadata_url=&quot;https://www.where_metadata_file_is_located.com&quot;,<br/>            pool_metadata_hash=cluster.gen_pool_metadata_hash(pool_metadata_file),<br/>        )<br/>    <br/>        # create pool owners<br/>        pool_owners = common.create_pool_owners(cluster_obj=cluster, temp_template=temp_template)<br/>    <br/>        # fund source address<br/>        helpers.fund_from_faucet(<br/>            pool_owners[0].payment,<br/>            cluster_obj=cluster,<br/>            faucet_data=addrs_data_session[&quot;user1&quot;],<br/>            amount=1_500_000_000,<br/>            request=request,<br/>        )<br/>    <br/>        # register pool and delegate stake address<br/>&gt;       pool_artifacts = _create_register_pool_delegate_stake_tx(<br/>            cluster_obj=cluster,<br/>            pool_owners=pool_owners,<br/>            temp_template=temp_template,<br/>            pool_data=pool_data,<br/>        )<br/><br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:688: <br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:154: in _create_register_pool_delegate_stake_tx<br/>    _check_staking(<br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:49: in _check_staking<br/>    helpers.wait_for(<br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/><br/>func = &lt;function _check_staking.&lt;locals&gt;.&lt;lambda&gt; at 0x7f979ad143a0&gt;, delay = 10, num_sec = 600.0, message = &#x27;register stake pool&#x27;, silent = False<br/><br/>    def wait_for(<br/>        func: Callable, delay: int = 5, num_sec: int = 180, message: str = &quot;&quot;, silent: bool = False<br/>    ) -&gt; Any:<br/>        &quot;&quot;&quot;Wait for success of `func` for `num_sec`.&quot;&quot;&quot;<br/>        end_time = time.time() + num_sec<br/>    <br/>        while time.time() &lt; end_time:<br/>            response = func()<br/>            if response:<br/>                return response<br/>            time.sleep(delay)<br/>    <br/>        if not silent:<br/>&gt;           raise RuntimeError(f&quot;Failed to {message or &#x27;finish&#x27;} in time.&quot;)<br/><span class="error">E           RuntimeError: Failed to register stake pool in time.</span><br/><br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/utils/helpers.py:49: RuntimeError<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140289114213728 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock
+INFO     filelock:filelock.py:318 Lock 140289114213728 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock
+INFO     cardano_node_tests.tests.test_staking:test_staking.py:48 Waiting up to 3 epochs for stake pool to be registered.<br/></div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">cardano_node_tests/tests/test_staking.py::TestStakePool::test_deregister_stake_pool[3]</td>
+          <td class="col-duration">621.71</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">[gw4] linux -- Python 3.8.5 /home/martink/.local/python_venvs/cardano_node/bin/python<br/><br/>self = &lt;cardano_node_tests.tests.test_staking.TestStakePool object at 0x7f6d2047e7f0&gt;<br/>cluster_session = &lt;cardano_node_tests.utils.clusterlib.ClusterLib object at 0x7f6d204ab160&gt;<br/>addrs_data_session = {&#x27;node-pool1&#x27;: {&#x27;cold_key_pair&#x27;: ColdKeyPair(vkey_file=PosixPath(&#x27;/home/martink/Source/repos/cardano-node/state-cluste...t&#x27;: PosixPath(&#x27;/home/martink/toolbox_tmp/pytest-of-martink/pytest-2/popen-gw7/addrs_data0/user1_stake_reg.cert&#x27;), ...}}<br/>temp_dir = PosixPath(&#x27;/home/martink/toolbox_tmp/pytest-of-martink/pytest-2/popen-gw4/test_staking0&#x27;), no_of_addr = 3<br/>request = &lt;FixtureRequest for &lt;Function test_deregister_stake_pool[3]&gt;&gt;<br/><br/>    @pytest.mark.parametrize(&quot;no_of_addr&quot;, [1, 3])<br/>    def test_deregister_stake_pool(<br/>        self,<br/>        cluster_session: clusterlib.ClusterLib,<br/>        addrs_data_session: dict,<br/>        temp_dir: Path,<br/>        no_of_addr: int,<br/>        request: FixtureRequest,<br/>    ):<br/>        &quot;&quot;&quot;Deregister stake pool.&quot;&quot;&quot;<br/>        cluster = cluster_session<br/>        temp_template = f&quot;test_deregister_stake_pool_{no_of_addr}owners&quot;<br/>    <br/>        pool_metadata = {<br/>            &quot;name&quot;: &quot;QA E2E test&quot;,<br/>            &quot;description&quot;: &quot;Shelley QA E2E test Test&quot;,<br/>            &quot;ticker&quot;: &quot;QA1&quot;,<br/>            &quot;homepage&quot;: &quot;www.test1.com&quot;,<br/>        }<br/>        pool_metadata_file = helpers.write_json(<br/>            temp_dir / f&quot;poolZ_{no_of_addr}_registration_metadata.json&quot;, pool_metadata<br/>        )<br/>    <br/>        pool_data = clusterlib.PoolData(<br/>            pool_name=f&quot;poolZ_{no_of_addr}&quot;,<br/>            pool_pledge=222,<br/>            pool_cost=123,<br/>            pool_margin=0.512,<br/>            pool_metadata_url=&quot;https://www.where_metadata_file_is_located.com&quot;,<br/>            pool_metadata_hash=cluster.gen_pool_metadata_hash(pool_metadata_file),<br/>        )<br/>    <br/>        # create pool owners<br/>        pool_owners = common.create_pool_owners(<br/>            cluster_obj=cluster, temp_template=temp_template, no_of_addr=no_of_addr,<br/>        )<br/>    <br/>        # fund source address<br/>        helpers.fund_from_faucet(<br/>            pool_owners[0].payment,<br/>            cluster_obj=cluster,<br/>            faucet_data=addrs_data_session[&quot;user1&quot;],<br/>            amount=900_000_000,<br/>            request=request,<br/>        )<br/>    <br/>        # register pool and delegate stake address<br/>&gt;       pool_artifacts = _create_register_pool_tx_delegate_stake_tx(<br/>            cluster_obj=cluster,<br/>            pool_owners=pool_owners,<br/>            temp_template=temp_template,<br/>            pool_data=pool_data,<br/>        )<br/><br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:589: <br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:222: in _create_register_pool_tx_delegate_stake_tx<br/>    _check_staking(<br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:49: in _check_staking<br/>    helpers.wait_for(<br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/><br/>func = &lt;function _check_staking.&lt;locals&gt;.&lt;lambda&gt; at 0x7f6d2047a3a0&gt;, delay = 10, num_sec = 600.0, message = &#x27;register stake pool&#x27;, silent = False<br/><br/>    def wait_for(<br/>        func: Callable, delay: int = 5, num_sec: int = 180, message: str = &quot;&quot;, silent: bool = False<br/>    ) -&gt; Any:<br/>        &quot;&quot;&quot;Wait for success of `func` for `num_sec`.&quot;&quot;&quot;<br/>        end_time = time.time() + num_sec<br/>    <br/>        while time.time() &lt; end_time:<br/>            response = func()<br/>            if response:<br/>                return response<br/>            time.sleep(delay)<br/>    <br/>        if not silent:<br/>&gt;           raise RuntimeError(f&quot;Failed to {message or &#x27;finish&#x27;} in time.&quot;)<br/><span class="error">E           RuntimeError: Failed to register stake pool in time.</span><br/><br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/utils/helpers.py:49: RuntimeError<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140106669745296 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock
+INFO     filelock:filelock.py:318 Lock 140106669745296 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock
+INFO     cardano_node_tests.tests.test_staking:test_staking.py:48 Waiting up to 3 epochs for stake pool to be registered.<br/></div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">cardano_node_tests/tests/test_staking.py::TestStakePool::test_update_stake_pool_metadata[2]</td>
+          <td class="col-duration">623.51</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">[gw7] linux -- Python 3.8.5 /home/martink/.local/python_venvs/cardano_node/bin/python<br/><br/>self = &lt;cardano_node_tests.tests.test_staking.TestStakePool object at 0x7f9fea80ef40&gt;<br/>cluster_session = &lt;cardano_node_tests.utils.clusterlib.ClusterLib object at 0x7f9feabf25b0&gt;<br/>addrs_data_session = {&#x27;node-pool1&#x27;: {&#x27;cold_key_pair&#x27;: ColdKeyPair(vkey_file=PosixPath(&#x27;/home/martink/Source/repos/cardano-node/state-cluste...t&#x27;: PosixPath(&#x27;/home/martink/toolbox_tmp/pytest-of-martink/pytest-2/popen-gw7/addrs_data0/user1_stake_reg.cert&#x27;), ...}}<br/>temp_dir = PosixPath(&#x27;/home/martink/toolbox_tmp/pytest-of-martink/pytest-2/popen-gw7/test_staking0&#x27;), no_of_addr = 2<br/>request = &lt;FixtureRequest for &lt;Function test_update_stake_pool_metadata[2]&gt;&gt;<br/><br/>    @pytest.mark.parametrize(&quot;no_of_addr&quot;, [1, 2])<br/>    def test_update_stake_pool_metadata(<br/>        self,<br/>        cluster_session: clusterlib.ClusterLib,<br/>        addrs_data_session: dict,<br/>        temp_dir: Path,<br/>        no_of_addr: int,<br/>        request: FixtureRequest,<br/>    ):<br/>        &quot;&quot;&quot;Update stake pool metadata.&quot;&quot;&quot;<br/>        cluster = cluster_session<br/>        temp_template = f&quot;test_update_stake_pool_metadata_{no_of_addr}owners&quot;<br/>    <br/>        pool_metadata = {<br/>            &quot;name&quot;: &quot;QA E2E test&quot;,<br/>            &quot;description&quot;: &quot;Shelley QA E2E test Test&quot;,<br/>            &quot;ticker&quot;: &quot;QA1&quot;,<br/>            &quot;homepage&quot;: &quot;www.test1.com&quot;,<br/>        }<br/>        pool_metadata_file = helpers.write_json(<br/>            temp_dir / f&quot;poolA_{no_of_addr}_registration_metadata.json&quot;, pool_metadata<br/>        )<br/>    <br/>        pool_metadata_updated = {<br/>            &quot;name&quot;: &quot;QA_test_pool&quot;,<br/>            &quot;description&quot;: &quot;pool description update&quot;,<br/>            &quot;ticker&quot;: &quot;QA22&quot;,<br/>            &quot;homepage&quot;: &quot;www.qa22.com&quot;,<br/>        }<br/>        pool_metadata_updated_file = helpers.write_json(<br/>            temp_dir / f&quot;poolA_{no_of_addr}_registration_metadata_updated.json&quot;,<br/>            pool_metadata_updated,<br/>        )<br/>    <br/>        pool_data = clusterlib.PoolData(<br/>            pool_name=f&quot;poolA_{no_of_addr}&quot;,<br/>            pool_pledge=4567,<br/>            pool_cost=3,<br/>            pool_margin=0.01,<br/>            pool_metadata_url=&quot;https://init_location.com&quot;,<br/>            pool_metadata_hash=cluster.gen_pool_metadata_hash(pool_metadata_file),<br/>        )<br/>    <br/>        pool_data_updated = pool_data._replace(<br/>            pool_metadata_url=&quot;https://www.updated_location.com&quot;,<br/>            pool_metadata_hash=cluster.gen_pool_metadata_hash(pool_metadata_updated_file),<br/>        )<br/>    <br/>        # create pool owners<br/>        pool_owners = common.create_pool_owners(<br/>            cluster_obj=cluster, temp_template=temp_template, no_of_addr=no_of_addr,<br/>        )<br/>    <br/>        # fund source address<br/>        helpers.fund_from_faucet(<br/>            pool_owners[0].payment,<br/>            cluster_obj=cluster,<br/>            faucet_data=addrs_data_session[&quot;user1&quot;],<br/>            amount=900_000_000,<br/>            request=request,<br/>        )<br/>    <br/>        # register pool and delegate stake address<br/>&gt;       pool_artifacts = _create_register_pool_tx_delegate_stake_tx(<br/>            cluster_obj=cluster,<br/>            pool_owners=pool_owners,<br/>            temp_template=temp_template,<br/>            pool_data=pool_data,<br/>        )<br/><br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:831: <br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:222: in _create_register_pool_tx_delegate_stake_tx<br/>    _check_staking(<br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:49: in _check_staking<br/>    helpers.wait_for(<br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/><br/>func = &lt;function _check_staking.&lt;locals&gt;.&lt;lambda&gt; at 0x7f9feab48790&gt;, delay = 10, num_sec = 600.0, message = &#x27;register stake pool&#x27;, silent = False<br/><br/>    def wait_for(<br/>        func: Callable, delay: int = 5, num_sec: int = 180, message: str = &quot;&quot;, silent: bool = False<br/>    ) -&gt; Any:<br/>        &quot;&quot;&quot;Wait for success of `func` for `num_sec`.&quot;&quot;&quot;<br/>        end_time = time.time() + num_sec<br/>    <br/>        while time.time() &lt; end_time:<br/>            response = func()<br/>            if response:<br/>                return response<br/>            time.sleep(delay)<br/>    <br/>        if not silent:<br/>&gt;           raise RuntimeError(f&quot;Failed to {message or &#x27;finish&#x27;} in time.&quot;)<br/><span class="error">E           RuntimeError: Failed to register stake pool in time.</span><br/><br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/utils/helpers.py:49: RuntimeError<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140324810868816 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock
+INFO     filelock:filelock.py:318 Lock 140324810868816 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock
+INFO     cardano_node_tests.tests.test_staking:test_staking.py:48 Waiting up to 3 epochs for stake pool to be registered.<br/></div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">cardano_node_tests/tests/test_staking.py::TestStakePool::test_update_stake_pool_parameters[1]</td>
+          <td class="col-duration">628.60</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">[gw0] linux -- Python 3.8.5 /home/martink/.local/python_venvs/cardano_node/bin/python<br/><br/>self = &lt;cardano_node_tests.tests.test_staking.TestStakePool object at 0x7fb4357df610&gt;<br/>cluster_session = &lt;cardano_node_tests.utils.clusterlib.ClusterLib object at 0x7fb435ed81c0&gt;<br/>addrs_data_session = {&#x27;node-pool1&#x27;: {&#x27;cold_key_pair&#x27;: ColdKeyPair(vkey_file=PosixPath(&#x27;/home/martink/Source/repos/cardano-node/state-cluste...t&#x27;: PosixPath(&#x27;/home/martink/toolbox_tmp/pytest-of-martink/pytest-2/popen-gw7/addrs_data0/user1_stake_reg.cert&#x27;), ...}}<br/>temp_dir = PosixPath(&#x27;/home/martink/toolbox_tmp/pytest-of-martink/pytest-2/popen-gw0/test_staking0&#x27;), no_of_addr = 1<br/>request = &lt;FixtureRequest for &lt;Function test_update_stake_pool_parameters[1]&gt;&gt;<br/><br/>    @pytest.mark.parametrize(&quot;no_of_addr&quot;, [1, 2])<br/>    def test_update_stake_pool_parameters(<br/>        self,<br/>        cluster_session: clusterlib.ClusterLib,<br/>        addrs_data_session: dict,<br/>        temp_dir: Path,<br/>        no_of_addr: int,<br/>        request: FixtureRequest,<br/>    ):<br/>        &quot;&quot;&quot;Update stake pool parameters.&quot;&quot;&quot;<br/>        cluster = cluster_session<br/>        temp_template = f&quot;test_update_stake_pool_{no_of_addr}owners&quot;<br/>    <br/>        pool_metadata = {<br/>            &quot;name&quot;: &quot;QA E2E test&quot;,<br/>            &quot;description&quot;: &quot;Shelley QA E2E test Test&quot;,<br/>            &quot;ticker&quot;: &quot;QA1&quot;,<br/>            &quot;homepage&quot;: &quot;www.test1.com&quot;,<br/>        }<br/>        pool_metadata_file = helpers.write_json(<br/>            temp_dir / f&quot;poolB_{no_of_addr}_registration_metadata.json&quot;, pool_metadata<br/>        )<br/>    <br/>        pool_data = clusterlib.PoolData(<br/>            pool_name=f&quot;poolB_{no_of_addr}&quot;,<br/>            pool_pledge=4567,<br/>            pool_cost=3,<br/>            pool_margin=0.01,<br/>            pool_metadata_url=&quot;https://www.where_metadata_file_is_located.com&quot;,<br/>            pool_metadata_hash=cluster.gen_pool_metadata_hash(pool_metadata_file),<br/>        )<br/>    <br/>        pool_data_updated = pool_data._replace(pool_pledge=1, pool_cost=1_000_000, pool_margin=0.9)<br/>    <br/>        # create pool owners<br/>        pool_owners = common.create_pool_owners(<br/>            cluster_obj=cluster, temp_template=temp_template, no_of_addr=no_of_addr,<br/>        )<br/>    <br/>        # fund source address<br/>        helpers.fund_from_faucet(<br/>            pool_owners[0].payment,<br/>            cluster_obj=cluster,<br/>            faucet_data=addrs_data_session[&quot;user1&quot;],<br/>            amount=900_000_000,<br/>            request=request,<br/>        )<br/>    <br/>        # register pool and delegate stake address<br/>&gt;       pool_artifacts = _create_register_pool_tx_delegate_stake_tx(<br/>            cluster_obj=cluster,<br/>            pool_owners=pool_owners,<br/>            temp_template=temp_template,<br/>            pool_data=pool_data,<br/>        )<br/><br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:904: <br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:222: in _create_register_pool_tx_delegate_stake_tx<br/>    _check_staking(<br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:49: in _check_staking<br/>    helpers.wait_for(<br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/><br/>func = &lt;function _check_staking.&lt;locals&gt;.&lt;lambda&gt; at 0x7fb435971b80&gt;, delay = 10, num_sec = 600.0, message = &#x27;register stake pool&#x27;, silent = False<br/><br/>    def wait_for(<br/>        func: Callable, delay: int = 5, num_sec: int = 180, message: str = &quot;&quot;, silent: bool = False<br/>    ) -&gt; Any:<br/>        &quot;&quot;&quot;Wait for success of `func` for `num_sec`.&quot;&quot;&quot;<br/>        end_time = time.time() + num_sec<br/>    <br/>        while time.time() &lt; end_time:<br/>            response = func()<br/>            if response:<br/>                return response<br/>            time.sleep(delay)<br/>    <br/>        if not silent:<br/>&gt;           raise RuntimeError(f&quot;Failed to {message or &#x27;finish&#x27;} in time.&quot;)<br/><span class="error">E           RuntimeError: Failed to register stake pool in time.</span><br/><br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/utils/helpers.py:49: RuntimeError<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140411968289904 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock
+INFO     filelock:filelock.py:318 Lock 140411968289904 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock
+INFO     cardano_node_tests.tests.test_staking:test_staking.py:48 Waiting up to 3 epochs for stake pool to be registered.<br/></div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">cardano_node_tests/tests/test_staking.py::TestStakePool::test_update_stake_pool_parameters[2]</td>
+          <td class="col-duration">623.63</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">[gw2] linux -- Python 3.8.5 /home/martink/.local/python_venvs/cardano_node/bin/python<br/><br/>self = &lt;cardano_node_tests.tests.test_staking.TestStakePool object at 0x7fca2e223700&gt;<br/>cluster_session = &lt;cardano_node_tests.utils.clusterlib.ClusterLib object at 0x7fca2e555f10&gt;<br/>addrs_data_session = {&#x27;node-pool1&#x27;: {&#x27;cold_key_pair&#x27;: ColdKeyPair(vkey_file=PosixPath(&#x27;/home/martink/Source/repos/cardano-node/state-cluste...t&#x27;: PosixPath(&#x27;/home/martink/toolbox_tmp/pytest-of-martink/pytest-2/popen-gw7/addrs_data0/user1_stake_reg.cert&#x27;), ...}}<br/>temp_dir = PosixPath(&#x27;/home/martink/toolbox_tmp/pytest-of-martink/pytest-2/popen-gw2/test_staking0&#x27;), no_of_addr = 2<br/>request = &lt;FixtureRequest for &lt;Function test_update_stake_pool_parameters[2]&gt;&gt;<br/><br/>    @pytest.mark.parametrize(&quot;no_of_addr&quot;, [1, 2])<br/>    def test_update_stake_pool_parameters(<br/>        self,<br/>        cluster_session: clusterlib.ClusterLib,<br/>        addrs_data_session: dict,<br/>        temp_dir: Path,<br/>        no_of_addr: int,<br/>        request: FixtureRequest,<br/>    ):<br/>        &quot;&quot;&quot;Update stake pool parameters.&quot;&quot;&quot;<br/>        cluster = cluster_session<br/>        temp_template = f&quot;test_update_stake_pool_{no_of_addr}owners&quot;<br/>    <br/>        pool_metadata = {<br/>            &quot;name&quot;: &quot;QA E2E test&quot;,<br/>            &quot;description&quot;: &quot;Shelley QA E2E test Test&quot;,<br/>            &quot;ticker&quot;: &quot;QA1&quot;,<br/>            &quot;homepage&quot;: &quot;www.test1.com&quot;,<br/>        }<br/>        pool_metadata_file = helpers.write_json(<br/>            temp_dir / f&quot;poolB_{no_of_addr}_registration_metadata.json&quot;, pool_metadata<br/>        )<br/>    <br/>        pool_data = clusterlib.PoolData(<br/>            pool_name=f&quot;poolB_{no_of_addr}&quot;,<br/>            pool_pledge=4567,<br/>            pool_cost=3,<br/>            pool_margin=0.01,<br/>            pool_metadata_url=&quot;https://www.where_metadata_file_is_located.com&quot;,<br/>            pool_metadata_hash=cluster.gen_pool_metadata_hash(pool_metadata_file),<br/>        )<br/>    <br/>        pool_data_updated = pool_data._replace(pool_pledge=1, pool_cost=1_000_000, pool_margin=0.9)<br/>    <br/>        # create pool owners<br/>        pool_owners = common.create_pool_owners(<br/>            cluster_obj=cluster, temp_template=temp_template, no_of_addr=no_of_addr,<br/>        )<br/>    <br/>        # fund source address<br/>        helpers.fund_from_faucet(<br/>            pool_owners[0].payment,<br/>            cluster_obj=cluster,<br/>            faucet_data=addrs_data_session[&quot;user1&quot;],<br/>            amount=900_000_000,<br/>            request=request,<br/>        )<br/>    <br/>        # register pool and delegate stake address<br/>&gt;       pool_artifacts = _create_register_pool_tx_delegate_stake_tx(<br/>            cluster_obj=cluster,<br/>            pool_owners=pool_owners,<br/>            temp_template=temp_template,<br/>            pool_data=pool_data,<br/>        )<br/><br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:904: <br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:222: in _create_register_pool_tx_delegate_stake_tx<br/>    _check_staking(<br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/test_staking.py:49: in _check_staking<br/>    helpers.wait_for(<br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/><br/>func = &lt;function _check_staking.&lt;locals&gt;.&lt;lambda&gt; at 0x7fca2e08adc0&gt;, delay = 10, num_sec = 600.0, message = &#x27;register stake pool&#x27;, silent = False<br/><br/>    def wait_for(<br/>        func: Callable, delay: int = 5, num_sec: int = 180, message: str = &quot;&quot;, silent: bool = False<br/>    ) -&gt; Any:<br/>        &quot;&quot;&quot;Wait for success of `func` for `num_sec`.&quot;&quot;&quot;<br/>        end_time = time.time() + num_sec<br/>    <br/>        while time.time() &lt; end_time:<br/>            response = func()<br/>            if response:<br/>                return response<br/>            time.sleep(delay)<br/>    <br/>        if not silent:<br/>&gt;           raise RuntimeError(f&quot;Failed to {message or &#x27;finish&#x27;} in time.&quot;)<br/><span class="error">E           RuntimeError: Failed to register stake pool in time.</span><br/><br/>/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/utils/helpers.py:49: RuntimeError<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140506334116736 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock
+INFO     filelock:filelock.py:318 Lock 140506334116736 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock
+INFO     cardano_node_tests.tests.test_staking:test_staking.py:48 Waiting up to 3 epochs for stake pool to be registered.<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_staking.py::TestPoolCost::test_stake_pool_low_cost</td>
+          <td class="col-duration">23.44</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     cardano_node_tests.tests.conftest:conftest.py:123 Changed CWD to &#x27;/home/martink/toolbox_tmp/pytest-of-martink/pytest-2/popen-gw0&#x27;.
+INFO     filelock:filelock.py:274 Lock 140411974289776 acquired on /home/martink/toolbox_tmp/pytest-of-martink/pytest-2/fresh_pytest_cluster.lock
+INFO     cardano_node_tests.utils.helpers:helpers.py:407 Stopping cluster.
+INFO     cardano_node_tests.utils.helpers:helpers.py:397 Starting cluster.
+INFO     cardano_node_tests.utils.helpers:helpers.py:400 Cluster started.
+INFO     filelock:filelock.py:274 Lock 140411970452640 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1vzrrflp2qhpa07xu4ypjrkhpngsh92el79r9zfnqwg06zkc0xcng4.lock
+INFO     filelock:filelock.py:318 Lock 140411970452640 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1vzrrflp2qhpa07xu4ypjrkhpngsh92el79r9zfnqwg06zkc0xcng4.lock
+INFO     cardano_node_tests.utils.helpers:helpers.py:486 Waiting for new epoch to submit proposal.
+INFO     cardano_node_tests.utils.helpers:helpers.py:491 Update Proposal submitted (cli_arg=--min-pool-cost, param_value=5000). Sleeping until next epoch.
+INFO     filelock:filelock.py:274 Lock 140411970473936 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qpu62h7dhynfe2akw45emcnxg4xk6y0nd5jcgqluweslft4j2d282xyl9f2r8ns8qf4ewm7wjpk0uv5ewpzknlt09txq6f2zd0.lock
+INFO     filelock:filelock.py:318 Lock 140411970473936 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qpu62h7dhynfe2akw45emcnxg4xk6y0nd5jcgqluweslft4j2d282xyl9f2r8ns8qf4ewm7wjpk0uv5ewpzknlt09txq6f2zd0.lock<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_update_proposal.py::test_update_proposal</td>
+          <td class="col-duration">389.65</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     cardano_node_tests.tests.conftest:conftest.py:123 Changed CWD to &#x27;/home/martink/toolbox_tmp/pytest-of-martink/pytest-2/popen-gw2&#x27;.
+INFO     filelock:filelock.py:274 Lock 140506337752304 acquired on /home/martink/toolbox_tmp/pytest-of-martink/pytest-2/fresh_pytest_cluster.lock
+INFO     cardano_node_tests.utils.helpers:helpers.py:407 Stopping cluster.
+INFO     cardano_node_tests.utils.helpers:helpers.py:397 Starting cluster.
+INFO     cardano_node_tests.utils.helpers:helpers.py:400 Cluster started.
+INFO     filelock:filelock.py:274 Lock 140506337831808 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1vzrrflp2qhpa07xu4ypjrkhpngsh92el79r9zfnqwg06zkc0xcng4.lock
+INFO     filelock:filelock.py:318 Lock 140506337831808 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1vzrrflp2qhpa07xu4ypjrkhpngsh92el79r9zfnqwg06zkc0xcng4.lock<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     cardano_node_tests.utils.helpers:helpers.py:486 Waiting for new epoch to submit proposal.
+INFO     cardano_node_tests.utils.helpers:helpers.py:491 Update Proposal submitted (cli_arg=--decentralization-parameter, param_value=0.5). Sleeping until next epoch.<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestBasic::test_transfer_all_funds</td>
+          <td class="col-duration">5.17</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140459934522624 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock
+INFO     filelock:filelock.py:318 Lock 140459934522624 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestBasic::test_transfer_funds</td>
+          <td class="col-duration">3.36</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 139792668077936 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock
+INFO     filelock:filelock.py:318 Lock 139792668077936 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestFee::test_smaller_fee[0]</td>
+          <td class="col-duration">0.51</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 139792669120304 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock
+INFO     filelock:filelock.py:318 Lock 139792669120304 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestFee::test_smaller_fee[2]</td>
+          <td class="col-duration">0.90</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestFee::test_expected_or_higher_fee[0]</td>
+          <td class="col-duration">5.14</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestFee::test_expected_or_higher_fee[1000]</td>
+          <td class="col-duration">6.11</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestFee::test_expected_or_higher_fee[100000]</td>
+          <td class="col-duration">2.72</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestFee::test_expected_or_higher_fee[1000000]</td>
+          <td class="col-duration">4.67</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestExpectedFees::test_pool_registration_fees[addr_fee0]</td>
+          <td class="col-duration">0.97</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 139792669165360 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock
+INFO     filelock:filelock.py:318 Lock 139792669165360 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestExpectedFees::test_pool_registration_fees[addr_fee1]</td>
+          <td class="col-duration">1.32</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestNotBalanced::test_wrong_balance</td>
+          <td class="col-duration">47.94</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140459935573712 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock
+INFO     filelock:filelock.py:318 Lock 140459935573712 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestExpectedFees::test_pool_registration_fees[addr_fee2]</td>
+          <td class="col-duration">1.58</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestExpectedFees::test_pool_registration_fees[addr_fee3]</td>
+          <td class="col-duration">2.43</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestExpectedFees::test_pool_deregistration_fees[addr_fee0]</td>
+          <td class="col-duration">0.72</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestExpectedFees::test_pool_deregistration_fees[addr_fee1]</td>
+          <td class="col-duration">0.74</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestExpectedFees::test_pool_deregistration_fees[addr_fee2]</td>
+          <td class="col-duration">0.80</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestExpectedFees::test_addr_registration_fees[addr_fee0]</td>
+          <td class="col-duration">0.65</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestExpectedFees::test_addr_registration_fees[addr_fee1]</td>
+          <td class="col-duration">0.60</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestFee::test_smaller_fee[1.5]</td>
+          <td class="col-duration">0.77</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140459933618720 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock
+INFO     filelock:filelock.py:318 Lock 140459933618720 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestExpectedFees::test_addr_registration_fees[addr_fee2]</td>
+          <td class="col-duration">0.81</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestExpectedFees::test_addr_registration_fees[addr_fee3]</td>
+          <td class="col-duration">1.26</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestExpectedFees::test_addr_deregistration_fees[addr_fee0]</td>
+          <td class="col-duration">0.49</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestExpectedFees::test_addr_deregistration_fees[addr_fee1]</td>
+          <td class="col-duration">0.60</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestExpectedFees::test_addr_deregistration_fees[addr_fee2]</td>
+          <td class="col-duration">0.78</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestExpectedFees::test_addr_deregistration_fees[addr_fee3]</td>
+          <td class="col-duration">1.29</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestExpectedFees::test_pool_deregistration_fees[addr_fee3]</td>
+          <td class="col-duration">0.73</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140459935827520 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock
+INFO     filelock:filelock.py:318 Lock 140459935827520 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::test_past_ttl</td>
+          <td class="col-duration">8.19</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log call-------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 139792667232288 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock
+INFO     filelock:filelock.py:318 Lock 139792667232288 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::test_send_funds_to_reward_address</td>
+          <td class="col-duration">10.99</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log call-------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140459935950544 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock
+INFO     filelock:filelock.py:318 Lock 140459935950544 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestBasic::test_get_txid</td>
+          <td class="col-duration">4.70</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 139637560368960 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock
+INFO     filelock:filelock.py:318 Lock 139637560368960 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::Test10InOut::test_transaction_to_10_addrs</td>
+          <td class="col-duration">5.12</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140106665734096 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock
+INFO     filelock:filelock.py:318 Lock 140106665734096 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestNotBalanced::test_negative_change</td>
+          <td class="col-duration">0.14</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140324810946976 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock
+INFO     filelock:filelock.py:318 Lock 140324810946976 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::Test10InOut::test_10_transactions</td>
+          <td class="col-duration">36.99</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140289114266064 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock
+INFO     filelock:filelock.py:318 Lock 140289114266064 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestFee::test_negative_fee</td>
+          <td class="col-duration">6.88</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140411969968208 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock
+INFO     filelock:filelock.py:318 Lock 140411969968208 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">cardano_node_tests/tests/test_transactions.py::TestFee::test_smaller_fee[1.1]</td>
+          <td class="col-duration">0.20</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     filelock:filelock.py:274 Lock 140506334148448 acquired on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock
+INFO     filelock:filelock.py:318 Lock 140506334148448 released on /home/martink/toolbox_tmp/cardano-node-tests/addr_test1qp7ydgu4t3lv4puk7ccuf9g06h9najvnzcf4r5f9p8dd39p9mfwfdxrxkvuc36p3mzes4hvvxh6te6cgu3twnva654vqu9w5ud.lock<br/></div></td></tr></tbody></table></body></html>

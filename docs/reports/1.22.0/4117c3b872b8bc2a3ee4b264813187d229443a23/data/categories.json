@@ -1,0 +1,47 @@
+{
+  "uid" : "4b4757e66a1912dae1a509f688f20b0f",
+  "name" : "categories",
+  "children" : [ {
+    "name" : "Test defects",
+    "children" : [ {
+      "name" : "hypothesis.errors.MultipleFailures: Hypothesis found 2 distinct failures.",
+      "children" : [ {
+        "name" : "test_wrong_balance",
+        "uid" : "de845cfaa003b7b",
+        "parentUid" : "d5b8021efc55e0dd2daee5b88c88c667",
+        "status" : "broken",
+        "time" : {
+          "start" : 1604071159625,
+          "stop" : 1604071167238,
+          "duration" : 7613
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "d5b8021efc55e0dd2daee5b88c88c667"
+    } ],
+    "uid" : "bdbf199525818fae7a8651db9eafe741"
+  }, {
+    "name" : "Product defects",
+    "children" : [ {
+      "name" : "Failed: Errors found in cluster log files:\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-0-zhuviqhd/popen-gw1/cluster_artifacts_tgbnqzgb/bft1.stdout: \u001B[31m[bender-3:cardano.node.LocalErrorPolicy:Error:42]\u001B[0m [2020-10-30 15:19:19.69 UTC] [String \"ErrorPolicyUnhandledApplicationException out of bounds : 18446744073709551616\\nCallStack (from HasCallStack):\\n  error, called at src/Shelley/Spec/Ledger/Coin.hs:79:7 in shelley-spec-ledger-0.1.0.0-HfhISpN74MdH4YWGDs1y5I:Shelley.Spec.Ledger.Coin\",String \"ErrorPolicyTrace\",String \"LocalAddress {getFilePath = \\\"\\\"}\"]\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-0-zhuviqhd/popen-gw1/cluster_artifacts_tgbnqzgb/bft1.stdout: \u001B[31m[bender-3:cardano.node.LocalErrorPolicy:Error:42]\u001B[0m [2020-10-30 15:19:21.22 UTC] [String \"ErrorPolicyUnhandledApplicationException out of bounds : 18446744073709551616\\nCallStack (from HasCallStack):\\n  error, called at src/Shelley/Spec/Ledger/Coin.hs:79:7 in shelley-spec-ledger-0.1.0.0-HfhISpN74MdH4YWGDs1y5I:Shelley.Spec.Ledger.Coin\",String \"ErrorPolicyTrace\",String \"LocalAddress {getFilePath = \\\"\\\"}\"]\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-0-zhuviqhd/popen-gw1/cluster_artifacts_tgbnqzgb/bft1.stdout: \u001B[31m[bender-3:cardano.node.LocalErrorPolicy:Error:42]\u001B[0m [2020-10-30 15:19:23.77 UTC] [String \"ErrorPolicyUnhandledApplicationException out of bounds : 18446744073712551615\\nCallStack (from HasCallStack):\\n  error, called at src/Shelley/Spec/Ledger/Coin.hs:79:7 in shelley-spec-ledger-0.1.0.0-HfhISpN74MdH4YWGDs1y5I:Shelley.Spec.Ledger.Coin\",String \"ErrorPolicyTrace\",String \"LocalAddress {getFilePath = \\\"\\\"}\"]\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-0-zhuviqhd/popen-gw1/cluster_artifacts_tgbnqzgb/bft1.stdout: \u001B[31m[bender-3:cardano.node.LocalErrorPolicy:Error:42]\u001B[0m [2020-10-30 15:19:24.85 UTC] [String \"ErrorPolicyUnhandledApplicationException out of bounds : 18446744073712551615\\nCallStack (from HasCallStack):\\n  error, called at src/Shelley/Spec/Ledger/Coin.hs:79:7 in shelley-spec-ledger-0.1.0.0-HfhISpN74MdH4YWGDs1y5I:Shelley.Spec.Ledger.Coin\",String \"ErrorPolicyTrace\",String \"LocalAddress {getFilePath = \\\"\\\"}\"]\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-0-zhuviqhd/popen-gw1/cluster_artifacts_tgbnqzgb/bft1.stdout: \u001B[31m[bender-3:cardano.node.LocalErrorPolicy:Error:42]\u001B[0m [2020-10-30 15:19:26.22 UTC] [String \"ErrorPolicyUnhandledApplicationException out of bounds : 18446744073709551616\\nCallStack (from HasCallStack):\\n  error, called at src/Shelley/Spec/Ledger/Coin.hs:79:7 in shelley-spec-ledger-0.1.0.0-HfhISpN74MdH4YWGDs1y5I:Shelley.Spec.Ledger.Coin\",String \"ErrorPolicyTrace\",String \"LocalAddress {getFilePath = \\\"\\\"}\"]",
+      "children" : [ {
+        "name" : "test_stake_pool_metadata_no_name",
+        "uid" : "2870d635837e44b2",
+        "parentUid" : "0acd5a530107dcf93ccc7085eebc1152",
+        "status" : "failed",
+        "time" : {
+          "start" : 1604089022277,
+          "stop" : 1604089022291,
+          "duration" : 14
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "0acd5a530107dcf93ccc7085eebc1152"
+    } ],
+    "uid" : "8fb3a91ba5aaf9de24cc8a92edc82b5d"
+  } ]
+}

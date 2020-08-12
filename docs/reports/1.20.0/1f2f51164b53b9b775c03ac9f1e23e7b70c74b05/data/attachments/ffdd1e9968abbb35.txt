@@ -1,0 +1,6 @@
+ERROR    cardano_node_tests.utils.clusterlib:clusterlib.py:255 An error occurred running a CLI command `cardano-cli shelley query utxo --address addr_test1qrgjtc24ve9ejfxy9vccl75gvdjvaw6yr5gtqynx69aqrng7alv5y5p9klk4tpp4830kux2wzfye3pseyhkq4rewqm5qply5kf --out-file /dev/stdout --testnet-magic 42 --shelley-mode`: 
+cardano-cli: Network.Socket.connect: <socket: 11>: resource exhausted (Resource temporarily unavailable)
+INFO     cardano_node_tests.tests.test_pools:test_pools.py:87 Waiting up to 3 epochs for stake pool to be registered.
+INFO     cardano_node_tests.tests.test_pools:test_pools.py:588 Waiting up to 3 epochs for stake pool to be deregistered.
+INFO     cardano_node_tests.tests.test_pools:test_pools.py:626 Waiting up to 5 epochs for stake pool to be re-registered.
+INFO     cardano_node_tests.tests.test_pools:test_pools.py:87 Waiting up to 3 epochs for stake pool to be registered.

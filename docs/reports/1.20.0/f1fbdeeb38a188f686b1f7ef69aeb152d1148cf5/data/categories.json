@@ -1,0 +1,183 @@
+{
+  "uid" : "4b4757e66a1912dae1a509f688f20b0f",
+  "name" : "categories",
+  "children" : [ {
+    "name" : "Test defects",
+    "children" : [ {
+      "name" : "cardano_node_tests.utils.clusterlib.CLIError: An error occurred running a CLI command `cardano-cli shelley transaction build-multisig --all --out-file test_script_addr_length_multisig.script --payment-verification-key-file multi_addr0.vkey --payment-verification-key-file multi_addr1.vkey --payment-verification-key-file multi_addr2.vkey --payment-verification-key-file multi_addr3.vkey --payment-verification-key-file multi_addr4.vkey --payment-verification-key-file multi_addr5.vkey --payment-verification-key-file multi_addr6.vkey --payment-verification-key-file multi_addr7.vkey --payment-verification-key-file multi_addr8.vkey --payment-verification-key-file multi_addr9.vkey --payment-verification-key-file multi_addr10.vkey --payment-verification-key-file multi_addr11.vkey --payment-verification-key-file multi_addr12.vkey --payment-verification-key-file multi_addr13.vkey --payment-verification-key-file multi_addr14.vkey --payment-verification-key-file multi_addr15.vkey --payment-verification-key-file multi_addr16.vkey --payment-verification-key-file multi_addr17.vkey --payment-verification-key-file multi_addr18.vkey --payment-verification-key-file multi_addr19.vkey`: Invalid argument `build-multisig'\n\nUsage: cardano-cli shelley transaction (COMMAND | COMMAND | COMMAND | COMMAND | \n                                         COMMAND | COMMAND | COMMAND)\n  Shelley transaction commands",
+      "children" : [ {
+        "name" : "test_script_addr_length",
+        "uid" : "42ff606dfdff885b",
+        "parentUid" : "d166723a244661bf2a51b005c9d2145a",
+        "status" : "broken",
+        "time" : {
+          "start" : 1601566222044,
+          "stop" : 1601566222069,
+          "duration" : 25
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "d166723a244661bf2a51b005c9d2145a"
+    }, {
+      "name" : "cardano_node_tests.utils.clusterlib.CLIError: An error occurred running a CLI command `cardano-cli shelley transaction build-multisig --all --out-file test_multisig_all_missing_skey_multisig.script --payment-verification-key-file multi_neg_addr0.vkey --payment-verification-key-file multi_neg_addr1.vkey --payment-verification-key-file multi_neg_addr2.vkey --payment-verification-key-file multi_neg_addr3.vkey --payment-verification-key-file multi_neg_addr4.vkey --payment-verification-key-file multi_neg_addr5.vkey --payment-verification-key-file multi_neg_addr6.vkey --payment-verification-key-file multi_neg_addr7.vkey --payment-verification-key-file multi_neg_addr8.vkey --payment-verification-key-file multi_neg_addr9.vkey`: Invalid argument `build-multisig'\n\nUsage: cardano-cli shelley transaction (COMMAND | COMMAND | COMMAND | COMMAND | \n                                         COMMAND | COMMAND | COMMAND)\n  Shelley transaction commands",
+      "children" : [ {
+        "name" : "test_multisig_all_missing_skey",
+        "uid" : "eb247ad46bc19e88",
+        "parentUid" : "75e92ab00da472760deb9ba56296b141",
+        "status" : "broken",
+        "time" : {
+          "start" : 1601566307124,
+          "stop" : 1601566307142,
+          "duration" : 18
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "75e92ab00da472760deb9ba56296b141"
+    }, {
+      "name" : "cardano_node_tests.utils.clusterlib.CLIError: An error occurred running a CLI command `cardano-cli shelley transaction build-multisig --all --out-file test_normal_tx_to_script_addr_multisig.script --payment-verification-key-file multi_addr0.vkey --payment-verification-key-file multi_addr1.vkey --payment-verification-key-file multi_addr2.vkey --payment-verification-key-file multi_addr3.vkey --payment-verification-key-file multi_addr4.vkey --payment-verification-key-file multi_addr5.vkey --payment-verification-key-file multi_addr6.vkey --payment-verification-key-file multi_addr7.vkey --payment-verification-key-file multi_addr8.vkey --payment-verification-key-file multi_addr9.vkey --payment-verification-key-file multi_addr10.vkey --payment-verification-key-file multi_addr11.vkey --payment-verification-key-file multi_addr12.vkey --payment-verification-key-file multi_addr13.vkey --payment-verification-key-file multi_addr14.vkey --payment-verification-key-file multi_addr15.vkey --payment-verification-key-file multi_addr16.vkey --payment-verification-key-file multi_addr17.vkey --payment-verification-key-file multi_addr18.vkey --payment-verification-key-file multi_addr19.vkey`: Invalid argument `build-multisig'\n\nUsage: cardano-cli shelley transaction (COMMAND | COMMAND | COMMAND | COMMAND | \n                                         COMMAND | COMMAND | COMMAND)\n  Shelley transaction commands",
+      "children" : [ {
+        "name" : "test_normal_tx_to_script_addr",
+        "uid" : "50cd806358883311",
+        "parentUid" : "be4d27b258fe5a081922164da49e13a5",
+        "status" : "broken",
+        "time" : {
+          "start" : 1601566312174,
+          "stop" : 1601566312193,
+          "duration" : 19
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "be4d27b258fe5a081922164da49e13a5"
+    }, {
+      "name" : "cardano_node_tests.utils.clusterlib.CLIError: An error occurred running a CLI command `cardano-cli shelley transaction build-multisig --at-least --required 16 --out-file test_multisig_atleast_multisig.script --payment-verification-key-file multi_addr0.vkey --payment-verification-key-file multi_addr1.vkey --payment-verification-key-file multi_addr2.vkey --payment-verification-key-file multi_addr3.vkey --payment-verification-key-file multi_addr4.vkey --payment-verification-key-file multi_addr5.vkey --payment-verification-key-file multi_addr6.vkey --payment-verification-key-file multi_addr7.vkey --payment-verification-key-file multi_addr8.vkey --payment-verification-key-file multi_addr9.vkey --payment-verification-key-file multi_addr10.vkey --payment-verification-key-file multi_addr11.vkey --payment-verification-key-file multi_addr12.vkey --payment-verification-key-file multi_addr13.vkey --payment-verification-key-file multi_addr14.vkey --payment-verification-key-file multi_addr15.vkey --payment-verification-key-file multi_addr16.vkey --payment-verification-key-file multi_addr17.vkey --payment-verification-key-file multi_addr18.vkey --payment-verification-key-file multi_addr19.vkey`: Invalid argument `build-multisig'\n\nUsage: cardano-cli shelley transaction (COMMAND | COMMAND | COMMAND | COMMAND | \n                                         COMMAND | COMMAND | COMMAND)\n  Shelley transaction commands",
+      "children" : [ {
+        "name" : "test_multisig_atleast",
+        "uid" : "f1173eca50158b69",
+        "parentUid" : "4917d5160e0aa53fa99ee8e892785e96",
+        "status" : "broken",
+        "time" : {
+          "start" : 1601566327024,
+          "stop" : 1601566327043,
+          "duration" : 19
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "4917d5160e0aa53fa99ee8e892785e96"
+    }, {
+      "name" : "cardano_node_tests.utils.clusterlib.CLIError: An error occurred running a CLI command `cardano-cli shelley transaction build-multisig --any --out-file test_multisig_any_multisig.script --payment-verification-key-file multi_addr0.vkey --payment-verification-key-file multi_addr1.vkey --payment-verification-key-file multi_addr2.vkey --payment-verification-key-file multi_addr3.vkey --payment-verification-key-file multi_addr4.vkey --payment-verification-key-file multi_addr5.vkey --payment-verification-key-file multi_addr6.vkey --payment-verification-key-file multi_addr7.vkey --payment-verification-key-file multi_addr8.vkey --payment-verification-key-file multi_addr9.vkey --payment-verification-key-file multi_addr10.vkey --payment-verification-key-file multi_addr11.vkey --payment-verification-key-file multi_addr12.vkey --payment-verification-key-file multi_addr13.vkey --payment-verification-key-file multi_addr14.vkey --payment-verification-key-file multi_addr15.vkey --payment-verification-key-file multi_addr16.vkey --payment-verification-key-file multi_addr17.vkey --payment-verification-key-file multi_addr18.vkey --payment-verification-key-file multi_addr19.vkey`: Invalid argument `build-multisig'\n\nUsage: cardano-cli shelley transaction (COMMAND | COMMAND | COMMAND | COMMAND | \n                                         COMMAND | COMMAND | COMMAND)\n  Shelley transaction commands",
+      "children" : [ {
+        "name" : "test_multisig_any",
+        "uid" : "cd31012435b70a7b",
+        "parentUid" : "2d491519fe866a006e9027216dce3139",
+        "status" : "broken",
+        "time" : {
+          "start" : 1601566337125,
+          "stop" : 1601566337144,
+          "duration" : 19
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "2d491519fe866a006e9027216dce3139"
+    }, {
+      "name" : "cardano_node_tests.utils.clusterlib.CLIError: An error occurred running a CLI command `cardano-cli shelley transaction build-multisig --all --out-file test_multisig_all_multisig.script --payment-verification-key-file multi_addr0.vkey --payment-verification-key-file multi_addr1.vkey --payment-verification-key-file multi_addr2.vkey --payment-verification-key-file multi_addr3.vkey --payment-verification-key-file multi_addr4.vkey --payment-verification-key-file multi_addr5.vkey --payment-verification-key-file multi_addr6.vkey --payment-verification-key-file multi_addr7.vkey --payment-verification-key-file multi_addr8.vkey --payment-verification-key-file multi_addr9.vkey --payment-verification-key-file multi_addr10.vkey --payment-verification-key-file multi_addr11.vkey --payment-verification-key-file multi_addr12.vkey --payment-verification-key-file multi_addr13.vkey --payment-verification-key-file multi_addr14.vkey --payment-verification-key-file multi_addr15.vkey --payment-verification-key-file multi_addr16.vkey --payment-verification-key-file multi_addr17.vkey --payment-verification-key-file multi_addr18.vkey --payment-verification-key-file multi_addr19.vkey`: Invalid argument `build-multisig'\n\nUsage: cardano-cli shelley transaction (COMMAND | COMMAND | COMMAND | COMMAND | \n                                         COMMAND | COMMAND | COMMAND)\n  Shelley transaction commands",
+      "children" : [ {
+        "name" : "test_multisig_all",
+        "uid" : "6a3aaf1114b0abd0",
+        "parentUid" : "40816588943bf998d22a8dbfb5046060",
+        "status" : "broken",
+        "time" : {
+          "start" : 1601566342154,
+          "stop" : 1601566342172,
+          "duration" : 18
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "40816588943bf998d22a8dbfb5046060"
+    }, {
+      "name" : "cardano_node_tests.utils.clusterlib.CLIError: An error occurred running a CLI command `cardano-cli shelley transaction build-multisig --any --out-file test_normal_tx_from_script_addr_multisig.script --payment-verification-key-file multi_neg_addr0.vkey --payment-verification-key-file multi_neg_addr1.vkey --payment-verification-key-file multi_neg_addr2.vkey --payment-verification-key-file multi_neg_addr3.vkey --payment-verification-key-file multi_neg_addr4.vkey --payment-verification-key-file multi_neg_addr5.vkey --payment-verification-key-file multi_neg_addr6.vkey --payment-verification-key-file multi_neg_addr7.vkey --payment-verification-key-file multi_neg_addr8.vkey --payment-verification-key-file multi_neg_addr9.vkey`: Invalid argument `build-multisig'\n\nUsage: cardano-cli shelley transaction (COMMAND | COMMAND | COMMAND | COMMAND | \n                                         COMMAND | COMMAND | COMMAND)\n  Shelley transaction commands",
+      "children" : [ {
+        "name" : "test_normal_tx_from_script_addr",
+        "uid" : "f210c2fc3ca84cf",
+        "parentUid" : "115cd5e01be4260f0b1a1d1e98ca19af",
+        "status" : "broken",
+        "time" : {
+          "start" : 1601566362137,
+          "stop" : 1601566362168,
+          "duration" : 31
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "115cd5e01be4260f0b1a1d1e98ca19af"
+    }, {
+      "name" : "cardano_node_tests.utils.clusterlib.CLIError: An error occurred running a CLI command `cardano-cli shelley transaction build-multisig --any --out-file test_multisig_any_unlisted_skey_multisig.script --payment-verification-key-file multi_neg_addr0.vkey --payment-verification-key-file multi_neg_addr1.vkey --payment-verification-key-file multi_neg_addr2.vkey --payment-verification-key-file multi_neg_addr3.vkey --payment-verification-key-file multi_neg_addr4.vkey --payment-verification-key-file multi_neg_addr5.vkey --payment-verification-key-file multi_neg_addr6.vkey --payment-verification-key-file multi_neg_addr7.vkey --payment-verification-key-file multi_neg_addr8.vkey`: Invalid argument `build-multisig'\n\nUsage: cardano-cli shelley transaction (COMMAND | COMMAND | COMMAND | COMMAND | \n                                         COMMAND | COMMAND | COMMAND)\n  Shelley transaction commands",
+      "children" : [ {
+        "name" : "test_multisig_any_unlisted_skey",
+        "uid" : "ac8deb71d6e593b5",
+        "parentUid" : "db1fdff1bda930555a270a82d5acfb05",
+        "status" : "broken",
+        "time" : {
+          "start" : 1601579807070,
+          "stop" : 1601579807089,
+          "duration" : 19
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "db1fdff1bda930555a270a82d5acfb05"
+    }, {
+      "name" : "cardano_node_tests.utils.clusterlib.CLIError: An error occurred running a CLI command `cardano-cli shelley transaction build-multisig --at-least --required 6 --out-file test_multisig_atleast_low_num_of_skeys_multisig.script --payment-verification-key-file multi_neg_addr0.vkey --payment-verification-key-file multi_neg_addr1.vkey --payment-verification-key-file multi_neg_addr2.vkey --payment-verification-key-file multi_neg_addr3.vkey --payment-verification-key-file multi_neg_addr4.vkey --payment-verification-key-file multi_neg_addr5.vkey --payment-verification-key-file multi_neg_addr6.vkey --payment-verification-key-file multi_neg_addr7.vkey --payment-verification-key-file multi_neg_addr8.vkey --payment-verification-key-file multi_neg_addr9.vkey`: Invalid argument `build-multisig'\n\nUsage: cardano-cli shelley transaction (COMMAND | COMMAND | COMMAND | COMMAND | \n                                         COMMAND | COMMAND | COMMAND)\n  Shelley transaction commands",
+      "children" : [ {
+        "name" : "test_multisig_atleast_low_num_of_skeys",
+        "uid" : "aa3329b3d3069a16",
+        "parentUid" : "83c9fd442fa0a3ac4013f7f2a8958a4f",
+        "status" : "broken",
+        "time" : {
+          "start" : 1601580631197,
+          "stop" : 1601580631215,
+          "duration" : 18
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "83c9fd442fa0a3ac4013f7f2a8958a4f"
+    } ],
+    "uid" : "bdbf199525818fae7a8651db9eafe741"
+  }, {
+    "name" : "Product defects",
+    "children" : [ {
+      "name" : "AssertionError: assert 'you should use the \"any\" multi-signature script' in 'An error occurred running a CLI command `cardano-cli shelley transaction build-multisig --at-least --required 1 --out... | COMMAND | \\n                                         COMMAND | COMMAND | COMMAND)\\n  Shelley transaction commands\\n'\n +  where 'An error occurred running a CLI command `cardano-cli shelley transaction build-multisig --at-least --required 1 --out... | COMMAND | \\n                                         COMMAND | COMMAND | COMMAND)\\n  Shelley transaction commands\\n' = str(CLIError(\"An error occurred running a CLI command `cardano-cli shelley transaction build-multisig --at-least --require...| COMMAND | \\n                                         COMMAND | COMMAND | COMMAND)\\n  Shelley transaction commands\\n\"))\n +    where CLIError(\"An error occurred running a CLI command `cardano-cli shelley transaction build-multisig --at-least --require...| COMMAND | \\n                                         COMMAND | COMMAND | COMMAND)\\n  Shelley transaction commands\\n\") = <ExceptionInfo CLIError(\"An error occurred running a CLI command `cardano-cli shelley transaction build-multisig --at-... | \\n                                         COMMAND | COMMAND | COMMAND)\\n  Shelley transaction commands\\n\") tblen=4>.value",
+      "children" : [ {
+        "name" : "test_multisig_atleast_one_required",
+        "uid" : "542203642749e354",
+        "parentUid" : "897e5cfad8edcc55fb80766c6bf5904f",
+        "status" : "failed",
+        "time" : {
+          "start" : 1601566322060,
+          "stop" : 1601566322081,
+          "duration" : 21
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "897e5cfad8edcc55fb80766c6bf5904f"
+    } ],
+    "uid" : "8fb3a91ba5aaf9de24cc8a92edc82b5d"
+  } ]
+}

@@ -1,0 +1,3 @@
+ERROR    cardano_node_tests.utils.clusterlib:clusterlib.py:261 An error occurred running a CLI command `cardano-cli shelley query tip --testnet-magic 42 --shelley-mode`: 
+cardano-cli: Network.Socket.connect: <socket: 11>: resource exhausted (Resource temporarily unavailable)
+INFO     cardano_node_tests.utils.clusterlib:clusterlib.py:1393 Waiting for 96 sec for start of the epoch no 1

@@ -1,0 +1,12 @@
+[32mINFO    [0m cardano_node_tests.tests.conftest:conftest.py:50 Changed CWD to '/tmp/pytest-of-martink/pytest-6'.
+[32mINFO    [0m cardano_node_tests.utils.devops_cluster:devops_cluster.py:69 Stopping cluster.
+[32mINFO    [0m cardano_node_tests.utils.devops_cluster:devops_cluster.py:59 Starting cluster with `start-cluster`.
+[32mINFO    [0m cardano_node_tests.utils.devops_cluster:devops_cluster.py:62 Cluster started.
+[32mINFO    [0m cardano_node_tests.utils.clusterlib_utils:clusterlib_utils.py:387 Waiting for new epoch to submit proposal.
+[32mINFO    [0m cardano_node_tests.utils.clusterlib:clusterlib.py:1386 Waiting for 191 sec for start of the epoch no 1
+[32mINFO    [0m cardano_node_tests.utils.clusterlib_utils:clusterlib_utils.py:395 Update Proposal submitted (cli_arg=--decentralization-parameter, param_value=0.5)
+[32mINFO    [0m cardano_node_tests.utils.clusterlib:clusterlib.py:1386 Waiting for 201 sec for start of the epoch no 2
+[32mINFO    [0m cardano_node_tests.utils.devops_cluster:devops_cluster.py:69 Stopping cluster.
+[32mINFO    [0m cardano_node_tests.utils.devops_cluster:devops_cluster.py:254 Cluster artifacts saved to '/tmp/pytest-of-martink/pytest-6/cluster_artifacts_yecqvebi'.
+[32mINFO    [0m cardano_node_tests.utils.clusterlib_utils:clusterlib_utils.py:417 Coverage files saved to '/home/martink/Source/repos/cardano-node-tests2/.cli_coverage'.
+[32mINFO    [0m cardano_node_tests.utils.devops_cluster:devops_cluster.py:229 Collected artifacts saved to '/home/martink/Source/repos/cardano-node-tests2/.artifacts'.

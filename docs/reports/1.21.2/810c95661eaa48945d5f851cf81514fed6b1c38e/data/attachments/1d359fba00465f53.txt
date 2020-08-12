@@ -1,0 +1,4 @@
+INFO     cardano_node_tests.utils.clusterlib_utils:clusterlib_utils.py:281 Waiting 2 epoch(s) to get stake distribution.
+INFO     cardano_node_tests.utils.clusterlib:clusterlib.py:1386 Waiting for 361 sec for start of the epoch no 3
+INFO     cardano_node_tests.tests.test_staking:test_staking.py:626 Checking rewards for 5 epochs.
+INFO     cardano_node_tests.utils.clusterlib:clusterlib.py:1386 Waiting for 230 sec for start of the epoch no 4

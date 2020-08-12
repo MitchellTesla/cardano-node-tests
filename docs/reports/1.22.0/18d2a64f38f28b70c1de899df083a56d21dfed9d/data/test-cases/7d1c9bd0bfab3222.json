@@ -1,0 +1,261 @@
+{
+  "uid" : "7d1c9bd0bfab3222",
+  "name" : "test_slot_length",
+  "fullName" : "cardano_node_tests.tests.test_configuration#test_slot_length",
+  "historyId" : "7b405f8f0831a1225012597708b90a9e",
+  "time" : {
+    "start" : 1604023507454,
+    "stop" : 1604024096747,
+    "duration" : 589293
+  },
+  "description" : "Test the \"slotLength\" configuration.",
+  "descriptionHtml" : "<p>Test the &quot;slotLength&quot; configuration.</p>\n",
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ {
+    "name" : "change_dir",
+    "time" : {
+      "start" : 1604004457240,
+      "stop" : 1604004457240,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "cluster_cleanup",
+    "time" : {
+      "start" : 1604004457240,
+      "stop" : 1604004457241,
+      "duration" : 1
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "cluster_slot_length",
+    "time" : {
+      "start" : 1604004457242,
+      "stop" : 1604023507452,
+      "duration" : 19050210
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "cluster_manager",
+    "time" : {
+      "start" : 1604004457242,
+      "stop" : 1604004457242,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "worker_id",
+    "time" : {
+      "start" : 1604004457240,
+      "stop" : 1604004457240,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "slot_length_start_cluster",
+    "time" : {
+      "start" : 1604004457241,
+      "stop" : 1604004457242,
+      "duration" : 1
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "temp_dir",
+    "time" : {
+      "start" : 1604004457241,
+      "stop" : 1604004457241,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "tmp_path_factory",
+    "time" : {
+      "start" : 1604004457240,
+      "stop" : 1604004457240,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "session_autouse",
+    "time" : {
+      "start" : 1604004457241,
+      "stop" : 1604004457241,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  } ],
+  "testStage" : {
+    "description" : "Test the \"slotLength\" configuration.",
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ {
+      "uid" : "5ea39d06323436de",
+      "name" : "log",
+      "source" : "5ea39d06323436de.txt",
+      "type" : "text/plain",
+      "size" : 571
+    } ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 1,
+    "shouldDisplayMessage" : false,
+    "hasContent" : true
+  },
+  "afterStages" : [ {
+    "name" : "cluster_cleanup::0",
+    "time" : {
+      "start" : 1604024308287,
+      "stop" : 1604024310796,
+      "duration" : 2509
+    },
+    "status" : "failed",
+    "statusMessage" : "Failed: Errors found in cluster log files:\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw2/cluster_artifacts_uscbabxl/bft1.stdout: \u001B[31m[bender-3:cardano.node.LocalErrorPolicy:Error:56]\u001B[0m [2020-10-29 20:58:07.35 UTC] [String \"ErrorPolicyUnhandledApplicationException out of bounds : 18446744073709551616\\nCallStack (from HasCallStack):\\n  error, called at src/Shelley/Spec/Ledger/Coin.hs:79:7 in shelley-spec-ledger-0.1.0.0-HfhISpN74MdH4YWGDs1y5I:Shelley.Spec.Ledger.Coin\",String \"ErrorPolicyTrace\",String \"LocalAddress {getFilePath = \\\"\\\"}\"]\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw2/cluster_artifacts_uscbabxl/bft1.stdout: \u001B[31m[bender-3:cardano.node.LocalErrorPolicy:Error:56]\u001B[0m [2020-10-29 20:58:08.86 UTC] [String \"ErrorPolicyUnhandledApplicationException out of bounds : 18446744073709551616\\nCallStack (from HasCallStack):\\n  error, called at src/Shelley/Spec/Ledger/Coin.hs:79:7 in shelley-spec-ledger-0.1.0.0-HfhISpN74MdH4YWGDs1y5I:Shelley.Spec.Ledger.Coin\",String \"ErrorPolicyTrace\",String \"LocalAddress {getFilePath = \\\"\\\"}\"]\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw2/cluster_artifacts_uscbabxl/bft1.stdout: \u001B[31m[bender-3:cardano.node.LocalErrorPolicy:Error:56]\u001B[0m [2020-10-29 20:58:11.36 UTC] [String \"ErrorPolicyUnhandledApplicationException out of bounds : 18446744073712551615\\nCallStack (from HasCallStack):\\n  error, called at src/Shelley/Spec/Ledger/Coin.hs:79:7 in shelley-spec-ledger-0.1.0.0-HfhISpN74MdH4YWGDs1y5I:Shelley.Spec.Ledger.Coin\",String \"ErrorPolicyTrace\",String \"LocalAddress {getFilePath = \\\"\\\"}\"]\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw2/cluster_artifacts_uscbabxl/bft1.stdout: \u001B[31m[bender-3:cardano.node.LocalErrorPolicy:Error:56]\u001B[0m [2020-10-29 20:58:12.44 UTC] [String \"ErrorPolicyUnhandledApplicationException out of bounds : 18446744073712551615\\nCallStack (from HasCallStack):\\n  error, called at src/Shelley/Spec/Ledger/Coin.hs:79:7 in shelley-spec-ledger-0.1.0.0-HfhISpN74MdH4YWGDs1y5I:Shelley.Spec.Ledger.Coin\",String \"ErrorPolicyTrace\",String \"LocalAddress {getFilePath = \\\"\\\"}\"]\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw2/cluster_artifacts_uscbabxl/bft1.stdout: \u001B[31m[bender-3:cardano.node.LocalErrorPolicy:Error:56]\u001B[0m [2020-10-29 20:58:13.81 UTC] [String \"ErrorPolicyUnhandledApplicationException out of bounds : 18446744073709551616\\nCallStack (from HasCallStack):\\n  error, called at src/Shelley/Spec/Ledger/Coin.hs:79:7 in shelley-spec-ledger-0.1.0.0-HfhISpN74MdH4YWGDs1y5I:Shelley.Spec.Ledger.Coin\",String \"ErrorPolicyTrace\",String \"LocalAddress {getFilePath = \\\"\\\"}\"]\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.ChainDB:Error:33]\u001B[0m [2020-10-30 01:40:58.00 UTC] Invalid block a7aa1fce69ae9772421faafa1b60316d6665d617ff04c3195763162cc021b45b at slot 300: ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]})))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.Forge:Error:43]\u001B[0m [2020-10-30 01:40:58.00 UTC] Forged invalid block in slot 300, reason: ValidationError (ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]}))))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.ChainDB:Error:33]\u001B[0m [2020-10-30 01:41:00.40 UTC] Invalid block 84f80c43dc236efa6d89e419629ac8fc4a6f70f6959febc17852f74417a9df13 at slot 312: ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]})))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.Forge:Error:43]\u001B[0m [2020-10-30 01:41:00.40 UTC] Forged invalid block in slot 312, reason: ValidationError (ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]}))))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.ChainDB:Error:33]\u001B[0m [2020-10-30 01:41:03.00 UTC] Invalid block 14ad2a67fae070feedaf633e2d50a92b6408a6f72f3db049995f6eec8c99f922 at slot 325: ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]})))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.Forge:Error:43]\u001B[0m [2020-10-30 01:41:03.00 UTC] Forged invalid block in slot 325, reason: ValidationError (ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]}))))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.ChainDB:Error:33]\u001B[0m [2020-10-30 01:41:05.40 UTC] Invalid block 953b4a137b0eb11579a8ae08fff15b23e43e05724b3f6ce2ea48f4bbd059c4fc at slot 337: ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]})))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.Forge:Error:43]\u001B[0m [2020-10-30 01:41:05.40 UTC] Forged invalid block in slot 337, reason: ValidationError (ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]}))))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.ChainDB:Error:33]\u001B[0m [2020-10-30 01:41:08.00 UTC] Invalid block 118bde45150cea12ce6ff73e34b4d66c42a041c05527da8685efca7952ec50e4 at slot 350: ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]})))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.Forge:Error:43]\u001B[0m [2020-10-30 01:41:08.00 UTC] Forged invalid block in slot 350, reason: ValidationError (ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]}))))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.ChainDB:Error:33]\u001B[0m [2020-10-30 01:41:10.40 UTC] Invalid block db462acc99df395efe2a6028bd22fcae1a8be88387da0b7a69fb68ef38b321a3 at slot 362: ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]})))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.Forge:Error:43]\u001B[0m [2020-10-30 01:41:10.40 UTC] Forged invalid block in slot 362, reason: ValidationError (ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]}))))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.ChainDB:Error:33]\u001B[0m [2020-10-30 01:41:13.00 UTC] Invalid block 55347ec97cea8046959bcaf62e49668f0270a500b4b9604615a4ced4eda7bec6 at slot 375: ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]})))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.Forge:Error:43]\u001B[0m [2020-10-30 01:41:13.00 UTC] Forged invalid block in slot 375, reason: ValidationError (ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]}))))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.ChainDB:Error:33]\u001B[0m [2020-10-30 01:41:15.40 UTC] Invalid block 8ec30d83d4e4fda970e9e0bb7c546d854ab7329cc0de504c14514e96c993e9be at slot 387: ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]})))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.Forge:Error:43]\u001B[0m [2020-10-30 01:41:15.40 UTC] Forged invalid block in slot 387, reason: ValidationError (ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]}))))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.ChainDB:Error:33]\u001B[0m [2020-10-30 01:41:18.00 UTC] Invalid block f0de1a70a1867a49242c8dd53d100875e9f77f156992711f3d09e0e39946095a at slot 400: ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]})))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.Forge:Error:43]\u001B[0m [2020-10-30 01:41:18.00 UTC] Forged invalid block in slot 400, reason: ValidationError (ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]}))))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.ChainDB:Error:33]\u001B[0m [2020-10-30 01:41:20.40 UTC] Invalid block e3350b8773809ee722a41c9f32b01a49d77cb84889cc8fe5980e380362b0668c at slot 412: ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]})))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.Forge:Error:43]\u001B[0m [2020-10-30 01:41:20.40 UTC] Forged invalid block in slot 412, reason: ValidationError (ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]}))))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.ChainDB:Error:33]\u001B[0m [2020-10-30 01:41:23.00 UTC] Invalid block 7fc497c0b40edaa06fea7c32e40e000ccfc837f957e52102d9ce5c15a4b1c1e2 at slot 425: ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]})))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.Forge:Error:43]\u001B[0m [2020-10-30 01:41:23.00 UTC] Forged invalid block in slot 425, reason: ValidationError (ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]}))))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.ChainDB:Error:33]\u001B[0m [2020-10-30 01:41:25.40 UTC] Invalid block ddd5154a339e856ff36634f42cede8b214f1a8fdbe9e8a5e1bbf88a72f958d5a at slot 437: ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]})))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.Forge:Error:43]\u001B[0m [2020-10-30 01:41:25.40 UTC] Forged invalid block in slot 437, reason: ValidationError (ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]}))))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.ChainDB:Error:33]\u001B[0m [2020-10-30 01:41:28.00 UTC] Invalid block 45ff2287274d49fa94a95ab6d14a6b8690890cec59ab343851f589abf22b1243 at slot 450: ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]})))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.Forge:Error:43]\u001B[0m [2020-10-30 01:41:28.00 UTC] Forged invalid block in slot 450, reason: ValidationError (ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]}))))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.ChainDB:Error:33]\u001B[0m [2020-10-30 01:41:30.40 UTC] Invalid block dc4b0d7db6de51ee69b546e1c35efe818095976127fbdecea63cc8442c82af2f at slot 462: ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]})))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.Forge:Error:43]\u001B[0m [2020-10-30 01:41:30.40 UTC] Forged invalid block in slot 462, reason: ValidationError (ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]}))))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.ChainDB:Error:33]\u001B[0m [2020-10-30 01:41:33.00 UTC] Invalid block 992a4021b87baf2c98a2b9f7c9bb416e4161a782212bc484a8477eed4770703d at slot 475: ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]})))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.Forge:Error:43]\u001B[0m [2020-10-30 01:41:33.00 UTC] Forged invalid block in slot 475, reason: ValidationError (ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]}))))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.ChainDB:Error:33]\u001B[0m [2020-10-30 01:41:35.40 UTC] Invalid block a0f32e71b1b68456955090251ced644363b684ba3289083101743ed1b052f5a7 at slot 487: ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]})))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.Forge:Error:43]\u001B[0m [2020-10-30 01:41:35.40 UTC] Forged invalid block in slot 487, reason: ValidationError (ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]}))))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.ChainDB:Error:33]\u001B[0m [2020-10-30 01:41:38.00 UTC] Invalid block cf3cb5ae91404cb641788a920d556beefe6bc87811cc8428fc0978631f615d5d at slot 500: ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]})))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.Forge:Error:43]\u001B[0m [2020-10-30 01:41:38.00 UTC] Forged invalid block in slot 500, reason: ValidationError (ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]}))))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.ChainDB:Error:33]\u001B[0m [2020-10-30 01:41:40.40 UTC] Invalid block 1920fd85c3a8af757aeffdad8fa5e82be3d08281bbfd547713295abee50ea539 at slot 512: ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]})))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.Forge:Error:43]\u001B[0m [2020-10-30 01:41:40.40 UTC] Forged invalid block in slot 512, reason: ValidationError (ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]}))))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.ChainDB:Error:33]\u001B[0m [2020-10-30 01:41:43.00 UTC] Invalid block 6fd7588912b6c022927c8653bde417e29462cca99d22b8aa31303bf46ceeedbe at slot 525: ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]})))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.Forge:Error:43]\u001B[0m [2020-10-30 01:41:43.00 UTC] Forged invalid block in slot 525, reason: ValidationError (ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]}))))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.ChainDB:Error:33]\u001B[0m [2020-10-30 01:41:45.40 UTC] Invalid block 38a3bfe8e34015a474483ec050fdf9aa008a8d7d5b2920bff6847ec2e8275952 at slot 537: ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]})))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.Forge:Error:43]\u001B[0m [2020-10-30 01:41:45.40 UTC] Forged invalid block in slot 537, reason: ValidationError (ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]}))))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.ChainDB:Error:33]\u001B[0m [2020-10-30 01:41:48.00 UTC] Invalid block dc228c77daf3da8e8ba2c2289b8f63a3e2739024d440f979eb3ddaab8981149a at slot 550: ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]})))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.Forge:Error:43]\u001B[0m [2020-10-30 01:41:48.00 UTC] Forged invalid block in slot 550, reason: ValidationError (ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]}))))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.ChainDB:Error:33]\u001B[0m [2020-10-30 01:41:50.40 UTC] Invalid block 7c32cd77845d457aa58cc70698a4dff452b0dfed71540457c8bdb51ae33087b1 at slot 562: ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]})))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.Forge:Error:43]\u001B[0m [2020-10-30 01:41:50.40 UTC] Forged invalid block in slot 562, reason: ValidationError (ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]}))))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.ChainDB:Error:33]\u001B[0m [2020-10-30 01:41:53.00 UTC] Invalid block fd0cf07c4385ca074355c7d0f8ce9a110957a4cc2b6e149b240facf06cccb234 at slot 575: ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]})))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.Forge:Error:43]\u001B[0m [2020-10-30 01:41:53.00 UTC] Forged invalid block in slot 575, reason: ValidationError (ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]}))))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.ChainDB:Error:33]\u001B[0m [2020-10-30 01:41:55.40 UTC] Invalid block f5a20668de1015550dd4efe7e7f503153441d9dea50774c1dba793e8532e4bf0 at slot 587: ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]})))\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-3-febgliqa/popen-gw5/cluster_artifacts_eyydrisr/bft1.stdout: \u001B[31m[bender-3:cardano.node.Forge:Error:43]\u001B[0m [2020-10-30 01:41:55.40 UTC] Forged invalid block in slot 587, reason: ValidationError (ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra Z (WrapValidationErr {unwrapValidationErr = ChainTransitionError [OverlayFailure (OcertFailure (InvalidKesSignatureOCERT 1 0 1 \"Verification failed\"))]}))))\n\n",
+    "statusTrace" : "  File \"/home/martink/.local/python_venvs/cardano_node/lib64/python3.8/site-packages/allure_commons/_allure.py\", line 185, in __call__\n    return self._fixture_function(*args, **kwargs)\n  File \"/home/martink/.local/python_venvs/cardano_node/lib64/python3.8/site-packages/_pytest/fixtures.py\", line 926, in _teardown_yield_fixture\n    next(it)\n  File \"/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/conftest.py\", line 100, in cluster_cleanup\n    _run_cluster_cleanup(\n  File \"/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/conftest.py\", line 68, in _run_cluster_cleanup\n    devops_cluster.process_artifacts(pytest_tmp_dir=pytest_tmp_dir, request=request)\n  File \"/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/utils/devops_cluster.py\", line 289, in process_artifacts\n    report_artifacts_errors(errors)\n  File \"/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/utils/devops_cluster.py\", line 274, in report_artifacts_errors\n    pytest.fail(f\"Errors found in cluster log files:\\n{err_joined}\")\n  File \"/home/martink/.local/python_venvs/cardano_node/lib64/python3.8/site-packages/_pytest/outcomes.py\", line 153, in fail\n    raise Failed(msg=msg, pytrace=pytrace)\n",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : true,
+    "hasContent" : true
+  }, {
+    "name" : "cluster_manager::0",
+    "time" : {
+      "start" : 1604024096748,
+      "stop" : 1604024096749,
+      "duration" : 1
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "temp_dir::0",
+    "time" : {
+      "start" : 1604024096750,
+      "stop" : 1604024096750,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  } ],
+  "labels" : [ {
+    "name" : "tag",
+    "value" : "@pytest.mark.usefixtures('temp_dir')"
+  }, {
+    "name" : "parentSuite",
+    "value" : "cardano_node_tests.tests"
+  }, {
+    "name" : "suite",
+    "value" : "test_configuration"
+  }, {
+    "name" : "host",
+    "value" : "bender-3900x"
+  }, {
+    "name" : "thread",
+    "value" : "277698-MainThread"
+  }, {
+    "name" : "framework",
+    "value" : "pytest"
+  }, {
+    "name" : "language",
+    "value" : "cpython3"
+  }, {
+    "name" : "package",
+    "value" : "cardano_node_tests.tests.test_configuration"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ {
+    "name" : "https://github.com/input-output-hk/cardano-node-tests/blob/5addd14710a956a3ff0998ebe56e3212f5dcc4bb/cardano_node_tests/tests/test_configuration.py#L120",
+    "url" : "https://github.com/input-output-hk/cardano-node-tests/blob/5addd14710a956a3ff0998ebe56e3212f5dcc4bb/cardano_node_tests/tests/test_configuration.py#L120",
+    "type" : "link"
+  } ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "normal",
+    "retries" : [ ],
+    "categories" : [ ],
+    "tags" : [ "@pytest.mark.usefixtures('temp_dir')" ]
+  },
+  "source" : "7d1c9bd0bfab3222.json",
+  "parameterValues" : [ ]
+}

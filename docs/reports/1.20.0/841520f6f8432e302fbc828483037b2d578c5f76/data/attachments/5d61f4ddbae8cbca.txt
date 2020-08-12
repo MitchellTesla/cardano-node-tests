@@ -1,0 +1,9 @@
+[32mINFO    [0m cardano_node_tests.tests.conftest:conftest.py:50 Changed CWD to '/home/martink/toolbox_tmp/pytest-of-martink/pytest-119'.
+[32mINFO    [0m cardano_node_tests.utils.devops_cluster:devops_cluster.py:57 Stopping cluster.
+[32mINFO    [0m cardano_node_tests.utils.devops_cluster:devops_cluster.py:47 Starting cluster.
+[32mINFO    [0m cardano_node_tests.utils.devops_cluster:devops_cluster.py:50 Cluster started.
+[32mINFO    [0m cardano_node_tests.utils.clusterlib_utils:clusterlib_utils.py:261 Waiting 3 epoch(s) to get stake distribution.
+[32mINFO    [0m cardano_node_tests.utils.clusterlib:clusterlib.py:1393 Waiting for 581 sec for start of the epoch no 3
+[32mINFO    [0m cardano_node_tests.utils.clusterlib:clusterlib.py:1393 Waiting for 825 sec for start of the epoch no 8
+[32mINFO    [0m cardano_node_tests.utils.clusterlib:clusterlib.py:1393 Waiting for 571 sec for start of the epoch no 11
+[32mINFO    [0m cardano_node_tests.utils.clusterlib:clusterlib.py:1393 Waiting for 1020 sec for start of the epoch no 16

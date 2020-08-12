@@ -1,0 +1,252 @@
+{
+  "uid" : "4585b41a15d04df2",
+  "name" : "test_deregister_stake_pool[1]",
+  "fullName" : "cardano_node_tests.tests.test_pools.TestStakePool#test_deregister_stake_pool",
+  "historyId" : "9209d8e47fe981dc924ffcbec2122d90",
+  "time" : {
+    "start" : 1604088641435,
+    "stop" : 1604088821692,
+    "duration" : 180257
+  },
+  "description" : "Deregister stake pool.",
+  "descriptionHtml" : "<p>Deregister stake pool.</p>\n",
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ {
+    "name" : "cluster_manager",
+    "time" : {
+      "start" : 1604088641434,
+      "stop" : 1604088641434,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "tmp_path_factory",
+    "time" : {
+      "start" : 1604070524680,
+      "stop" : 1604070524680,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "cluster_cleanup",
+    "time" : {
+      "start" : 1604070524681,
+      "stop" : 1604070524681,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "session_autouse",
+    "time" : {
+      "start" : 1604070524681,
+      "stop" : 1604070524681,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "cluster",
+    "time" : {
+      "start" : 1604088641434,
+      "stop" : 1604088641435,
+      "duration" : 1
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "change_dir",
+    "time" : {
+      "start" : 1604070524680,
+      "stop" : 1604070524681,
+      "duration" : 1
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "temp_dir",
+    "time" : {
+      "start" : 1604088641434,
+      "stop" : 1604088641434,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "worker_id",
+    "time" : {
+      "start" : 1604070524681,
+      "stop" : 1604070524681,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  } ],
+  "testStage" : {
+    "description" : "Deregister stake pool.",
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ {
+      "uid" : "b38cf074ae2e682f",
+      "name" : "log",
+      "source" : "b38cf074ae2e682f.txt",
+      "type" : "text/plain",
+      "size" : 239
+    } ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 1,
+    "shouldDisplayMessage" : false,
+    "hasContent" : true
+  },
+  "afterStages" : [ {
+    "name" : "cluster_manager::0",
+    "time" : {
+      "start" : 1604088821694,
+      "stop" : 1604088821695,
+      "duration" : 1
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "cluster_cleanup::0",
+    "time" : {
+      "start" : 1604089022294,
+      "stop" : 1604089025499,
+      "duration" : 3205
+    },
+    "status" : "failed",
+    "statusMessage" : "Failed: Errors found in cluster log files:\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-0-zhuviqhd/popen-gw1/cluster_artifacts_tgbnqzgb/bft1.stdout: \u001B[31m[bender-3:cardano.node.LocalErrorPolicy:Error:42]\u001B[0m [2020-10-30 15:19:19.69 UTC] [String \"ErrorPolicyUnhandledApplicationException out of bounds : 18446744073709551616\\nCallStack (from HasCallStack):\\n  error, called at src/Shelley/Spec/Ledger/Coin.hs:79:7 in shelley-spec-ledger-0.1.0.0-HfhISpN74MdH4YWGDs1y5I:Shelley.Spec.Ledger.Coin\",String \"ErrorPolicyTrace\",String \"LocalAddress {getFilePath = \\\"\\\"}\"]\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-0-zhuviqhd/popen-gw1/cluster_artifacts_tgbnqzgb/bft1.stdout: \u001B[31m[bender-3:cardano.node.LocalErrorPolicy:Error:42]\u001B[0m [2020-10-30 15:19:21.22 UTC] [String \"ErrorPolicyUnhandledApplicationException out of bounds : 18446744073709551616\\nCallStack (from HasCallStack):\\n  error, called at src/Shelley/Spec/Ledger/Coin.hs:79:7 in shelley-spec-ledger-0.1.0.0-HfhISpN74MdH4YWGDs1y5I:Shelley.Spec.Ledger.Coin\",String \"ErrorPolicyTrace\",String \"LocalAddress {getFilePath = \\\"\\\"}\"]\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-0-zhuviqhd/popen-gw1/cluster_artifacts_tgbnqzgb/bft1.stdout: \u001B[31m[bender-3:cardano.node.LocalErrorPolicy:Error:42]\u001B[0m [2020-10-30 15:19:23.77 UTC] [String \"ErrorPolicyUnhandledApplicationException out of bounds : 18446744073712551615\\nCallStack (from HasCallStack):\\n  error, called at src/Shelley/Spec/Ledger/Coin.hs:79:7 in shelley-spec-ledger-0.1.0.0-HfhISpN74MdH4YWGDs1y5I:Shelley.Spec.Ledger.Coin\",String \"ErrorPolicyTrace\",String \"LocalAddress {getFilePath = \\\"\\\"}\"]\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-0-zhuviqhd/popen-gw1/cluster_artifacts_tgbnqzgb/bft1.stdout: \u001B[31m[bender-3:cardano.node.LocalErrorPolicy:Error:42]\u001B[0m [2020-10-30 15:19:24.85 UTC] [String \"ErrorPolicyUnhandledApplicationException out of bounds : 18446744073712551615\\nCallStack (from HasCallStack):\\n  error, called at src/Shelley/Spec/Ledger/Coin.hs:79:7 in shelley-spec-ledger-0.1.0.0-HfhISpN74MdH4YWGDs1y5I:Shelley.Spec.Ledger.Coin\",String \"ErrorPolicyTrace\",String \"LocalAddress {getFilePath = \\\"\\\"}\"]\n\n/home/martink/Source/repos/cardano-node-tests/.artifacts/pytest-0-zhuviqhd/popen-gw1/cluster_artifacts_tgbnqzgb/bft1.stdout: \u001B[31m[bender-3:cardano.node.LocalErrorPolicy:Error:42]\u001B[0m [2020-10-30 15:19:26.22 UTC] [String \"ErrorPolicyUnhandledApplicationException out of bounds : 18446744073709551616\\nCallStack (from HasCallStack):\\n  error, called at src/Shelley/Spec/Ledger/Coin.hs:79:7 in shelley-spec-ledger-0.1.0.0-HfhISpN74MdH4YWGDs1y5I:Shelley.Spec.Ledger.Coin\",String \"ErrorPolicyTrace\",String \"LocalAddress {getFilePath = \\\"\\\"}\"]\n\n",
+    "statusTrace" : "  File \"/home/martink/.local/python_venvs/cardano_node/lib64/python3.8/site-packages/allure_commons/_allure.py\", line 185, in __call__\n    return self._fixture_function(*args, **kwargs)\n  File \"/home/martink/.local/python_venvs/cardano_node/lib64/python3.8/site-packages/_pytest/fixtures.py\", line 926, in _teardown_yield_fixture\n    next(it)\n  File \"/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/conftest.py\", line 100, in cluster_cleanup\n    _run_cluster_cleanup(\n  File \"/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/tests/conftest.py\", line 68, in _run_cluster_cleanup\n    devops_cluster.process_artifacts(pytest_tmp_dir=pytest_tmp_dir, request=request)\n  File \"/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/utils/devops_cluster.py\", line 289, in process_artifacts\n    report_artifacts_errors(errors)\n  File \"/home/martink/Source/repos/cardano-node-tests/cardano_node_tests/utils/devops_cluster.py\", line 274, in report_artifacts_errors\n    pytest.fail(f\"Errors found in cluster log files:\\n{err_joined}\")\n  File \"/home/martink/.local/python_venvs/cardano_node/lib64/python3.8/site-packages/_pytest/outcomes.py\", line 153, in fail\n    raise Failed(msg=msg, pytrace=pytrace)\n",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : true,
+    "hasContent" : true
+  }, {
+    "name" : "temp_dir::0",
+    "time" : {
+      "start" : 1604089022293,
+      "stop" : 1604089022293,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  } ],
+  "labels" : [ {
+    "name" : "tag",
+    "value" : "@pytest.mark.usefixtures('temp_dir')"
+  }, {
+    "name" : "parentSuite",
+    "value" : "cardano_node_tests.tests"
+  }, {
+    "name" : "suite",
+    "value" : "test_pools"
+  }, {
+    "name" : "subSuite",
+    "value" : "TestStakePool"
+  }, {
+    "name" : "host",
+    "value" : "bender-3900x"
+  }, {
+    "name" : "thread",
+    "value" : "24438-MainThread"
+  }, {
+    "name" : "framework",
+    "value" : "pytest"
+  }, {
+    "name" : "language",
+    "value" : "cpython3"
+  }, {
+    "name" : "package",
+    "value" : "cardano_node_tests.tests.test_pools"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ {
+    "name" : "no_of_addr",
+    "value" : "1"
+  } ],
+  "links" : [ {
+    "name" : "https://github.com/input-output-hk/cardano-node-tests/blob/c06f5ebcd74fc48a76f5a7710aa3b0097459697c/cardano_node_tests/tests/test_pools.py#L476",
+    "url" : "https://github.com/input-output-hk/cardano-node-tests/blob/c06f5ebcd74fc48a76f5a7710aa3b0097459697c/cardano_node_tests/tests/test_pools.py#L476",
+    "type" : "link"
+  } ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "normal",
+    "retries" : [ ],
+    "categories" : [ ],
+    "tags" : [ "@pytest.mark.usefixtures('temp_dir')" ]
+  },
+  "source" : "4585b41a15d04df2.json",
+  "parameterValues" : [ "1" ]
+}

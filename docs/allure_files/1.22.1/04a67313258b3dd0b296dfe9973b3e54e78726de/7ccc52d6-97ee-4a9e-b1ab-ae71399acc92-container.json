@@ -1,0 +1,1 @@
+{"uuid": "c3ec81a6-6a8f-483b-80a2-dec68104eddf", "children": ["99cb3f33-c4c0-4301-945f-471ea00f35c3"], "befores": [{"name": "cluster_manager", "status": "passed", "start": 1604567470252, "stop": 1604567470252}], "afters": [{"name": "cluster_manager::0", "status": "passed", "start": 1604567475209, "stop": 1604567475209}], "start": 1604567470252, "stop": 1604567475209}
