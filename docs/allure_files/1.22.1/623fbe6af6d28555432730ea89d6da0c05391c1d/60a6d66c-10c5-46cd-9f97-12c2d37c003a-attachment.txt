@@ -1,5 +1,0 @@
-INFO     cardano_node_tests.utils.clusterlib_utils:clusterlib_utils.py:417 Coverage files saved to '/home/martink/Source/repos/cardano-node-tests2/.cli_coverage'.
-INFO     cardano_node_tests.utils.clusterlib_utils:clusterlib_utils.py:387 Waiting for new epoch to submit proposal.
-INFO     cardano_node_tests.utils.clusterlib:clusterlib.py:1386 Waiting for 171 sec for start of the epoch no 59
-INFO     cardano_node_tests.utils.clusterlib_utils:clusterlib_utils.py:395 Update Proposal submitted (cli_arg=--decentralization-parameter, param_value=0.5)
-INFO     cardano_node_tests.utils.clusterlib:clusterlib.py:1386 Waiting for 201 sec for start of the epoch no 60

@@ -1,4 +1,0 @@
-INFO     cardano_node_tests.tests.test_pools:test_pools.py:109 Waiting up to 3 epochs for stake pool to be registered.
-INFO     cardano_node_tests.utils.clusterlib:clusterlib.py:1430 Waiting for 141 sec for start of the epoch no 1
-INFO     cardano_node_tests.tests.test_pools:test_pools.py:784 Checking for 3 epochs that the stake pool will NOT get deregistered.
-INFO     cardano_node_tests.tests.test_pools:test_pools.py:109 Waiting up to 3 epochs for stake pool to be registered.

@@ -1,5 +1,0 @@
-INFO     cardano_node_tests.utils.clusterlib:clusterlib.py:1386 Waiting for 794 sec for start of the epoch no 19
-INFO     cardano_node_tests.utils.clusterlib:clusterlib.py:1386 Waiting for 571 sec for start of the epoch no 22
-INFO     cardano_node_tests.tests.test_staking:test_staking.py:1533 Waiting up to 3 epochs for stake pool to be deregistered.
-INFO     cardano_node_tests.tests.test_staking:test_staking.py:1597 Waiting up to 5 epochs for stake pool to be reregistered.
-INFO     cardano_node_tests.utils.clusterlib:clusterlib.py:1386 Waiting for 617 sec for start of the epoch no 26

@@ -1,8 +1,0 @@
-INFO     cardano_node_tests.utils.clusterlib_utils:clusterlib_utils.py:417 Coverage files saved to '/home/martink/Source/repos/cardano-node-tests2/.cli_coverage'.
-INFO     cardano_node_tests.utils.clusterlib_utils:clusterlib_utils.py:281 Waiting 3 epoch(s) to get stake distribution.
-INFO     cardano_node_tests.utils.clusterlib:clusterlib.py:1386 Waiting for 571 sec for start of the epoch no 3
-INFO     cardano_node_tests.tests.test_staking:test_staking.py:848 epoch 4 - reward: 917957, payment: 0
-INFO     cardano_node_tests.tests.test_staking:test_staking.py:848 epoch 5 - reward: 914908, payment: 0
-INFO     cardano_node_tests.tests.test_staking:test_staking.py:848 epoch 6 - reward: 911908, payment: 0
-INFO     cardano_node_tests.tests.test_staking:test_staking.py:848 epoch 7 - reward: 917319, payment: 0
-INFO     cardano_node_tests.tests.test_staking:test_staking.py:848 epoch 8 - reward: 8337, payment: 0
