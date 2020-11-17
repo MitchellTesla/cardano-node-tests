@@ -36,6 +36,14 @@ cardano\_node\_tests.utils.helpers module
    :undoc-members:
    :show-inheritance:
 
+cardano\_node\_tests.utils.logfiles module
+------------------------------------------
+
+.. automodule:: cardano_node_tests.utils.logfiles
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cardano\_node\_tests.utils.parallel\_run module
 -----------------------------------------------
 
