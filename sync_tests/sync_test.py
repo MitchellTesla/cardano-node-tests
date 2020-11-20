@@ -19,11 +19,13 @@ CLI = "./cardano-cli"
 ROOT_TEST_PATH = ""
 CARDANO_NODE_PATH = ""
 CARDANO_NODE_TESTS_PATH = ""
+SYNC_TESTS_RESULTS_PATH = ""
 
 
 def set_repo_paths():
     global CARDANO_NODE_PATH
     global CARDANO_NODE_TESTS_PATH
+    global SYNC_TESTS_RESULTS_PATH
     global ROOT_TEST_PATH
 
     ROOT_TEST_PATH = Path.cwd()
@@ -34,16 +36,21 @@ def set_repo_paths():
     os.chdir("..")
     os.chdir("cardano-node-tests")
     CARDANO_NODE_TESTS_PATH = Path.cwd()
+
+    os.chdir("..")
+    os.chdir("sync_tests_results")
+    SYNC_TESTS_RESULTS_PATH = Path.cwd()
     os.chdir("..")
 
 
 def git_get_last_pr_from_tag(tag_no):
     os.chdir(Path(CARDANO_NODE_PATH))
     cmd = (
-            "git log --merges --pretty=format:%s "
+            "git log --pretty=format:%s "
             + tag_no
-            + " | head -n1"
+            + " | grep Merge | head -n1"
     )
+    print(f"cmd: {cmd}")
     try:
         output = (
             subprocess.check_output(cmd, shell=True, stderr=subprocess.STDOUT)
@@ -51,6 +58,7 @@ def git_get_last_pr_from_tag(tag_no):
                 .strip()
         )
         os.chdir(ROOT_TEST_PATH)
+        print(f"output: {output}")
         return str(output.split(" #")[1])
     except subprocess.CalledProcessError as e:
         raise RuntimeError(
@@ -469,9 +477,10 @@ def main():
     secs_to_start1, secs_to_start2 = 0, 0
 
     set_repo_paths()
-    print(f"root_test_path          : {ROOT_TEST_PATH}")
-    print(f"cardano_node_path       : {CARDANO_NODE_PATH}")
-    print(f"cardano_node_tests_path : {CARDANO_NODE_TESTS_PATH}")
+    print(f"ROOT_TEST_PATH          : {ROOT_TEST_PATH}")
+    print(f"CARDANO_NODE_PATH       : {CARDANO_NODE_PATH}")
+    print(f"CARDANO_NODE_TESTS_PATH : {CARDANO_NODE_TESTS_PATH}")
+    print(f"SYNC_TESTS_RESULTS_PATH : {SYNC_TESTS_RESULTS_PATH}")
 
     env = vars(args)["environment"]
     print(f"env: {env}")
@@ -659,11 +668,8 @@ def main():
 
     print(f"test_values: {test_values}")
 
-    with open("sync_results.log", "w+") as file1:
+    with open(Path(SYNC_TESTS_RESULTS_PATH) / "sync_results" / "sync_results.log", "w+") as file1:
         file1.write(str(test_values))
-
-    current_directory = Path.cwd()
-    print(f" - sync_tests listdir: {os.listdir(current_directory)}")
 
 
 if __name__ == "__main__":

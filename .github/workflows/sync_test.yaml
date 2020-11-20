@@ -29,6 +29,11 @@ jobs:
         with:
           repository: input-output-hk/cardano-node
           path: cardano-node
+      - name: checkout sync_tests_results repo
+        uses: actions/checkout@v2
+        with:
+          repository: dorin100/sync_tests_results
+          path: sync_tests_results
       - name: print test details
         run: |
           echo "tag_no1: ${{ github.event.inputs.tag_no1 }}"
@@ -56,16 +61,16 @@ jobs:
           python cardano-node-tests/sync_tests/sync_test.py -t1 "${{ github.event.inputs.tag_no1 }}" -t2 "${{ github.event.inputs.tag_no2 }}" -e ${{ matrix.env }}
       - name: commit and push DB changes for the sync test
         run: |
-          cd cardano-node-tests
+          cd sync_tests_results
           git config --global user.name "dorin100"
           git config --global user.email "dorin.solomon@iohk.io"
           git config pull.rebase true
           git pull origin master
 
-          python sync_tests/write_values_to_db.py -e ${{ matrix.env }}
+          python sync_results/write_values_to_db.py -e ${{ matrix.env }}
 
-          git add sync_tests/sync_results.db
-          git add sync_tests/csv_files
+          git add sync_results/sync_results.db
+          git add sync_results/csv_files
           git commit -m "added sync values for tag ${{ github.event.inputs.tag_no1 }} ${{ github.event.inputs.tag_no2 }} - ${{ matrix.env }} - ${{ matrix.os }}"
           git push origin master
       - name: generate artifacts
